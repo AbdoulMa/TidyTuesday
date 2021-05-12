@@ -8,7 +8,7 @@ ___
 
 <div class="row"> 
   <div class="column">
-	<a href="Outputs/tidytuesday_2021_w20.png"><img src="Outputs/tidytuesday_2021_w20.png"></a>
+	<a href="Scripts/tidytuesday_2021_w20.R"><img src="Outputs/tidytuesday_2021_w20.png"></a>
   </div>
 </div>
 
