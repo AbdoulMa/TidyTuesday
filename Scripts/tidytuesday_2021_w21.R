@@ -120,7 +120,8 @@ geom_polygon(
     vjust = -.3,
     size = 2.8,
     color = "black",
-    family = "Inconsolata"
+    family = "Inconsolata",
+    fontface = "bold"
   ) + 
   geom_text(
     data = filter(degree_earning_map, education_level == "long_sup_education"),
@@ -133,7 +134,8 @@ geom_polygon(
     vjust = -.3,
     size = 2.8,
     color = "black",
-    family = "Inconsolata"
+    family = "Inconsolata",
+    fontface = "bold"
   ) + 
   annotate(
     geom = "richtext", 
@@ -148,19 +150,20 @@ geom_polygon(
     geom = "richtext",
     x = -95, y = 51,
     family = "Inconsolata",
-    label = '<span style= "font-size:25px;"> COMPUTING OR TECH INDUSTRY</span><br><br> Difference of average annual salary  between people with <span style="color:#00496f">College or Master\'s degrees</span> <br>
+    label = '<span style= "font-size:30px;"> COMPUTING OR TECH INDUSTRY</span><br><br> Difference of average annual salary  between people with <span style="color:#00496f">College or Master\'s degrees</span> <br>
     and people with <span style = "color:#dd4124">PhD or Professional degrees</span> by state
     according to \"Ask a Manager Survey\"',
     fill = NA, label.color = NA,
-    size = 4.5,
+    size = 5,
     fontface = "bold"
   )  +
+  coord_cartesian(clip = "off") +
    theme_void() + 
   theme(
     plot.background = element_rect(fill = "white"),
-    plot.margin = margin(t = 20, b= 10)
+    plot.margin = margin(t = 10, b= 10)
   )
 
-ggsave(here::here("Outputs","tidytuesday_2021_w21.png"), width = 18, height = 11, dpi= 300)
+ggsave(here::here("Outputs","tidytuesday_2021_w21.png"), width = 16, height = 9, dpi= 300)
 
 
