@@ -2,12 +2,12 @@
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
 library(ggtext)
-library(sf)
-library(albersusa)
 library(datasets)
+
 # Read Data & Wrangling ---------------------------------------------------
 survey <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-05-18/survey.csv')
 
+# Collapse some degrees together
 survey_deg_collapse <- survey %>% 
   mutate(
     education_level = fct_collapse(highest_level_of_education_completed,
@@ -16,7 +16,8 @@ survey_deg_collapse <- survey %>%
     )
   )
 
-# Try with degree 
+
+# Compute average annual salary by state and education level
 degree_comparison <- survey_deg_collapse %>% 
   filter(
     !str_detect(state, ","),
@@ -28,11 +29,11 @@ degree_comparison <- survey_deg_collapse %>%
     avg_annual_salary = mean(annual_salary)
   )
 
-
+# Exclude Alaska and Hawaii from the map
 degree_comparison <- degree_comparison %>% 
-  filter(! state %in% c("Alaska","Hawaii") )
+  filter(!state %in% c("Alaska","Hawaii"))
 
-
+# Retrieve states geographical centers
 states <- tibble(
   state = state.name, 
   state_abb = state.abb,
@@ -40,8 +41,7 @@ states <- tibble(
   latitude = pluck(state.center,"y")
 )
 
-normal_education_color <- "#00496f"
-long_education_color <- "#dd4124"
+# Adjust some longitudes, latitudes and states labels
 degree_earning_map <- degree_comparison %>% 
   left_join(states, by = "state") %>% 
   mutate (
@@ -60,9 +60,12 @@ degree_earning_map <- degree_comparison %>%
   state = case_when(state_abb %in% c("PA", "NJ","MA","NH","MD","CT") ~ state_abb, 
                     TRUE ~ state)
 )
+
+
+# Map Plotting ------------------------------------------------------------
 us_states <- map_data("state")
+
 ggplot() +
-  # plot states ----
 geom_polygon(
   data = us_states,
   aes(
@@ -70,7 +73,7 @@ geom_polygon(
     y     = lat, 
     group = group
   ),
-  fill  = "grey95",
+  fill  = "grey90",
   size = .75,
   color = rgb(151,151,151,50,maxColorValue=255)
 )  + 
@@ -86,7 +89,6 @@ geom_polygon(
     family = "Source Sans Pro",
     fontface = "bold",
     size = 3.5
-    
   ) + 
   geom_segment(
     data = filter(degree_earning_map, education_level == "normal_sup_education"),
@@ -139,20 +141,25 @@ geom_polygon(
   ) + 
   annotate(
     geom = "richtext", 
-    x = -118, y = 30, 
+    x = -118, y = 28, 
     family = "Source Sans Pro",
     label = "Data from : Ask a manger survey.<br>
+    Of course, the non homogenity of the data doesn't permit <br>to draw general conclusions. 
+    But they do reflect the trend<br> in the labor market.<br><br>
     Tidytuesday Week-21 2021 | <span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**",
     fill = NA, label.color = NA,
+    fontface = "bold",
+    color = "grey25",
+    size = 3.5,
     hjust = 0
   ) + 
   annotate(
     geom = "richtext",
     x = -95, y = 51,
     family = "Inconsolata",
-    label = '<span style= "font-size:30px;"> COMPUTING OR TECH INDUSTRY</span><br><br> Difference of average annual salary  between people with <span style="color:#00496f">College or Master\'s degrees</span> <br>
+    label = '<span style= "font-size:30px;"> COMPUTING OR TECH INDUSTRY</span><br><br> Differences of average annual salary  between people with <span style="color:#00496f">College or Master\'s degrees</span> <br>
     and people with <span style = "color:#dd4124">PhD or Professional degrees</span> by state
-    according to \"Ask a Manager Survey\"',
+    according to \"Ask a Manager Survey\".',
     fill = NA, label.color = NA,
     size = 5,
     fontface = "bold"
@@ -164,6 +171,8 @@ geom_polygon(
     plot.margin = margin(t = 30)
   )
 
-ggsave(here::here("Outputs","tidytuesday_2021_w21.png"), width = 16, height = 10, dpi= 300)
+
+# Plot Saving -------------------------------------------------------------
+ggsave(here::here("Outputs","tidytuesday_2021_w21.png"), width = 16.5, height = 10, dpi= 300)
 
 
