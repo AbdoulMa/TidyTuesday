@@ -161,9 +161,9 @@ geom_polygon(
    theme_void() + 
   theme(
     plot.background = element_rect(fill = "white"),
-    plot.margin = margin(t = 10, b= 10)
+    plot.margin = margin(t = 20)
   )
 
-ggsave(here::here("Outputs","tidytuesday_2021_w21.png"), width = 16, height = 9, dpi= 300)
+ggsave(here::here("Outputs","tidytuesday_2021_w21.png"), width = 16, height = 10, dpi= 300)
 
 
