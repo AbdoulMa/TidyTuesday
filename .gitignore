@@ -2,3 +2,4 @@
 .RData
 .Rproj.user
 README.html
+generate_week_structure.R
