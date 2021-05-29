@@ -43,7 +43,7 @@ five_years_records <- records %>%
   arrange(five_y_span, n ) 
 
 # Read countries colors Data 
-countries_colors <- read_csv(here::here("2021-w22/countries_colors.csv"))
+countries_colors <- read_csv(here::here("2021_w22/countries_colors.csv"))
 
 five_years_records <- five_years_records %>% 
   left_join(countries_colors, by = c("nation" = "name"))
@@ -167,7 +167,7 @@ plot / yearly_plot  +
   )
 
 # Save Final Graphic
-ggsave(here::here("2021-w22/tidytuesday_2021_w22.png"),width = 13, height = 13*8/9,dpi = 320,type = "cairo")
+# ggsave(here::here("2021-w22/tidytuesday_2021_w22.png"),width = 13, height = 13*8/9,dpi = 320,type = "cairo")
 
 
 
