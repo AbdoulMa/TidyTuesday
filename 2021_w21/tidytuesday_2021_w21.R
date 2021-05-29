@@ -173,6 +173,6 @@ geom_polygon(
 
 
 # Plot Saving -------------------------------------------------------------
-ggsave(here::here("Outputs","tidytuesday_2021_w21.png"), width = 16.5, height = 10, dpi= 300)
+ggsave(here::here("2021_w21","tidytuesday_2021_w21.png"), width = 16.5, height = 10, dpi= 300)
 
 

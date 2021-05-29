@@ -155,4 +155,4 @@ map / distribution +
   plot_layout(nrow = 2, heights = c(5,3))
 
 # save the plot
-ggsave(here::here("Outputs","tidytuesday_2021_w20.png"), width = 15, height = 12, dpi = 320)
+ggsave(here::here("2021_w20","tidytuesday_2021_w20.png"), width = 15, height = 12, dpi = 320)

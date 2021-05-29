@@ -86,6 +86,6 @@ decades_legend <-  tibble(
   
 
 # Save image --------------------------------------------------------------
-ggsave(here::here("Outputs","tidytuesday_2021_w19.png"),height = 8, width = 15)
+ggsave(here::here("2021_w19","tidytuesday_2021_w19.png"),height = 8, width = 15)
 
  

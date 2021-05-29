@@ -167,7 +167,7 @@ plot / yearly_plot  +
   )
 
 # Save Final Graphic
-# ggsave(here::here("2021-w22/tidytuesday_2021_w22.png"),width = 13, height = 13*8/9,dpi = 320,type = "cairo")
+ggsave(here::here("2021_w22/tidytuesday_2021_w22.png"),width = 13, height = 13*8/9,dpi = 320,type = "cairo")
 
 
 
