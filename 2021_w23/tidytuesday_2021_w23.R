@@ -42,6 +42,18 @@ states <- tibble(
 (summary_df <- summary_df %>% 
     mutate(year = year(premiered))
 )
+concatenate <- function(words) {
+  words <- as.character(words)
+  words <- unique(words)
+  if (length(words) > 1) {
+  str_c(c(str_c(head(words,length(words)-1), collapse = ", "), last(words)), collapse = " and ")
+  }
+  else {
+    words
+  }
+}
+
+concatenate(c("a"))
 states 
 (goats_final_df <- goats_df %>% 
     left_join(castaways_df, by = c("season_name", "winners" = "castaway")) %>% 
@@ -52,13 +64,12 @@ states
     select(season_name:personality_type, -state) %>%
     filter(!is.na(full_name)) %>%
     mutate(season_name = str_remove(season_name, "Survivor: ")) %>%
+  
     group_by(full_name) %>%
+    arrange(age) %>% 
     summarise(
-    #   immunity_w = sum(immunity, na.rm =T),
-    #   reward_w = sum(reward, na.rm =T)
       across(immunity:reward, sum, na.rm =T, .names = "{.col}_wins"),
-      across(c(season_name,age:personality_type), list(collapse = ~str_c(unique(.x), collapse = ", ")), .names = "{.col}s"),
-      # cities = str_c(unique(city),  collapse = " - ")
+      across(c(season_name,age:personality_type), list(collapse = ~concatenate(.x)), .names = "{.col}s"),
     ) %>%
     ungroup() %>%
     arrange(-immunity_wins, -reward_wins)
