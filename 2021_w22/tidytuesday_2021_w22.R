@@ -1,4 +1,3 @@
-# https://www.gamercoach.com/coach-jeu-video/coach-mario-kart
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
 library(ggtext)
