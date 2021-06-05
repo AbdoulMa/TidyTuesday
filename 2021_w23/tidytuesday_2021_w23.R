@@ -84,7 +84,7 @@ combine_bio <- function(full_name, aka, person_type, cities, ages) {
   </div>')
 }
 
-n_rows <- 30
+n_rows <- 20
 goats_tab <- goats_final_df %>% 
   head(n_rows) %>% 
   mutate(
