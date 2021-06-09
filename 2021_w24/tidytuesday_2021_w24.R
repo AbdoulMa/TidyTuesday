@@ -210,7 +210,7 @@ my_gpar <- gpar(
 plot <- plot %>% 
   ggdraw()
 
-ggsave(here::here("2021_w24/tidytuesday_2021_w24.png"),width = 10.5, height = 12,dpi = 320,type = "cairo")
+# ggsave(here::here("2021_w24/tidytuesday_2021_w24.png"),width = 10.5, height = 12,dpi = 320,type = "cairo")
 # https://ohiohistorycentral.org/w/Blue_Pike Blue Pike extinction 
 
  # https://www.r-bloggers.com/2018/12/bubble-packed-chart-with-r-using-packcircles-package/

@@ -165,7 +165,7 @@ plot / yearly_plot  +
     plot.background = element_rect(fill="#f9fbfc", color = NA)    
   )
 
-# Save Final Graphic
+# Save the Final Graphic
 ggsave(here::here("2021_w22/tidytuesday_2021_w22.png"),width = 13, height = 13*8/9,dpi = 320,type = "cairo")
 
 
