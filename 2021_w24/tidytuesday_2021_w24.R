@@ -1,57 +1,22 @@
 
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
-library(gggrid) # https://github.com/pmur002/gggrid remotes::install_github("pmur002/gggrid")
+library(gggrid) # remotes::install_github("pmur002/gggrid")
 library(packcircles)
 library(ggtext)
-library(hrbragg) # 
 library(cowplot)
+
 # Read & Data Wrangling ---------------------------------------------------
 fishing <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-06-08/fishing.csv')
-stocked <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-06-08/stocked.csv')
 
-
-fishing %>% 
-  distinct(lake)
-annual_production <- fishing %>% 
-  filter(str_detect(region, "Canada", negate = T), str_detect(region, "Total", negate = T) ) %>%  
-  filter(!is.na(values)) %>% 
-  mutate(
-    species = case_when(
-      species %in% c("Cisco and Chub","Cisco and Chub", "Cisco and Chubs",  "Cisco and chubs") ~ "Cisco",
-      species == "Walleye and Blue Pike" ~ "Blue Pike",
-      str_detect(species,"salmon") | str_detect(species,"Salmon")    ~ "Salmon",
-      str_detect(species,"Lake Trout")     ~ "Lake Trout",
-      str_detect(species,"Channel Catfish")     ~ "Channel catfish",
-      TRUE ~ species
-      )
-  ) %>% 
-  group_by(species, year) %>% 
-  summarise(prod_amount = sum(values, na.rm = T)) %>% 
-  ungroup()
-
-
-top_12 <- annual_production %>% 
-  mutate(species = fct_lump_n(species , 19, w = prod_amount))  %>% 
-  count(species, year, wt = prod_amount)
-  
-top_12
- 
- 
-top_12 %>%
-  ggplot(aes(year, n)) + 
-  geom_line() + 
-  facet_wrap(vars(species), scales = "free_y")
-
-
-# Proportions de poissons collectés  par lac par décénnie circlelayout
+#  Compute the proportion by lake for each decade
 lakes_records <- fishing %>% 
   filter(str_detect(region, "Total", negate = T) ) %>%  
   filter(!is.na(values)) %>%  
   count(year, lake, wt = values) %>% 
   mutate(
     decade = year %/% 10,
-    decade = decade *10
+    decade = paste0(decade *10,"s")
   ) %>% 
   count(decade, lake, wt = n) %>% 
   group_by(decade) %>% 
@@ -61,30 +26,34 @@ lakes_records <- fishing %>%
   ) %>% 
   ungroup()
 
+# Build a circles df for packing layout 
 decade_summary <- lakes_records %>% 
   group_by(decade) %>% 
   count(wt = proportion) %>% 
   ungroup()
 
-(decades_rep <- rep(lakes_records$decade, lakes_records$proportion))
-(lakes_rep <- rep(lakes_records$lake, lakes_records$proportion))
-
+# Define points coordinates and radius 
 lakes_points <- decade_summary %>% pmap_df(
   .f = ~circleProgressiveLayout(rep(0.5, ..2))
 ) %>% 
-  mutate(decade = decades_rep,
-         lake = lakes_rep)
+  mutate(decade = rep(lakes_records$decade, lakes_records$proportion),# appropriate decade for each circle
+         lake = rep(lakes_records$lake, lakes_records$proportion) # appropriate lake for each circle
+         )
 
+
+# Graphic -----------------------------------------------------------------
+# Graphical parameter settings for grids annotations
 my_gpar <- gpar(
   col = "black",
   fontfamily = "Lato",
   fontsize = 7
 )
 
+# Plot
 (plot <-  lakes_points%>% 
   ggplot(aes(x, y, fill = lake)) + 
   geom_point(
-    size = 3.5,
+    size = 4,
     pch = 21
     
   ) +
@@ -115,8 +84,8 @@ my_gpar <- gpar(
        else if (data$PANEL[1] == 3) {
          gList(
            textGrob(
-             label = "In 1880s, approximatively 171,913 (71%)\n thousand pounds of fish\n were collected from Herie.",
-             x = unit(.5, "npc"),
+             label = "In 1880s, approximatively 171,913 \n thousand pounds (71%) of fish\n were caught from Herie Lake.",
+             x = unit(.75, "npc"),
              y = unit(1., "npc"),
              just = c("left", "top"),
              gp = my_gpar
@@ -139,7 +108,7 @@ my_gpar <- gpar(
          gList(
            textGrob(
              label = "Dr. Howard Tanner, the  fisheries\nchief  for the state of Michigan\nre-introduced the salmon in 1966.",
-             x = unit(.2, "npc"),
+             x = unit(.3, "npc"),
              y = unit(1., "npc"),
              just = c("right", "top"),
              gp = my_gpar
@@ -149,9 +118,9 @@ my_gpar <- gpar(
        else if (data$PANEL[1] == 13) {
          gList(
            textGrob(
-             label = "The extinction of Blue Pike, approximatively in 1983\n impacted Lake Erie fishing industry but relatively little\n compared to the proportion of fish collected.  ",
-             x = unit(.6, "npc"),
-             y = unit(1., "npc"),
+             label = "The extinction of Blue Pike, approximatively in 1983\n impacted Lake Erie fishing industry but relatively little\n compared to the proportion of fish collected.",
+             x = unit(.5, "npc"),
+             y = unit(0., "npc"),
              just = c("left", "top"),
              gp = my_gpar
            )
@@ -161,27 +130,27 @@ my_gpar <- gpar(
        }
      }
    )+ 
-     
-    
     labs(
-      title =  str_to_upper("Proportions of fish collected by lake for each decade"),
+      title =  str_to_upper("Proportions of fish caught by lake through decades"),
+      fill = "Lakes",
+      caption= "Data from *Great Lakes Database.*<br>
+      Tidytuesday Week-24 2021 &bull; <span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**",  
       x = NULL,
-      y = NULL, 
-      fill = "Lakes"
+      y = NULL 
     ) + 
    scale_x_continuous(
-     limits = c(-5.5,5.5)
+     limits = c(-5,5)
    ) + 
    scale_y_continuous(
-     limits = c(-5.5,5.5)
+     limits = c(-5,5)
    ) + 
    scale_fill_manual(
-     values = c("#E69F00","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7")
+     values = c("#E69F00","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7") # colorblind_pal() 
    )+ 
    guides(fill=guide_legend(
      label.position = 'bottom', 
      title.position = 'top', 
-     keywidth=.45,
+     keywidth=.55,
      keyheight=.15,
      default.unit="inch", 
      title.hjust = .5,
@@ -192,7 +161,7 @@ my_gpar <- gpar(
   facet_wrap(~decade) + 
    theme_minimal(base_family = "Lato") +
    theme (
-     panel.spacing  = unit( 1, unit = "cm"),
+     panel.spacing  = unit( 1.1, unit = "cm"),
    legend.spacing.x = unit(0, 'cm'),
  legend.title=element_text(family = "Lato Black",size = rel(1.3)),
  legend.text = element_text(size = rel(0.8)),
@@ -201,17 +170,19 @@ my_gpar <- gpar(
  legend.box.margin=margin(15,0,15,0),
  strip.text = element_text(family = "Lato Black", size = rel(1.1)),
  plot.title  = element_text(family = "Lato Black", size = rel(1.3), hjust = .5, margin = margin(t = 10, b= 10)),
+ plot.caption = element_markdown(color = "grey35", size = rel(0.8)),
  strip.placement = "outside",
  axis.text = element_blank(),
  panel.grid = element_blank()
 )
 )  
 
-plot <- plot %>% 
-  ggdraw()
+# Saving ------------------------------------------------------------------
+ggsave(here::here("2021_w24/tidytuesday_2021_w24.png"),width = 10, height = 13,dpi = 300, device = "png",type = "cairo")
 
-# ggsave(here::here("2021_w24/tidytuesday_2021_w24.png"),width = 10.5, height = 12,dpi = 320,type = "cairo")
-# https://ohiohistorycentral.org/w/Blue_Pike Blue Pike extinction 
-
- # https://www.r-bloggers.com/2018/12/bubble-packed-chart-with-r-using-packcircles-package/
- 
+# ALT TEXT 
+# This graphic is  Abdoul ISSA BIDA submission for the  Tidytuesday Challenge for 2021 Week 24.
+# The plot is  a facet of proportions of fish catch by lake for each decade since 1860s.
+# Each circle represents 1% of catch and each color represents a specific lake.
+# Some annotations explain the variations observed due to many reasons.
+# Data comes from Great Lakes Database which reports the commercial fish catch data from 1867 to 2015.
