@@ -130,7 +130,7 @@ yearly_plot <- year_records %>%
   geom_point(size = 4, fill = "#0072B2", color = "white", pch = 21, stroke = 1) + 
   annotate(geom = "text", x = 2020, y = 215, hjust = .8, label = "In 2020, we note a surge \nafter years of stability.\n May be the pandemic effect ?😕", family = "Lato Black",size = 3.5) +
   labs( 
-    subtitle = "Annualy number of records set",
+    subtitle = "Annually number of records set",
     caption = "Data from  Mario Kart World Records.<br/>  Image Credit : Gamercoach.<br/>
       Tidytuesday Week-22 2021 | <span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**",
     alt = "Mario Kart Annualy number of records set"
