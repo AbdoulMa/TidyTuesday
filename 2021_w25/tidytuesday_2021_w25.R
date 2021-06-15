@@ -82,7 +82,7 @@ spiro_dubois <- function(interactions_df) {
 # Build graphic
 spiro_dubois(tweets_summary)
 
-# Save the graphic 
+# Save  graphic 
 ggsave(here::here("2021_w25/tidytuesday_2021_w25.png"),width = 8, height = 8,dpi = 300, device = "png",type = "cairo")
 
 #  ALT TEXT 
