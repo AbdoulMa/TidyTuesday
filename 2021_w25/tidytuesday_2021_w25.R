@@ -71,7 +71,7 @@ spiro_dubois <- function(interactions_df) {
           plot.background = element_rect(fill="#FFFFFF", color="#FFFFFF00"),  # fill="#e9d9c9aa", color="#FFFFFF00", fill = "#F0EFF1", colour = "#F0EFF1"
           plot.margin  = margin(c(10,0,0,0), unit = "mm")) + 
     labs(
-      title = "Users with the most interactions during the \n2021 #DuBoisChallenge",
+      title = "Twitter Users with the most interactions\n during the 2021 #DuBoisChallenge",
       caption = "Data from *Anthony Starks, Allen Hillery & Sekou Tyler.*<br>
       Tidytuesday Week-25 2021 &bull; <span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**"
     )
