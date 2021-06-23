@@ -21,6 +21,7 @@ plot <-  parks %>%
   filter(year == 2020 , rank <= 48) %>% 
   add_row(nationwide) %>% 
   mutate(
+    city = str_replace(city, "Virginia", "Va."),
     city = fct_relevel(city,"United States \nof America")
   ) %>% 
   ggplot() + 
@@ -158,7 +159,7 @@ plot <-  parks %>%
     },
   ) + 
   labs(
-    title = str_to_upper("TOP 35  of the best cities with public parks\n in United States of America (2020)."),
+    title = str_to_upper("TOP 35  of cities with best public parks index\n in United States of America (2020)."),
     caption= "Data from ***The Trust for Public Land***.<br>
       Tidytuesday Week-26 2021 &bull; <span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**",  
   ) +  
@@ -188,5 +189,5 @@ dev.off()
 
 # ALT TEXT 
 # This graphic is  Abdoul ISSA BIDA submission for the  Tidytuesday Challenge for 2021 Week 26.
-# The plot is  a facet of informations of TOP 35  of the best cities with public parks\n in USA in 2020.
+# The plot is  a facet of informations of TOP 35 of cities with best public parks index in USA USA in 2020.
 # Data comes from The Trust for Public Land with the computing of differents scores according to several criteria. 
