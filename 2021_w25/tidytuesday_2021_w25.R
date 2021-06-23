@@ -83,7 +83,7 @@ spiro_dubois <- function(interactions_df) {
 spiro_dubois(tweets_summary)
 
 # Save  graphic 
-ggsave(here::here("2021_w25/tidytuesday_2021_w25.png"),width = 8, height = 8,dpi = 300, device = "png",type = "cairo")
+ggsave(here::here("2021_w25/tidytuesday_2021_w25.png"),width = 8, height = 8,dpi = 300, device = "png")
 
 #  ALT TEXT 
 # This graphic is  Abdoul ISSA BIDA submission for the  Tidytuesday Challenge for 2021 Week 25.
