@@ -32,7 +32,7 @@ plot <-  parks %>%
   geom_text(aes(label = glue::glue("{city}"), color = ifelse(total_pct >= 80, "white", "black"),
                 y = ifelse(city == "United States \nof America", 0.6,0.75)
   ), x = 0, hjust = 0.5, 
-  size = rel(3.2), family = "Lato Black",
+  size = rel(3.4), family = "Lato Black",
   lineheight = 0.95) + 
   geom_richtext(aes(label = glue::glue("👣 {pct_near_park_points}% &bull; 💵 {spend_per_resident_points}% &bull; 🏀 {basketball_points}% <br>
                                     🐕 {dogpark_points}% &bull; 🎠 {playground_points}% &bull; 👴 {rec_sr_points}% <br>
@@ -49,7 +49,7 @@ plot <-  parks %>%
                      guide = guide_legend(
                        title.position = "top",
                        label.position = "bottom",
-                       keywidth = unit(1,"cm"),
+                       keywidth = unit(1.5,"cm"),
                        keyheight  = unit(.25,"cm"),
                        title.hjust = .5,
                        title.vjust = 0,
@@ -178,16 +178,17 @@ plot <-  parks %>%
     legend.box.margin=margin(-30,0,15,0),
     plot.background = element_rect(fill = "white", color = NA),
     plot.caption = element_markdown(color = "grey35", size = rel(0.8), margin = margin(t = 10,b = 10)),
-    plot.margin = margin(0.075, unit = "cm"),
+    plot.margin = margin(0.025, unit = "cm"),
   ) 
 
 
 # Save with anti-aliasing processing  -------------------------------------
-png(here::here("2021_w26/tidytuesday_2021_w26.png"),width = 11, height = 12,res = 360, units = "in",type = "cairo")
+png(here::here("2021_w26/tidytuesday_2021_w26.png"),width = 11, height = 12,res = 320, units = "in",type = "cairo")
 plot
 dev.off()
+
 
 # ALT TEXT 
 # This graphic is  Abdoul ISSA BIDA submission for the  Tidytuesday Challenge for 2021 Week 26.
 # The plot is  a facet of informations of TOP 35 of cities with best public parks index in USA USA in 2020.
-# Data comes from The Trust for Public Land with the computing of differents scores according to several criteria. 
+# Data comes from The Trust for Public Land with the computing of differents scores according to several criteria.
