@@ -49,7 +49,7 @@ plot <-  parks %>%
                      guide = guide_legend(
                        title.position = "top",
                        label.position = "bottom",
-                       keywidth = unit(1.5,"cm"),
+                       keywidth = unit(1.75,"cm"),
                        keyheight  = unit(.25,"cm"),
                        title.hjust = .5,
                        title.vjust = 0,
@@ -159,7 +159,7 @@ plot <-  parks %>%
     },
   ) + 
   labs(
-    title = str_to_upper("TOP 35  of cities with best public parks index\n in United States of America (2020)."),
+    title = str_to_upper("TOP 48  of cities with best public parks index\n in United States of America (2020)."),
     caption= "Data from ***The Trust for Public Land***.<br>
       Tidytuesday Week-26 2021 &bull; <span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**",  
   ) +  
@@ -178,7 +178,7 @@ plot <-  parks %>%
     legend.box.margin=margin(-30,0,15,0),
     plot.background = element_rect(fill = "white", color = NA),
     plot.caption = element_markdown(color = "grey35", size = rel(0.8), margin = margin(t = 10,b = 10)),
-    plot.margin = margin(0.025, unit = "cm"),
+    plot.margin = margin(t= 0.025,b= 0.025, unit = "cm"),
   ) 
 
 
