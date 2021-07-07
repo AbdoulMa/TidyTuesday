@@ -79,7 +79,7 @@ We can cite as an example the Republic of Benin (formerly Kingdom of Danhomè) w
       axis.text = element_blank(), 
       strip.text = element_text(face = "bold", size = rel(.9)),
       plot.title = element_text(color = "black",  family = "Lato Black", size = rel(1.5), hjust = .5, margin = margin(t = 15,b = 15)),
-      plot.subtitle = element_markdown(color = "grey25", family = "Lato Medium", face = "bold.italic", size = rel(.9), lineheight = 1.15, linewidth = 80), 
+      plot.subtitle = element_markdown(color = "grey25", family = "Lato", face = "bold.italic", size = rel(.85), lineheight = 1.15, linewidth = 80), 
       plot.caption = element_markdown(color = "grey15", size = rel(0.8), margin = margin(t = 10,b = 10)),
       plot.margin = margin(r = 10, l = 0)
     )
