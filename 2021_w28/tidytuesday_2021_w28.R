@@ -86,7 +86,7 @@ We can cite as an example the Republic of Benin (formerly Kingdom of Danhomè) w
 )
 
 # Saving 
-png(here::here("2021_w28/tidytuesday_w28.png"), width = 12, height = 11, units = "in",res = 320, type = "cairo")
+png(here::here("2021_w28/tidytuesday_2021_w28.png"), width = 12, height = 11, units = "in",res = 320, type = "cairo")
 plot
 dev.off()
 
