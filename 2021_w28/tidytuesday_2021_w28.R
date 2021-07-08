@@ -56,7 +56,7 @@ The <b style = 'color: #FF0000FF;'>American Colonization Society (ACS)</b> forme
 <b style = 'color: #92D050FF;'>France</b> and the <b style = 'color: #7030A0FF'>United Kingdom</b> were the main colonizers. Some countries obtained their independence after armed struggles, this is notably the case of Algeria, whose independence was acquired <br>
 following an armed struggle between the National Liberation Front and France.<br>
 Other countries have built it through negotiation. This is particularly the case with Nigeria, which obtained it in 1960. However, most countries obtained it following grants from settlers.<br>
-We can cite as an example the Republic of Benin (formerly Kingdom of Danhomè) which, like some of these neighbors of West Africa obtained it from the grant by France."
+We can cite as an example the Republic of Benin (formerly Kingdom of Danhomè) which, like some of its neighbors of West Africa obtained it from the grant by France."
 (plot <- african_countries_sf %>% 
   ggplot() + 
   geom_sf(data = african_countries, color = "black") +  
