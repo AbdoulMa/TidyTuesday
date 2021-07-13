@@ -23,7 +23,7 @@ scoobydoo_series <- scoobydoo %>%
          national_tv = case_when(
            network %in% c("ABC", "The CW","CBS") ~ TRUE,
            TRUE ~ FALSE),
-         network_logo = glue::glue("<img src='{network_logo}' width='25'/>")) %>%  
+         network_logo = glue::glue("<img src='{network_logo}' width='30'/>")) %>%  
   filter(format == "TV Series", !season %in% c("Movie","Special")) # Just keepTV Series
   
 # Compute each network average imdb mean 
@@ -147,8 +147,6 @@ ggsave(here::here("2021_w29/tidytuesday_2021_w29.png"), width = 13, height = 12,
 
 # ALT TEXT
 # This graphic is  Abdoul ISSA BIDA submission for the  Tidytuesday Challenge for 2021 Week 29.
-# This week data is about Scooby Doo Episodes and comes from plummye's Kaggle and is recommended by Sara Stoudt. 
+# This week data is about Scooby Doo Episodes and comes from plummye's Kaggle and is recommended by Sara Stoudt.
 # The plot is a composition of two. A first one about average imdb viewers scores according to broadcasters.
 # The second one is about how do mobiles crimes vary according to broadcasters.
-
-# Data comes from Wikipedia by the way of Isabella Velasquez.
