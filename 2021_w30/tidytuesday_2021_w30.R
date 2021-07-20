@@ -163,5 +163,5 @@ dev.off()
 
 # ALT TEXT 
 # This graphic is  Abdoul ISSA BIDA submission for the  Tidytuesday Challenge for 2021 Week 30.
-# The plot is  a facet of  monthly number of drought weeks in each states between 2002 & 2020.
-# Data comes from us Drought Monitor.
+# The plot is  a facet of  monthly number of drought weeks in each state between 2002 & 2020.
+# Data comes from US Drought Monitor.
