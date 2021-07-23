@@ -83,7 +83,7 @@ monthly_drought <- drought %>%
 
 
 # Saving ------------------------------------------------------------------
-png(here::here("2021_w30/tidytuesday_2021_w30.png"), width = 17.5, height = 12, units = "in",res = 320, type = "cairo")
+png(here::here("2021_w30/tidytuesday_2021_w30.png"), width = 17.5, height = 12.5, units = "in",res = 320, type = "cairo")
 plot
 dev.off()
 
