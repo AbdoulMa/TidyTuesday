@@ -61,7 +61,7 @@ monthly_drought <- drought %>%
           panel.spacing.x = unit(1,"mm"),
           legend.spacing = unit(1, 'cm'),
           plot.margin = unit(c(5,5,5,5), "mm"),
-          plot.title = element_text(size = 25,
+          plot.title = element_text(size = 40,
                                     family="Lato Black",
                                     hjust = .5),
           plot.subtitle = element_text(size = 20,
@@ -83,7 +83,7 @@ monthly_drought <- drought %>%
 
 
 # Saving ------------------------------------------------------------------
-png(here::here("2021_w30/tidytuesday_2021_w30.png"), width = 21, height = 15, units = "in",res = 300, type = "cairo")
+png(here::here("2021_w30/tidytuesday_2021_w30.png"), width = 17.5, height = 12, units = "in",res = 320, type = "cairo")
 plot
 dev.off()
 
