@@ -51,7 +51,14 @@ gold_medalists %>%
   geom_text( data = summer_olympics, aes(x = year, y =-630, label = edition), lineheight = .90, angle = 45) +
   geom_text( data = summer_olympics, aes(x = year, y = 630, label = edition), lineheight = .90, angle = 45,) +
   geom_stream(aes(year, n, fill = team),color = "black", size = .25) +
-  geom_stream_label(aes(x=year,y = n ,fill = team, label = team))
+  geom_stream_label(aes(x=year,y = n ,fill = team, label = team)) + 
+  scale_fill_manual(
+    values =c("United States" = "grey60", 
+              "China" = "grey35",
+              "Russia" = "red"
+          ),
+    na.value = "grey90"
+  )
   # guides(fill = "none")
 
 
