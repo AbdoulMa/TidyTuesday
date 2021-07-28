@@ -84,7 +84,7 @@ gold_medalists %>%
   ) +
   guides(fill = "none") +
   scale_x_continuous(
-    name = NULL
+    name = NULL,
     expand = expansion(mult = 0.025), 
   )  +
   scale_y_continuous(
