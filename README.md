@@ -3,11 +3,10 @@
 Code and plots of the submissions to the [#tidytuesday](https://github.com/rfordatascience/tidytuesday) challenge 
 
 
-### Highlights (click on image to go to code): <br>
+## Highlights (click on image to go to code): <br>
 ___
 
-<div class="row"> 
-  <div class="column">
+
   ### [2021 - Week 31](2021_w31) Olympics Medals by [Kaggle](https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results)
   
 	<a href="2021_w31"><img src="2021_w31/tidytuesday_2021_w31.png"></a>
@@ -47,7 +46,6 @@ ___
 	
 	### [2021 - Week 19](2021_w19)
 	<a href="2021_w19"><img src="2021_w19/tidytuesday_2021_w19.png"></a>
-  </div>
-</div>
+
 
 
