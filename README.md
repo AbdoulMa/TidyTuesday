@@ -8,6 +8,7 @@ ___
 
 <div class="row"> 
   <div class="column">
+	<a href="2021_w31"><img src="2021_w31/tidytuesday_2021_w31.png"></a>
 	<a href="2021_w30"><img src="2021_w30/tidytuesday_2021_w30.png"></a>
 	<a href="2021_w29"><img src="2021_w29/tidytuesday_2021_w29.png"></a>
 	<a href="2021_w28"><img src="2021_w28/tidytuesday_2021_w28.png"></a>
