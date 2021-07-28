@@ -8,8 +8,7 @@ ___
 
 
   ### [2021 - Week 31](2021_w31) Olympics Medals by [Kaggle](https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results)
-  
-	<a href="2021_w31"><img src="2021_w31/tidytuesday_2021_w31.png"></a>
+<a href="2021_w31"><img src="2021_w31/tidytuesday_2021_w31.png"></a>
 	
 	### [2021 - Week 30](2021_w30) US Droughts 
 	
