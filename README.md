@@ -17,8 +17,8 @@ ___
 ___
 	
 ### [2021 - Week 29](2021_w29) Scooby Doo by  [Kaggle](https://www.kaggle.com/williamschooleman/scoobydoo-complete)
-___
 <a href="2021_w29"><img src="2021_w29/tidytuesday_2021_w29.png"></a>
+___
 	
 	
 ### [2021 - Week 28](2021_w28) International Independence Days by [Wikipedia](https://en.wikipedia.org/wiki/List_of_national_independence_days)
