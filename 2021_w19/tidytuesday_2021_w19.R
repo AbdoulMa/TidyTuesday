@@ -57,7 +57,7 @@ decades_legend <-  tibble(
   geom_point(aes(x = decade, y = rank), shape = 21, fill = "white", color = "#0b53c1", stroke = 1.3,  size = 2.8) +
   geom_richtext(data = decades_legend, aes(x = decades, y = ranks, label = labels, vjust = vjusts), label.color = NA,fill = NA, family="Lato", fontface = "italic", size =3 ) +
    labs(
-     title = "Ranking some countries by the number<br>of water sources installations by decade",
+     title = str_to_upper("Ranking some countries by the number<br>of water sources installations by decade"),
      caption = "Data from Water Point Data Exchange.<br>
       <span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**"
    ) + 
