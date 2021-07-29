@@ -52,15 +52,15 @@ gold_medalists %>%
   ggplot() +
   geom_segment(data = og_segments , aes(x =x  , xend =x, y = 0, yend = -y), size = 0.5, color = "grey15", linetype = "dashed")+ 
   geom_text( data = summer_og_editions, aes(x = year, y =-650, label = str_to_upper(edition)), 
-             lineheight = .90, angle = 45, family = "Inconsolata", fontface = "bold") +
+             size = 5.5,lineheight = .90, angle = 45, family = "Inconsolata", fontface = "bold") +
   geom_stream(aes(year, n, fill = team),color = "black", size = .25) +
-  geom_stream_label(aes(x=year,y = n ,fill = team, label = str_to_upper(team)), family ="Inconsolata", size = 4) + 
-  annotate(geom= "text", x = 1898, y = 328, label = "GOLD MEDALS", family = "Inconsolata",  size = 4, hjust = 1) +
-  annotate(geom= "text", x = 1916, y = -250, label = "WORLD WAR I\n(1914-1918)", family = "Inconsolata", fontface = "bold", size = 4.5) +
-  annotate(geom= "text", x = 1942, y = -250, label = "WORLD WAR II\n(1939-1945)",family = "Inconsolata", fontface = "bold", size = 4.5) +
-  annotate(geom = "richtext", x = 1925, y = 500, label = '<img src="2021_w31/olympic_flag.png" width ="200"/>', fill = NA, label.color = NA) + 
-  annotate(geom = "text", x = 1925, y = 350, label = "SUMMER OLYMPIC GAMES",   family = "Lato Black", size = 9.5, lineheight = 2.5) + 
-  annotate(geom = "text", x = 1925, y = 285, label = subtitle, family = "Lato Semibold", fontface = "italic", lineheight = 0.95, color = "grey10") +
+  geom_stream_label(aes(x=year,y = n ,fill = team, label = str_to_upper(team)), family ="Inconsolata", size = 6.5, fontface = "bold") + 
+  annotate(geom= "text", x = 1900, y = 330, label = "GOLD MEDALS", family = "Inconsolata",  size = 5.5, fontface = "bold", hjust = 1.1) +
+  annotate(geom= "text", x = 1916, y = -250, label = "WORLD WAR I\n(1914-1918)", family = "Inconsolata", fontface = "bold", size = 6.5) +
+  annotate(geom= "text", x = 1942, y = -250, label = "WORLD WAR II\n(1939-1945)",family = "Inconsolata", fontface = "bold", size = 6.5) +
+  annotate(geom = "richtext", x = 1930, y = 500, label = '<img src="2021_w31/olympic_flag.png" width ="200"/>', fill = NA, label.color = NA) + 
+  annotate(geom = "text", x = 1930, y = 350, label = "SUMMER OLYMPIC GAMES",   family = "Lato Black", size = 14.5, lineheight = 2.5) + 
+  annotate(geom = "text", x = 1930, y = 270, label = subtitle, family = "Lato Semibold", fontface = "italic", lineheight = 0.95, size = 6, color = "grey5") +
   coord_cartesian(clip = "off") + 
   scale_fill_manual(
     values =c("United States" = "#0C5BB0FF", 
@@ -99,10 +99,10 @@ gold_medalists %>%
   theme(
     panel.grid = element_blank(),
     axis.text.x =  element_blank(),
-    axis.text.y =  element_text(size = 10, color = "black", family = "Inconsolata"),
+    axis.text.y =  element_text(size = 15, color = "black", family = "Inconsolata", face = "bold"),
     axis.ticks.y  = element_line(color ="black", size = .25),
     axis.ticks.length.y = unit(.25, "cm"),
-    plot.caption = element_markdown(color = "black", size = rel(1), margin = margin(t = 10,b = 10))
+    plot.caption = element_markdown(color = "black", size = rel(1.2), margin = margin(t = 10,b = 10))
   )
 
 # Saving ------------------------------------------------------------------
@@ -111,4 +111,4 @@ ggsave(glue::glue("{path}.pdf"), width = 18, height = 12, device = cairo_pdf)
 
 pdftools::pdf_convert(pdf = glue::glue("{path}.pdf"), 
                       filenames = glue::glue("{path}.png"),
-                      format = "png", dpi = 450)
+                      format = "png", dpi = 600)
