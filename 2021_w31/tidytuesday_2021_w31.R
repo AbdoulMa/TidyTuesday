@@ -52,12 +52,12 @@ gold_medalists %>%
   ggplot() +
   geom_segment(data = og_segments , aes(x =x  , xend =x, y = 0, yend = -y), size = 0.5, color = "grey15", linetype = "dashed")+ 
   geom_text( data = summer_og_editions, aes(x = year, y =-650, label = str_to_upper(edition)), 
-             size = 5.5,lineheight = .90, angle = 45, family = "Inconsolata", fontface = "bold") +
+             size = 5,lineheight = .8, angle = 45, family = "Inconsolata", fontface = "bold") +
   geom_stream(aes(year, n, fill = team),color = "black", size = .25) +
   geom_stream_label(aes(x=year,y = n ,fill = team, label = str_to_upper(team)), family ="Inconsolata", size = 6.5, fontface = "bold") + 
   annotate(geom= "text", x = 1900, y = 330, label = "GOLD MEDALS", family = "Inconsolata",  size = 5.5, fontface = "bold", hjust = 1.1) +
-  annotate(geom= "text", x = 1916, y = -250, label = "WORLD WAR I\n(1914-1918)", family = "Inconsolata", fontface = "bold", size = 6.5) +
-  annotate(geom= "text", x = 1942, y = -250, label = "WORLD WAR II\n(1939-1945)",family = "Inconsolata", fontface = "bold", size = 6.5) +
+  annotate(geom= "text", x = 1916, y = -250, label = "WORLD WAR I\n(1914-1918)", family = "Inconsolata", fontface = "bold", size = 5) +
+  annotate(geom= "text", x = 1942, y = -250, label = "WORLD WAR II\n(1939-1945)",family = "Inconsolata", fontface = "bold", size = 5) +
   annotate(geom = "richtext", x = 1930, y = 500, label = '<img src="2021_w31/olympic_flag.png" width ="200"/>', fill = NA, label.color = NA) + 
   annotate(geom = "text", x = 1930, y = 350, label = "SUMMER OLYMPIC GAMES",   family = "Lato Black", size = 14.5, lineheight = 2.5) + 
   annotate(geom = "text", x = 1930, y = 270, label = subtitle, family = "Lato Semibold", fontface = "italic", lineheight = 0.95, size = 6, color = "grey5") +

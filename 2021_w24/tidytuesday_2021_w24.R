@@ -45,7 +45,7 @@ lakes_points <- decade_summary %>% pmap_df(
 # Graphical parameter settings for grids annotations
 my_gpar <- gpar(
   col = "black",
-  fontfamily = "Lato",
+  fontfamily = "Lato Semibold",
   fontsize = 7
 )
 
@@ -170,7 +170,7 @@ my_gpar <- gpar(
       legend.box.margin=margin(15,0,15,0),
       strip.text = element_text(family = "Lato Black", size = rel(1.1)),
       plot.title  = element_text(family = "Lato Black", size = rel(1.3), hjust = .5, margin = margin(t = 10, b= 10)),
-      plot.caption = element_markdown(color = "grey35", size = rel(0.8)),
+      plot.caption = element_markdown(color = "grey15", size = rel(0.8)),
       strip.placement = "outside",
       axis.text = element_blank(),
       panel.grid = element_blank()
@@ -178,7 +178,12 @@ my_gpar <- gpar(
 )  
 
 # Saving ------------------------------------------------------------------
-ggsave(here::here("2021_w24/tidytuesday_2021_w24.png"),width = 10, height = 13,dpi = 300, device = "png",type = "cairo")
+path <- here::here("2021_w24/tidytuesday_2021_w24")
+ggsave(glue::glue("{path}.pdf"), width = 10, height = 13, device = cairo_pdf)
+
+pdftools::pdf_convert(pdf = glue::glue("{path}.pdf"), 
+                      filenames = glue::glue("{path}.png"),
+                      format = "png", dpi = 600)
 
 # ALT TEXT 
 # This graphic is  Abdoul ISSA BIDA submission for the  Tidytuesday Challenge for 2021 Week 24.
