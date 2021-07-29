@@ -34,12 +34,5 @@ generate_tidytuesday_structure <- function(week, year) {
   }
 }
 
-# 
-# walk2(
-#   19:22,
-#   2021,
-#   ~generate_tidytuesday_structure(.x, .y)
-# )
-
 generate_tidytuesday_structure(32,2021)
 
