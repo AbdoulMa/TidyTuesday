@@ -10,7 +10,7 @@ Code and plots of the submissions to the [#tidytuesday](https://github.com/rford
 ___
 
 ### [2021 - Week 32](2021_w32) Paralympics Medals by [IPC](https://db.ipc-services.org/sdms/hira)
-<a href="2021_w32"><img src="2021_w32/tidytuesday_2021_w32.png"></a>
+<a href="2021_w32"><img src="2021_w32/tidytuesday_2021_w32.gif"></a>
 ___
 
 ### [2021 - Week 31](2021_w31) Olympics Medals by [Kaggle](https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results)
