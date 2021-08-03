@@ -109,5 +109,6 @@ pdftools::pdf_convert(pdf = glue::glue("{path}.pdf"),
 animation <- plot + 
   transition_reveal(year)
 
-animate(animation, 10*5, fps = 5 , duration = 30, width = 1200, height = 950, end_pause = 10, 
+animate(animation, 30*10, fps = 10 , duration = 30, width = 14, height = 11, unit = "in",
+        end_pause = 10, res = 300, dev= "png",
         renderer = gifski_renderer(glue::glue("{path}.gif")))
