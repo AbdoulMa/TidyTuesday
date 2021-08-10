@@ -2,7 +2,7 @@
 library(tidyverse)
 library(waffle)
 library(ggtext)
-
+library(gggrid)
 # Data Reading and Wrangling ----------------------------------------------
 investment <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-08-10/investment.csv')
 
@@ -33,12 +33,53 @@ categories_investments %>%
     guide = "none"
   ) + 
   labs(
-    title = "For every $100 invested, \nhow much is in key sectors?",
+    title = "For every $100 invested, \nhow much is in key categories?",
     caption = "Data from ***Bureau of Economic Analysis***.<br>
        Tidytuesday Week-33 2021 &bull;<span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**."
   ) + 
   coord_equal(expand = F) + 
   facet_wrap(vars(meta_cat)) + 
+  grid_panel(
+    grob = function(data, coords) {
+      if (data$PANEL[1] == 1) {
+        gList(
+          segmentsGrob(
+            0.05, 0.3,
+            unit( 0.05, "npc"),
+            unit(0.4, "npc"),
+            gp = gpar(
+              col = "black",
+              lwd = 0.5
+            )
+          ),
+          segmentsGrob(
+            0.05, 0.4,
+            unit( 0.15, "npc"),
+            unit(0.4, "npc"),
+            gp = gpar(
+              col = "black",
+              lwd = 0.5
+            )
+          ),
+          textGrob(
+            label = "Each green square represents\n an investment of $1.",
+            x = unit( .5, "npc"),
+            y = unit(0.5, "npc"),
+            just = c("center", "top"),
+            gp = gpar(
+              col = "black",
+              fontfamily = "Lato Semibold",
+              fontface = "italic",
+              fontsize = 9.5
+            )
+          )
+        )
+      }
+      else {
+        nullGrob()
+      }
+    },
+  ) + 
   theme_minimal(base_family = "Lato Semibold") + 
   theme(
     plot.title = element_text(family = "Lato Black",size = rel(2.5), hjust = .5, margin = margin(b = 10)),
@@ -57,6 +98,4 @@ pdftools::pdf_convert(pdf = glue::glue("{path}.pdf"),
                       filenames = glue::glue("{path}.png"),
                       format = "png", dpi = 480)
 
-pdftools::pdf_convert(pdf = glue::glue("{path}.pdf"), 
-                      filenames = glue::glue("{path}_twitter.png"),
-                      format = "png", dpi = 96)
+
