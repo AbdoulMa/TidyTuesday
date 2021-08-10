@@ -55,4 +55,8 @@ ggsave(glue::glue("{path}.pdf"), width = 9, height = 12, device = cairo_pdf)
 
 pdftools::pdf_convert(pdf = glue::glue("{path}.pdf"), 
                       filenames = glue::glue("{path}.png"),
+                      format = "png", dpi = 480)
+
+pdftools::pdf_convert(pdf = glue::glue("{path}.pdf"), 
+                      filenames = glue::glue("{path}_twitter.png"),
                       format = "png", dpi = 96)
