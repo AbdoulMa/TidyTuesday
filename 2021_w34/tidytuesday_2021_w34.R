@@ -36,4 +36,4 @@ characters %>%
   )
 
 # Saving ------------------------------------------------------------------
-ggsave("2021_w34/tidytuesday_2021_w34.png", width = 12, height = 12, device = agg_png, dpi = 640)
+ggsave("2021_w34/tidytuesday_2021_w34.png", width = 12.5, height = 12, device = agg_png, dpi = 640)
