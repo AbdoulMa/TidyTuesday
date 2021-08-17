@@ -29,12 +29,11 @@ characters %>%
   scale_fill_manual(values = extended_palette(nrow(characters))) + 
   theme(text =element_text(family = "Lato"),
         plot.background = element_rect(fill = "grey95"),
-        plot.title = element_text(family = "Lato Black",size = rel(2.5), hjust = .5, margin = margin(t = 10,b = 10)),
+        panel.spacing = unit(2.5, units = "cm"),
+        plot.title = element_text(family = "Lato Black",size = rel(2.5), hjust = .5, margin = margin(t = 15,b = 10)),
         plot.caption = element_markdown(color = "black", size = rel(1.2), margin = margin(t = 20,b = 10)),
-        legend.position = "none",
-        panel.spacing  = margin(15, unit = "mm")
+        legend.position = "none"
   )
 
 # Saving ------------------------------------------------------------------
-ggsave("2021_w34/tidytuesday_2021_w34_twitter.png", width = 12, height = 12, device = agg_png, dpi = 160)
 ggsave("2021_w34/tidytuesday_2021_w34.png", width = 12, height = 12, device = agg_png, dpi = 640)
