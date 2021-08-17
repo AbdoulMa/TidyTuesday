@@ -22,8 +22,8 @@ characters %>%
   geom_treemap(color = "black", size = 1) + 
   geom_treemap_text(family = "Lato Black",fontface = "italic", colour = "white", place = "centre",
                     grow = TRUE) + 
-  labs(title = "Which characters interacted the more with VUIs\n in the Star Trek Saga?",
-    caption = "Data from ***SpeechInteraction.com*** and shared by Sara Stoudt.<br>
+  labs(title = "Which characters interact the most with VUIs\n in the Star Trek Saga?",
+       caption = "Data from ***SpeechInteraction.com*** and shared by Sara Stoudt.<br>
        Tidytuesday Week-34 2021 &bull;<span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**.") + 
   scale_fill_manual(values = extended_palette(nrow(characters))) + 
   theme(text =element_text(family = "Lato"),
