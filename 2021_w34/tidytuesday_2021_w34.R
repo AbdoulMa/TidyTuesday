@@ -10,15 +10,16 @@ computer <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/t
 characters <- computer %>% 
   count(char, sort= T)
 
+
 characters <- characters %>% 
   mutate(char = factor(char))
-
+characters
 # Graphic -----------------------------------------------------------------
 # Interpolate color palette to create new color palettes
 extended_palette <- colorRampPalette(paletteer_d("rcartocolor::Prism",12)) 
 
 characters %>%
-  ggplot(aes(fill = char,area = n, label = char)) + 
+  ggplot(aes(fill = char,area = n, label = glue::glue(" {char} \n ({n})"))) + 
   geom_treemap(color = "black", size = 1) + 
   geom_treemap_text(family = "Lato Black",fontface = "italic", colour = "white", place = "centre",
                     grow = TRUE) + 
@@ -27,6 +28,7 @@ characters %>%
        Tidytuesday Week-34 2021 &bull;<span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**.") + 
   scale_fill_manual(values = extended_palette(nrow(characters))) + 
   theme(text =element_text(family = "Lato"),
+        plot.background = element_rect(fill = "grey95"),
         plot.title = element_text(family = "Lato Black",size = rel(2.5), hjust = .5, margin = margin(t = 10,b = 10)),
         plot.caption = element_markdown(color = "black", size = rel(1.2), margin = margin(t = 20,b = 10)),
         legend.position = "none",
