@@ -1,6 +1,8 @@
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
 library(gganimate)
+library(lubridate)
+library(ggtext)
 # Data Reading and Wrangling ----------------------------------------------
 
 toxonomic_codes <- tribble(
@@ -57,17 +59,27 @@ lemurs_1975_rep <- lemurs_1975  %>%
   slice(rep(row_number(), diff(years_range) + 1)) %>% 
   mutate(dob_year = rep(years_range[1]:years_range[2], each = nb_rows))
 
+annual_births <- distinct_lemurs %>% 
+  count(dob_year) %>% 
+  mutate(fancy_text = glue::glue('<b style = "font-size: 25px; color: grey25;">{dob_year}</b><br><br>{n}'))
+
 distinct_lemurs %>%  
   ggplot(aes(birth_month, ..count..)) + 
   geom_density() + 
   geom_density(data = lemurs_1975_rep, color = "steelblue") + 
-  # facet_wrap(vars(dob_year), scales = "free_y") + 
-  labs(title = "{closest_state}") + 
+  geom_richtext(data = annual_births, inherit.aes = F,
+                aes(x = 10, y = 15, label = fancy_text),
+                fill = NA,
+                label.color = NA) +
+  # facet_wrap(vars(dob_year), scales = "free_y") +
   scale_y_continuous(
-    limits = c(0,30)
-  ) + 
-  transition_states(dob_year
-  )
+    limits = c(0,25)
+  )  + 
+  theme_minimal() + 
+  # theme(
+  #   strip.text = element_blank()
+  # )
+transition_states(dob_year)
 
 
 # Attempt with columns ----------------------------------------------------
