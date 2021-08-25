@@ -97,7 +97,7 @@ lemurs_1975_rep <- lemurs_1975  %>%
                 fill = NA,
                 label.color = NA) +
   labs(
-    title = 'Evolution of lemur births compared to <span style="color: #2196F3;">1975</span>',
+    title = 'Annual evolution of lemur births compared to <span style="color: #2196F3;">1975</span>',
     caption = "Data from ***Duke Lemur Center*** and cleaned by Jesse Mostipak.<br>
        Tidytuesday Week-35 2021 &bull;<span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**."
   ) + 
@@ -140,7 +140,7 @@ animate(
   animation,
   nframes = (diff(years_range) + 1) * 10,
   height = 7.5,
-  width = 12.5,
+  width = 14,
   units = "in",
   res = 90,
   end_pause = 10,
