@@ -44,7 +44,7 @@ distinct_lemurs <- lemurs %>%
   filter(!is.na(dob)) %>% 
   mutate(dob = ymd(dob), 
          dob_year = year(dob) # Retrieve year of birth
-         ) %>% 
+  ) %>% 
   filter(dob_year >= 1975) %>% # Only keep data for year >= 1975
   select(taxon:birth_institution, dob_year) 
 
@@ -62,77 +62,77 @@ lemurs_1975_rep <- lemurs_1975  %>%
 
 # Compute annual births
 (annual_births <- distinct_lemurs %>% 
-  group_by(dob_year) %>% 
-  summarise(
-    n = n(), # number of births 
-    n_m  =sum(sex == 'M'),  # number of males
-    n_f =sum(sex == 'F') # number of females
-  ) %>% 
-  mutate(
-    variation_1975 = round(100*((n / nb_rows) - 1), 2), # Compute variation comparatively to 1975 
-    # Fancy texts for the the year and the variation printing
-    fancy_text = glue::glue('<b style = "font-family: Inconsolata ; font-weight: bold; font-size: 75px; color: grey25;">{dob_year}</b><br><span style="font-family: Lato ; font-size: 35px;" >{n} lemurs<br>({n_m} M, {n_f} F)</span>'), 
-  fancy_variation = case_when( dob_year == 1975 ~ "",
-    variation_1975 >=  0 ~ paste0("+",variation_1975,"%"),
-                              TRUE ~ paste0("",variation_1975,"%"))
+    group_by(dob_year) %>% 
+    summarise(
+      n = n(), # number of births 
+      n_m  =sum(sex == 'M'),  # number of males
+      n_f =sum(sex == 'F') # number of females
+    ) %>% 
+    mutate(
+      variation_1975 = round(100*((n / nb_rows) - 1), 2), # Compute variation comparatively to 1975 
+      # Fancy texts for the the year and the variation printing
+      fancy_text = glue::glue('<b style = "font-family: Inconsolata ; font-weight: bold; font-size: 75px; color: grey25;">{dob_year}</b><br><span style="font-family: Lato ; font-size: 35px;" >{n} lemurs<br>({n_m} M, {n_f} F)</span>'), 
+      fancy_variation = case_when( dob_year == 1975 ~ "",
+                                   variation_1975 >=  0 ~ paste0("+",variation_1975,"%"),
+                                   TRUE ~ paste0("",variation_1975,"%"))
+    )
 )
-)
-  
+
 
 # Animation ---------------------------------------------------------------
 (animation <- distinct_lemurs %>%
-  ggplot(aes(birth_month, ..count..)) + 
-  geom_density( size = 1.5, color = "#909dac",fill = "#909dac", alpha = .1) + 
-  geom_density(data = lemurs_1975_rep, color = "#2196F3", fill = "#2196F3", size = 1.5, alpha = .3) + 
-  geom_richtext(data = annual_births, inherit.aes = F,
-                aes(x = 10, y = 20, label = fancy_text),
-                fill = NA,
-                label.color = NA) +
-  geom_richtext(data = annual_births, inherit.aes = F,
-                aes(x = 10, y = 15, label = fancy_variation, color = variation_1975),
-                vjust = 1,
-                size = 20,
-                family = "Inconsolata",
-                fontface = "bold",
-                fill = NA,
-                label.color = NA) +
-  labs(
-    title = 'Annual evolution of lemur births compared to <span style="color: #2196F3;">1975</span>',
-    caption = "Data from ***Duke Lemur Center*** and cleaned by Jesse Mostipak.<br>
+   ggplot(aes(birth_month, ..count..)) + 
+   geom_density( size = 1.5, color = "#909dac",fill = "#909dac", alpha = .1) + 
+   geom_density(data = lemurs_1975_rep, color = "#2196F3", fill = "#2196F3", size = 1.5, alpha = .3) + 
+   geom_richtext(data = annual_births, inherit.aes = F,
+                 aes(x = 10, y = 20, label = fancy_text),
+                 fill = NA,
+                 label.color = NA) +
+   geom_richtext(data = annual_births, inherit.aes = F,
+                 aes(x = 10, y = 15, label = fancy_variation, color = variation_1975),
+                 vjust = 1,
+                 size = 20,
+                 family = "Inconsolata",
+                 fontface = "bold",
+                 fill = NA,
+                 label.color = NA) +
+   labs(
+     title = 'Annual evolution of lemur births compared to <span style="color: #2196F3;">1975</span>',
+     caption = "Data from ***Duke Lemur Center*** and cleaned by Jesse Mostipak.<br>
        Tidytuesday Week-35 2021 &bull;<span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**."
-  ) + 
-  scale_x_continuous(
-    breaks = seq(1, 12, by = 3),
-    labels = c("JANUARY","APRIL","JULY","OCTOBER"),
-    expand =expansion(mult = c(0.01,0))
-  ) +
-  scale_y_continuous(
-    limits = c(0,25),
-    breaks = seq(5,25, 5),
-    expand = expansion(mult = c(0,0.1))
-  )  +
-  scale_color_gradient(
-    low = "#96281B",
-    high = "#019875",
-    guide = "none"
-  ) +
-  theme_minimal(base_family = "Lato") +
-  theme(
-    panel.grid = element_blank(),
-    plot.title = element_markdown(family = "Lato Black",size = rel(3.5), hjust = .5, margin = margin(t = 15,b = 10)),
-    axis.ticks = element_line(size = 0.35),
-    axis.ticks.length = unit(0.20,"cm"),
-    axis.title = element_blank(),
-    axis.text = element_text(color = "black"),
-    axis.text.y = element_text(family = "Inconsolata", size =rel(1.5)),
-    strip.text = element_blank(),
-    plot.margin = margin(t = 10,r = 10,b = 10, l=15),
-    plot.caption = element_markdown(color = "black", size = rel(1.2), margin = margin(t = 20,b = 10))
-  )  +
-transition_states(dob_year,
-                  transition_length = 1,
-                  state_length = 4
-                  )
+   ) + 
+   scale_x_continuous(
+     breaks = seq(1, 12, by = 3),
+     labels = c("JANUARY","APRIL","JULY","OCTOBER"),
+     expand =expansion(mult = c(0.01,0))
+   ) +
+   scale_y_continuous(
+     limits = c(0,25),
+     breaks = seq(5,25, 5),
+     expand = expansion(mult = c(0,0.1))
+   )  +
+   scale_color_gradient(
+     low = "#96281B",
+     high = "#019875",
+     guide = "none"
+   ) +
+   theme_minimal(base_family = "Lato") +
+   theme(
+     panel.grid = element_blank(),
+     plot.title = element_markdown(family = "Lato Black",size = rel(3.5), hjust = .5, margin = margin(t = 15,b = 10)),
+     axis.ticks = element_line(size = 0.35),
+     axis.ticks.length = unit(0.20,"cm"),
+     axis.title = element_blank(),
+     axis.text = element_text(color = "black"),
+     axis.text.y = element_text(family = "Inconsolata", size =rel(1.5)),
+     strip.text = element_blank(),
+     plot.margin = margin(t = 10,r = 10,b = 10, l=15),
+     plot.caption = element_markdown(color = "black", size = rel(1.2), margin = margin(t = 20,b = 10))
+   )  +
+   transition_states(dob_year,
+                     transition_length = 1,
+                     state_length = 4
+   )
 )
 
 # Saving ------------------------------------------------------------------
