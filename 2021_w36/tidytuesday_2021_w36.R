@@ -68,7 +68,7 @@ plots <- bioregions_birds %>%
   (plots[[4]] + plots[[5]] + plots[[6]]) / 
   (plots[[7]] + plots[[8]] + plots[[9]]) + 
   plot_annotation(
-    title = "Birds Diversity in each Australian Biogeographic Region ", 
+    title = "Birds Diversity in Australian Biogeographic Regions", 
     caption = "Data from Cleary et al, 2016, suggested by Alison Hill.
        Tidytuesday Week-36 2021 - Abdoul ISSA BIDA."
   ) & 
