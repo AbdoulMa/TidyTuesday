@@ -1,7 +1,7 @@
 library(tidytuesdayR)
 library(tidyverse)
 library(ggtext)
-
+library(ragg)
 # Inspiration Nathan Yau :  https://flowingdata.com/2019/03/26/bump-chart-r/ 
 
 
@@ -86,6 +86,6 @@ decades_legend <-  tibble(
   
 
 # Save image --------------------------------------------------------------
-ggsave(here::here("2021_w19","tidytuesday_2021_w19.png"),height = 8, width = 15)
+ggsave(here::here("2021_w19","tidytuesday_2021_w19.png"),height = 7.5, width = 14, device = agg_png, dpi = 640)
 
  
