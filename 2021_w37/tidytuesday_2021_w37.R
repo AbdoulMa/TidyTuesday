@@ -15,7 +15,7 @@ season_lst_races <- races %>%
   slice_max(date, n = 1)
 
 # Season Winners
-season_lst_races %>% 
+seasons_winners <- season_lst_races %>% 
   left_join(driver_standings, by = "raceId") %>% 
   filter(position == 1) %>% 
   left_join(drivers, by = "driverId") 
@@ -64,12 +64,20 @@ gp_winners_10_20 <- gp_winners_10_20 %>%
     
   ) %>% 
   mutate(
-    fancy_winner = glue::glue("<span style='color:grey75'>{name_other}<span> &bull; <span style='font-size:11px;font-weight:bolder;'>{forename} {surname}</span> <span style='font-size: 6px; color: grey55;'>{driver_CTC}</span> <span>({name_constructor})</span>")
+    fancy_winner = glue::glue("<span style='font-size:8.5px;color:grey75'>{name_other}<span> &bull; <span style='font-size:10.5px;font-weight:bolder;'>{forename} {surname}</span> <span style='font-size: 6px; color: grey55;'>{driver_CTC}</span> <span>({name_constructor})</span>")
   )
 
 (
-  season_lst_races %>% 
-    first()
+  seasons_winners <- seasons_winners %>% 
+    ungroup() %>% 
+    filter(between(year,2010,2020)) %>% 
+    mutate(
+      fancy_season_winner = glue::glue("{year} <br> {forename} {str_to_upper(surname)}"),
+      theta = seq(pi,  0, length.out = 11),
+      y = sin(theta),
+      tangent_slope = cos(theta) * plot_ratio,
+      text_angle = atan(tangent_slope)
+    )
 )
 
 (grid_positions <- gp_winners_10_20 %>% 
@@ -77,7 +85,7 @@ gp_winners_10_20 <- gp_winners_10_20 %>%
     slice(rep(1:n(), each = 22)) %>% 
     mutate(
       grid_position = rep(1:22, nb_gps),
-      c = rep(seq(1.8,1.4, length.out = 22), nb_gps),
+      c = rep(seq(1.6,1.2, length.out = 22), nb_gps),
            x = c *x,
            y = c*y)
   
@@ -99,8 +107,8 @@ gp_winners_10_20 <- gp_winners_10_20 %>%
              
                )  +
   # Dividers
-  geom_segment(data = filter(gp_winners_10_20, is.na(resultId)), aes(x = 1.35*x, y = 1.35*y,
-                                                                      xend = 2.75*x, yend = 2.75*y),
+  geom_segment(data = filter(gp_winners_10_20, is.na(resultId)), aes(x = 1.15*x, y = 1.15*y,
+                                                                      xend = 2.65*x, yend = 2.65*y),
                size = .5,
                color = "white"
                ) + 
@@ -109,40 +117,30 @@ gp_winners_10_20 <- gp_winners_10_20 %>%
                   label.color = NA,
                   size = 2.5,
                   color = "white"
-    ) + 
+    ) +
+    geom_richtext(data =seasons_winners, aes(x= 3.15*cos(theta), y =3.15*y,label = fancy_season_winner,
+                      angle = text_angle),
+                  color = "white",
+                  vjust = 0,
+                  fill = NA,
+                  label.color = NA,
+                  label.padding = unit(1, "pt"),
+                  label.margin = unit(2, "pt"),
+                  size = 4) + 
+    annotate(geom="text", x = 1.4 ,y= -0.25, label = "GRID POSITIONS",color = "white")+ 
+    annotate(geom="text", x = -1.4 ,y= -0.25, label = "GRID POSITIONS",color = "white")+
+    annotate(geom="text", x = 1.6 ,y= -0.05, label = "1st", angle = 270, color = "white", size = 3, hjust = 0)+
+    annotate(geom="text", x = 1.2 ,y= -0.05, label = "22nd", angle = 270, color = "white",size = 3,hjust = 0)+
+    annotate(geom="text", x = -1.6 ,y= -0.05, label = "1st", angle = 90, color = "white", size = 3, hjust = 1)+
+    annotate(geom="text", x = -1.2 ,y= -0.05, label = "22nd", angle = 90, color = "white",size = 3,hjust = 1)+
     theme_minimal() + 
     theme(
       plot.background = element_rect(fill = "#212121", color = NA),
       panel.grid = element_blank(),
       axis.text = element_blank(),
       axis.title = element_blank()
-    )
+    ) +
+    coord_cartesian(expand = F, clip = "off")
     
-  
-# Title
-  plot_ratio <- pi
-  tibble(theta = seq(0, 2 * pi, length.out = 13),
-         y = sin(theta),
-         tangent_slope = cos(theta) * plot_ratio,
-         text_angle = atan(tangent_slope)) %>%
-  ggplot(aes(theta, y)) +
-  geom_richtext(aes(label = round(y, 2),
-                    angle = text_angle * 180 / pi),
-                vjust = 0,
-                label.color = NA,
-                label.padding = unit(1, "pt"),
-                label.margin = unit(2, "pt"),
-                size = 4) +
-  geom_point() +
-  stat_function(fun = sin) +
-  scale_x_continuous(expression(theta),
-                     breaks = seq(0, 2 * pi, length.out = 13),
-                     minor_breaks = NULL,
-                     labels = function(x) round(x * 180 / pi)) +
-  scale_y_continuous(expression(sin(theta))) +
-  coord_fixed(ratio = plot_ratio, clip = "off") +
-  theme_minimal(base_size = 16) + 
-  theme(
-    plot.background = element_rect(fill = "white", color = NA)
-  )  
+
 # Saving ------------------------------------------------------------------
