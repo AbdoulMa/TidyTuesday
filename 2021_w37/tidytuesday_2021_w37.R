@@ -9,7 +9,6 @@ constructor_standings <- readr::read_csv('https://raw.githubusercontent.com/rfor
 results <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-09-07/results.csv')
 races <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-09-07/races.csv')
 
-# Graphic -----------------------------------------------------------------
 season_lst_races <- races %>% 
   group_by(year) %>%
   slice_max(date, n = 1)
@@ -20,7 +19,7 @@ seasons_winners <- season_lst_races %>%
   filter(position == 1) %>% 
   left_join(drivers, by = "driverId") 
 
-
+# GP Winners
 gp_winners <- results %>% 
   filter(position == 1) %>% 
   left_join(races, by= "raceId") %>% 
@@ -28,13 +27,16 @@ gp_winners <- results %>%
   left_join(constructors, by = "constructorId", suffix = c("_other","_constructor" )) %>% 
   mutate(name_other = str_replace(name_other, "Grand Prix", "GP"))
 
+# Only keep those between 2010 and 2020
 gp_winners_10_20 <-  gp_winners %>% 
   filter(between(year, 2010, 2020)) %>% 
   add_row(year = 2010:2019) %>% 
   arrange(year) 
 
-nb_gps <- nrow(gp_winners_10_20)
+nb_gps <- nrow(gp_winners_10_20) # Nb of GP
+
 gp_winners_10_20 <- gp_winners_10_20 %>% 
+  # Compute winners positions
   mutate(
     len = seq(pi, 0, length.out = nb_gps),
     x = cos(len), 
@@ -42,6 +44,7 @@ gp_winners_10_20 <- gp_winners_10_20 %>%
     label_y = sin(len) * 3, 
     label_angle = seq(180, 0, length.out = nb_gps)
   ) %>% 
+  # Driver Country Code
   mutate(
     driver_CTC = case_when(nationality_other == "Spanish" ~ "ESP",
                            nationality_other == "British" ~ "GBR",
@@ -55,27 +58,24 @@ gp_winners_10_20 <- gp_winners_10_20 %>%
                            nationality_other == "Mexican" ~ "MEX",
                            is.na(nationality_other) ~ ""
     ) 
-    
   ) %>% 
   mutate(
     fancy_winner = glue::glue("<span style='font-size:8.5px;color:grey7'>{name_other}<span> &bull; <span style='color: #000000;font-size:11px;font-weight:bolder;'>{forename} {surname}</span> <span style='font-size: 6px; color: grey7;'>{driver_CTC}</span> <span>({name_constructor})</span>")
   )
 
-(
-  seasons_winners <- seasons_winners %>% 
-    ungroup() %>% 
-    filter(between(year,2010,2020)) %>% 
-    mutate(
-      fancy_season_winner = glue::glue("{year} <br> {forename} {str_to_upper(surname)}"),
-      theta = seq(pi,  0, length.out = 11),
-      x = cos(theta),
-      y = sin(theta),
-      # tangent_slope = cos(theta) * plot_ratio,
-      # text_angle = atan(tangent_slope)
-    )
-)
+# Compute season winners positions
+seasons_winners <- seasons_winners %>% 
+  ungroup() %>% 
+  filter(between(year,2010,2020)) %>% 
+  mutate(
+    fancy_season_winner = glue::glue("{year} <br> {forename} {str_to_upper(surname)}"),
+    theta = seq(pi,  0, length.out = 11),
+    x = cos(theta),
+    y = sin(theta)
+  )
 
-(grid_positions <- gp_winners_10_20 %>% 
+# Grid positions
+grid_positions <- gp_winners_10_20 %>% 
     select(x, y, grid) %>% 
     slice(rep(1:n(), each = 22)) %>% 
     mutate(
@@ -84,7 +84,7 @@ gp_winners_10_20 <- gp_winners_10_20 %>%
       x = c *x,
       y = c*y)
   
-)
+# Graphic -----------------------------------------------------------------
 
 ggplot() +
   geom_point(data = filter(grid_positions, !grid_position == grid), aes(x = x, y =y),
@@ -144,7 +144,6 @@ ggplot() +
     axis.title = element_blank(),
     plot.caption = element_markdown(family = "Forza",color = "#212121", size = rel(.95), margin = margin(t = 5,b = 10), hjust = .5),
     plot.margin = margin(t = .5, r = 1.5, b =.5, l = 1.5, unit = "cm")
-    
   ) 
 
 
