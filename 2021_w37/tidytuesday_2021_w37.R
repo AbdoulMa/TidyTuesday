@@ -20,12 +20,6 @@ seasons_winners <- season_lst_races %>%
   filter(position == 1) %>% 
   left_join(drivers, by = "driverId") 
 
-# Constructors Winners
-season_lst_races %>% 
-  left_join(constructor_standings, by = "raceId") %>% 
-  filter(position == 1) %>% 
-  left_join(constructors, by = "constructorId") 
-
 
 gp_winners <- results %>% 
   filter(position == 1) %>% 
@@ -95,8 +89,7 @@ gp_winners_10_20 <- gp_winners_10_20 %>%
 ggplot() +
   geom_point(data = filter(grid_positions, !grid_position == grid), aes(x = x, y =y),
              size = .55,
-             alpha = .3,
-             # color = "white"
+             alpha = .3
   )  +  
   geom_point(data = filter(grid_positions, grid_position == grid), aes(x = x, y =y),
              pch = 21, 
@@ -105,13 +98,15 @@ ggplot() +
              stroke = .85
              
   )  +
-  geom_richtext(data = filter(gp_winners_10_20, !is.na(resultId)),aes(cos(len)*2.55,sin(len)*2.55, label = fancy_winner, angle = label_angle),
+  geom_richtext(data = filter(gp_winners_10_20, !is.na(resultId)),aes(cos(len)*2.1,sin(len)*2.1, label = fancy_winner, angle = label_angle),
                 fill = "transparent",
+                color = "black",
                 label.color = NA,
                 size = 2.5,
+                hjust = 0,
                 family = "Bahnschrift"
   ) +
-  geom_richtext(data =seasons_winners, aes(x= 3.2*x, y =3.2*y,label = fancy_season_winner
+  geom_richtext(data =seasons_winners, aes(x= 3.35*x, y =3.35*y,label = fancy_season_winner
   ),
   vjust = 0,
   fill = NA,
@@ -120,29 +115,44 @@ ggplot() +
   label.padding = unit(1, "pt"),
   label.margin = unit(2, "pt"),
   size = 5) + 
-  annotate(geom="text", x = 1.8 ,y= -0.25, label = "GRID POSITIONS",color = "#151515")+ 
-  annotate(geom="text", x = -1.8 ,y= -0.25, label = "GRID POSITIONS",color = "#151515")+
-  annotate(geom="text", x = 2 ,y= -0.05, label = "1st", angle = 270, color = "#151515", size = 3, hjust = 0)+
-  annotate(geom="text", x = 1.6 ,y= -0.05, label = "22nd", angle = 270, color = "#151515",size = 3,hjust = 0)+
-  annotate(geom="text", x = -2 ,y= -0.05, label = "1st", angle = 90, color = "#151515", size = 3, hjust = 1)+
-  annotate(geom="text", x = -1.6 ,y= -0.05, label = "22nd", angle = 90, color = "#151515",size = 3,hjust = 1)+
-  annotate(geom= "segment", x = -.5, xend = .5, y = 3.5, yend = 3.5 ,color="#FF1801", size = 2) +
-  annotate(geom= "segment", x = -.5, xend = .5, y = 3.9, yend = 3.9,color="#FF1801",size = 2) +
-  annotate(geom = "text", x = 0, y = 3.7, label = "2010-2020", family = "Gotham Medium", fontface = "bold", size= 15) + 
+  annotate(geom="text", x = 1.8 ,y= -0.25, label = "GRID POSITIONS",family = "Forza Light",color = "#151515")+ 
+  annotate(geom="text", x = -1.8 ,y= -0.25, label = "GRID POSITIONS",family = "Forza Light",color = "#151515")+
+  annotate(geom="text", x = -3.35 ,y= -0.25, label = "SEASON \n CHAMPIONSHIP WINNER",family = "Forza Light",color = "#151515", vjust = 0)+
+  annotate(geom="text", x = 3.35 ,y= -0.25, label = "SEASON \n CHAMPIONSHIP WINNER",family = "Forza Light",color = "#151515", vjust = 0)+
+  annotate(geom="text", x = -1.8 ,y= -0.25, label = "GRID POSITIONS",family = "Forza Light",color = "#151515")+
+  annotate(geom="text", x = 2 ,y= -0.05, label = "1st", angle = 270,family = "Forza", color = "#151515", size = 3, hjust = 0)+
+  annotate(geom="text", x = 1.6 ,y= -0.05, label = "22nd", angle = 270, family = "Forza",color = "#151515",size = 3,hjust = 0)+
+  annotate(geom="text", x = -2 ,y= -0.05, label = "1st", angle = 90, family = "Forza",color = "#151515", size = 3, hjust = 1)+
+  annotate(geom="text", x = -1.6 ,y= -0.05, label = "22nd", angle = 90, family = "Forza",color = "#151515",size = 3,hjust = 1)+
+  annotate(geom= "segment", x = -.65, xend = .65, y = 3.75, yend = 3.75 ,color="#FF1801", size = 2) +
+  annotate(geom= "segment", x = -.65, xend = .65, y = 4.15, yend = 4.15,color="#FF1801",size = 2) +
+  annotate(geom = "text", x = 0, y = 3.95, label = "2010-2020", family = "Gotham Medium", fontface = "bold", size= 15) + 
   annotate(geom = "richtext", x = 0, y = .5, label = "<span style='font-size:145px;'><span>F</span><span style='color:#FF1801;'>1</span></span><br><span>Formula</span><span style='color:#FF1801;'>1</span>",
            fill = NA, label.color = NA,label.padding = unit(0,"cm"),
            family = "Forza Black", fontface = "bold.italic") + 
+  labs(
+    caption = "Data from ***Ersgast Database***.<br>
+       Tidytuesday Week-37 2021 &bull;<span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**."
+    
+  ) +
+  coord_cartesian(clip = "off") + 
   theme_minimal() + 
   theme(
     plot.background = element_rect(fill = "#F5F5F5", color = NA),
     panel.grid = element_blank(),
     axis.text = element_blank(),
-    axis.title = element_blank()
-  ) +
-coord_cartesian()
+    axis.title = element_blank(),
+    plot.caption = element_markdown(family = "Forza",color = "#212121", size = rel(.95), margin = margin(t = 5,b = 10), hjust = .5),
+    plot.margin = margin(t = .5, r = 1.5, b =.5, l = 1.5, unit = "cm")
+    
+  ) 
 
 
 # Saving ------------------------------------------------------------------
-file_name = here::here("2021_w37/tidytuesday_2021_w37")
+path <-  here::here("2021_w37/tidytuesday_2021_w37")
 
-ggsave(glue("{filename}.pdf"), width = 9, height = 7.5, device = cairo_pdf)
+ggsave(glue::glue("{path}.pdf"), width = 18.5, height = 10.5, device = cairo_pdf)
+
+pdftools::pdf_convert(pdf = glue::glue("{path}.pdf"), 
+                      filenames = glue::glue("{path}.png"),
+                      format = "png", dpi = 640)
