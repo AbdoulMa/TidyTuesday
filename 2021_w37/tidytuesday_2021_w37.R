@@ -54,7 +54,7 @@ gp_winners_10_20 <- gp_winners_10_20 %>%
                            nationality_other == "Finnish" ~ "FIN",
                            nationality_other == "Dutch" ~ "NED",
                            nationality_other == "Monegasque" ~ "MON",
-                           nationality_other == "French" ~ "ESP",
+                           nationality_other == "French" ~ "FRA",
                            nationality_other == "Mexican" ~ "MEX",
                            is.na(nationality_other) ~ ""
     ) 
@@ -127,7 +127,7 @@ ggplot() +
   annotate(geom= "segment", x = -.65, xend = .65, y = 3.75, yend = 3.75 ,color="#FF1801", size = 2) +
   annotate(geom= "segment", x = -.65, xend = .65, y = 4.15, yend = 4.15,color="#FF1801",size = 2) +
   annotate(geom = "text", x = 0, y = 3.95, label = "2010-2020", family = "Gotham Medium", fontface = "bold", size= 15) + 
-  annotate(geom = "richtext", x = 0, y = .5, label = "<span style='font-size:145px;'><span>F</span><span style='color:#FF1801;'>1</span></span><br><span>Formula</span><span style='color:#FF1801;'>1</span>",
+  annotate(geom = "richtext", x = 0, y = .5, label = "<span style='font-size:195px;'><span>F</span><span style='color:#FF1801;'>1</span></span><br><span>Formula</span><span style='color:#FF1801;'>1</span>",
            fill = NA, label.color = NA,label.padding = unit(0,"cm"),
            family = "Forza Black", fontface = "bold.italic") + 
   labs(
@@ -150,7 +150,7 @@ ggplot() +
 # Saving ------------------------------------------------------------------
 path <-  here::here("2021_w37/tidytuesday_2021_w37")
 
-ggsave(glue::glue("{path}.pdf"), width = 18.5, height = 10.5, device = cairo_pdf)
+ggsave(glue::glue("{path}.pdf"), width = 18.5, height = 12.5, device = cairo_pdf)
 
 pdftools::pdf_convert(pdf = glue::glue("{path}.pdf"), 
                       filenames = glue::glue("{path}.png"),
