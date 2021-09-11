@@ -60,7 +60,7 @@ gp_winners_10_20 <- gp_winners_10_20 %>%
     ) 
   ) %>% 
   mutate(
-    fancy_winner = glue::glue("<span style='font-size:8.5px;color:grey7'>{name_other}<span> &bull; <span style='color: #000000;font-size:11px;font-weight:bolder;'>{forename} {surname}</span> <span style='font-size: 6px; color: grey7;'>{driver_CTC}</span> <span>({name_constructor})</span>")
+    fancy_winner = glue::glue("<span style='font-size:6.5px;color:grey5'>{name_other}<span> &bull; <span style='color: #000000;font-size:9px;font-weight:bolder;'>{forename} {surname}</span> <span style='font-size: 4px; color: grey5;'>{driver_CTC}</span> <span>({name_constructor})</span>")
   )
 
 # Compute season winners positions
