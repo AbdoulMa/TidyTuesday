@@ -79,9 +79,9 @@ others_labels <- "For HBO and the others,\n these are the crumbs, even if\n the 
     annotate(geom = "segment", x = "2021", xend = "2021", y = 0, yend = 42,color = "white") + 
     annotate(geom= "text", x = "2020", y = 44, label = "2020", size = 7.5, color = "white",family = "Mercury Display", fontface = "bold")+ 
     annotate(geom= "text", x = "2021", y = 44, label = "2021", size = 7.5, color = "white",family = "Mercury Display", fontface = "bold")+ 
-    annotate(geom= "text", x = "2021", y = 36.5, label = netflix_progress, size = 3, color = "white",
+    annotate(geom= "text", x = "2021", y = 36.5, label = netflix_progress, size = 3.5, color = "white",
              family = "Mercury Display", fontface = "bold.italic", hjust = 0)+ 
-    annotate(geom= "text", x = "2021", y = 25, label = others_labels, size = 3, color = "white",
+    annotate(geom= "text", x = "2021", y = 25, label = others_labels, size = 3.5, color = "white",
              family = "Mercury Display", fontface = "bold.italic", hjust = 0)+ 
     geom_point(size = 4) + 
     scale_color_manual(
@@ -89,7 +89,7 @@ others_labels <- "For HBO and the others,\n these are the crumbs, even if\n the 
       guide = "none"
     ) + 
     labs(
-      subtitle = "Change of EMMYS Winners between 2020 and 2021"
+      subtitle = "Change of platforms of Emmys Winners between 2020 and 2021"
       
     )+ 
     theme_minimal() + 
@@ -102,7 +102,6 @@ others_labels <- "For HBO and the others,\n these are the crumbs, even if\n the 
     )
 )
 
-
 winners_plot + 
   inset_element(winners_change_plot, 0.4,0,.98,0.65)
 
@@ -112,7 +111,6 @@ path <-  here::here("2021_w39/tidytuesday_2021_w39")
 ggsave(glue::glue("{path}.pdf"), width = 21, height = 15.5, device = cairo_pdf)
 
 pdftools::pdf_convert(pdf = glue::glue("{path}.pdf"), 
-                      filenames = glue::glue("{path}_twitter.png"),
-                      format = "png", dpi = 300)
+                      filenames = glue::glue("{path}.png"),
+                      format = "png", dpi = 640)
 
-emo::ji("trophy")
