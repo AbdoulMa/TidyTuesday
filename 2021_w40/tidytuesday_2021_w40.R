@@ -93,8 +93,8 @@ and boosted the publications."
             label = "Industrial Organization", color = "#85144B", family = "Mercury", fontface = "bold.italic", size = 3.85) +     
    annotate(geom = "text", x = -1, hjust = 1, y = 25,
             label = "Economics of Education", color = "#7FDBFF", family = "Mercury", fontface = "bold.italic", size = 3.85) +     
-   annotate(geom = "text", x = -1, hjust = 1, y = 26.5, 
-            label = "International Trade and Investment", color = "#01FF70", family = "Mercury", fontface = "bold.italic", size = 3.85) +     
+   annotate(geom = "text", x = -1, hjust = 1, y = 26.66, 
+            label = "International Trade\n and Investment", color = "#01FF70", family = "Mercury", fontface = "bold.italic",lineheight = .85, size = 3.85) +     
    annotate(geom = "text", x = -1, hjust = 1, y = 28, 
             label = "Political Economics", color = "#B10DC9", family = "Mercury", fontface = "bold.italic", size = 3.85) +     
    annotate(geom = "text", x = -1, hjust = 1, y = 29,
@@ -156,7 +156,7 @@ papers_20_circles <- papers_19_20 %>%
     annotate(geom = "text", x = 11, hjust = 0, y = 39,
              label = "Economics of Education", color = "#7FDBFF", family = "Mercury", fontface = "bold.italic", size = 3.85) +     
     annotate(geom = "text", x = 11, hjust = 0, y = 41, 
-             label = "International Trade and Investment", color = "#01FF70", family = "Mercury", fontface = "bold.italic", size = 3.85) +     
+             label = "International Trade\n and Investment", color = "#01FF70", family = "Mercury", fontface = "bold.italic",lineheight = .85, size = 3.85) +     
     annotate(geom = "text", x = 11, hjust = 0, y = 42.75, 
              label = "Political Economics", color = "#B10DC9", family = "Mercury", fontface = "bold.italic", size = 3.85) +     
     annotate(geom = "text", x = 11, hjust = 0, y = 45,
@@ -196,5 +196,5 @@ path <-  here::here("2021_w40/tidytuesday_2021_w40")
 ggsave(glue::glue("{path}.pdf"), width = 11, height = 11, device = cairo_pdf)
 
 pdftools::pdf_convert(pdf = glue::glue("{path}.pdf"), 
-                      filenames = glue::glue("{path}.png"),
-                      format = "png", dpi = 640)
+                      filenames = glue::glue("{path}_twitter.png"),
+                      format = "png", dpi = 300)
