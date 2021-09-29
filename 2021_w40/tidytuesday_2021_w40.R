@@ -16,15 +16,38 @@ papers_19_20 <- papers %>%
   count(year, program, sort = T) %>% 
   mutate(n = n/8)
 
+#  Define to define 1 row for each  
+#  program paper 
 repeat_programs <- function(program, n){
   tibble(
     program = rep(program, n)
   ) 
 }
 
+# 2019 papers circles generation
 papers_19_circles <- papers_19_20 %>% 
   filter(year == 2019) %>% 
+  # Reorder Program by the numbers of papers distributed
   mutate(program = fct_reorder(program, n)) %>% 
+  arrange(desc(program)) %>% 
+  select(program, n) %>%
+  pmap_df(~repeat_programs(.x,.y)) %>% 
+  mutate(row_num = row_number(),
+         row_num = row_num - 1) %>% 
+  # Compute circles centers coordinates 
+  mutate(x = row_num %% 10,
+         y = row_num %/% 10) %>% 
+  relocate(row_num) 
+
+#  Retrieve 2019 papers programs factors lvls  
+# They will be the same for 2020 papers programs 
+# Important to keep the programs oders (and so the colors filling)
+program_levels <- levels(sort(papers_19_circles$program))
+
+# 2020 papers circles generation 
+papers_20_circles <- papers_19_20 %>% 
+  filter(year == 2020) %>% 
+  mutate(program = factor(program, levels = program_levels)) %>% 
   arrange(desc(program)) %>% 
   select(program, n) %>%
   pmap_df(~repeat_programs(.x,.y)) %>% 
@@ -110,20 +133,6 @@ and boosted the publications."
   theme_void()
 )
 
-program_levels <- levels(sort(papers_19_circles$program))
-
-program_levels
-papers_20_circles <- papers_19_20 %>% 
-  filter(year == 2020) %>% 
-  mutate(program = factor(program, levels = program_levels)) %>% 
-  arrange(desc(program)) %>% 
-  select(program, n) %>%
-  pmap_df(~repeat_programs(.x,.y)) %>% 
-  mutate(row_num = row_number(),
-         row_num = row_num - 1) %>% 
-  mutate(x = row_num %% 10,
-         y = row_num %/% 10) %>% 
-  relocate(row_num) 
 
 (papers_20_plot <- papers_20_circles %>% 
   ggplot() + 
