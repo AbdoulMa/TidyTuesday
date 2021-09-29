@@ -45,7 +45,7 @@ programs_colors <- c("LS" = "#8931EF",
                      "AP" = "#FF8A12",
                      "CF" = "#129114",
                      "IFM" = "#39CCCC",
-                     "CH" = "#001F3F",
+                     "CH" = "#BBBBBB",
                      "IO" = "#85144B", 
                      "ED" = "#7FDBFF",
                      "ITI"= "#01FF70",
@@ -88,7 +88,7 @@ and boosted the publications."
    annotate(geom = "text", x = -1, hjust = 1, y = 21,
             label = "International Finance and \nMacroeconomics", color = "#39CCCC", family = "Mercury", lineheight = .85, fontface = "bold.italic", size = 3.85) +     
    annotate(geom = "text", x = -1, hjust = 1, y = 22.75,
-            label = "Children", color = "#001F3F", family = "Mercury", fontface = "bold.italic", size = 3.85) +     
+            label = "Children", color = "#BBBBBB", family = "Mercury", fontface = "bold.italic", size = 3.85) +     
    annotate(geom = "text", x = -1, hjust = 1, y = 24,
             label = "Industrial Organization", color = "#85144B", family = "Mercury", fontface = "bold.italic", size = 3.85) +     
    annotate(geom = "text", x = -1, hjust = 1, y = 25,
@@ -150,7 +150,7 @@ papers_20_circles <- papers_19_20 %>%
     annotate(geom = "text", x = 11, hjust = 0, y = 33.5,
              label = "International Finance and \nMacroeconomics", color = "#39CCCC", family = "Mercury", fontface = "bold.italic", lineheight = .85, size = 3.85) +     
     annotate(geom = "text", x = 11, hjust = 0, y = 35.85,
-             label = "Children", color = "#001F3F", family = "Mercury", fontface = "bold.italic", size = 3.85) +     
+             label = "Children", color = "#BBBBBB", family = "Mercury", fontface = "bold.italic", size = 3.85) +     
     annotate(geom = "text", x = 11, hjust = 0, y = 37.5,
              label = "Industrial Organization", color = "#85144B", family = "Mercury", fontface = "bold.italic", size = 3.85) +     
     annotate(geom = "text", x = 11, hjust = 0, y = 39,
@@ -196,5 +196,5 @@ path <-  here::here("2021_w40/tidytuesday_2021_w40")
 ggsave(glue::glue("{path}.pdf"), width = 11, height = 11, device = cairo_pdf)
 
 pdftools::pdf_convert(pdf = glue::glue("{path}.pdf"), 
-                      filenames = glue::glue("{path}_twitter.png"),
-                      format = "png", dpi = 300)
+                      filenames = glue::glue("{path}.png"),
+                      format = "png", dpi = 640)

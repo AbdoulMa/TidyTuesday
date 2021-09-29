@@ -7,6 +7,15 @@ Code and plots of the submissions to the [#tidytuesday](https://github.com/rford
 
 ## Highlights (click on image to go to code): <br>
 
+### [2021 - Week 40](2021_w40) NBER Papers by [NBER](https://www.nber.org/)
+<a href="2021_w40"><img src="2021_w40/tidytuesday_2021_w40.png"></a>
+___
+
+
+### [2021 - Week 38](2021_w38) Billboard Top 100 by [Data.World](https://data.world/kcmillersean/billboard-hot-100-1958-2017#)
+<a href="2021_w38"><img src="2021_w38/tidytuesday_2021_w38.png"></a>
+___
+
 ### [2021 - Week 37](2021_w37) Formula 1 Races by [ergast.com/mrd/db](https://ergast.com/mrd/db/)
 <a href="2021_w37"><img src="2021_w37/tidytuesday_2021_w37.png"></a>
 ___
