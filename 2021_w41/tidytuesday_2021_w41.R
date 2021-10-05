@@ -69,7 +69,7 @@ custom_pal <- bi_pal_manual(val_1_1 = "#A50026", val_1_2 = "#D73027", val_1_3 = 
   labs(
     title = str_to_upper("nursing staff"),
     subtitle = "A bivariate map showing number of practicing nurses  per 1,000 inhabitants\n and hourly wage in each state.",
-    caption = "Data from Data.World \n Tidytuesday Week-41 2021 · Abdoul ISSA BIDA."
+    caption = "Data from Data.World.\n Tidytuesday Week-41 2021 · Abdoul ISSA BIDA."
   ) + 
   theme_minimal() + 
   theme(
@@ -93,5 +93,5 @@ path <-  here::here("2021_w41/tidytuesday_2021_w41")
 ggsave(glue::glue("{path}.pdf"), width = 15, height = 9, device = cairo_pdf)
 
 pdftools::pdf_convert(pdf = glue::glue("{path}.pdf"), 
-                      filenames = glue::glue("{path}.png"),
-                      format = "png", dpi = 640)
+                      filenames = glue::glue("{path}_twitter.png"),
+                      format = "png", dpi = 320)
