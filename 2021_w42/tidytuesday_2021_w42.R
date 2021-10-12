@@ -113,7 +113,7 @@ group_by(Entity) %>%
     axis.title = element_blank(), 
     axis.text = element_blank(),
     panel.grid  = element_blank(),
-    plot.title = element_text(size = 20, margin = margin(t= 15,b = 15), hjust = .5, family = "Gotham Black"),
+    plot.title = element_text(size = 20, margin = margin(t= 25,b = 15), hjust = .5, family = "Gotham Black"),
     plot.subtitle = element_text(size = 15, color = "grey15", margin = margin(b = 15), hjust = .5, family = "Mercury Display", face = "bold"),
     plot.caption = element_text(color = "black", size = rel(.95), family = "Gotham Medium", margin = margin(t = -15, b = 10, r = 10), hjust = 1),
     legend.position = "top", legend.box.spacing = unit(0.5, "mm"),
@@ -128,8 +128,8 @@ group_by(Entity) %>%
 
 # Saving ------------------------------------------------------------------
 path <-  here::here("2021_w42/tidytuesday_2021_w42")
-ggsave(glue::glue("{path}.pdf"), width = 12, height = 15, device = cairo_pdf)
+ggsave(glue::glue("{path}.pdf"), width = 12, height = 15.5, device = cairo_pdf)
 
 pdftools::pdf_convert(pdf = glue::glue("{path}.pdf"), 
-                      filenames = glue::glue("{path}_twitter.png"),
-                      format = "png", dpi = 320)
+                      filenames = glue::glue("{path}.png"),
+                      format = "png", dpi = 640)
