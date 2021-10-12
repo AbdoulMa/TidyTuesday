@@ -61,8 +61,8 @@ group_by(Entity) %>%
 # Graphic -----------------------------------------------------------------
   ggplot() + 
   geom_circle(data = culture_evolutions, aes(x0 = Year , y0=index , r =.4995 , fill = fct_rev(evolution_progress)), size = .25, color = NA) +
-  geom_text(data = culture_evolutions, aes(x =Year, y = index, label = glue::glue("{round(evolution,1)}%")), size = 2, color = "white",
-            family = "Gotham Condensed", fontface = "bold") + 
+  geom_text(data = culture_evolutions, aes(x =Year, y = index, label = paste0(ifelse(evolution > 0, "+",""),glue::glue("{round(evolution,1)}%"))), size = 2, color = "white",
+            family = "Gotham Black", fontface = "bold") + 
   geom_richtext(data = culture_proportions, aes(y =index, label = glue::glue("<span>**{Entity}**</span><br><span style=\"color: grey25;\">**{overall}M Tons**</span>")), 
                 hjust = 1,x = 2003, fill =NA, label.color = NA,
                 lineheight = .95,
