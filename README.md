@@ -44,15 +44,6 @@ ___
 <a href="2021_w31"><img src="2021_w31/tidytuesday_2021_w31.png"></a>
 ___
 	
-### [2021 - Week 30](2021_w30) US Droughts by [Drought Monitor](https://droughtmonitor.unl.edu/DmData/DataDownload.aspx)
-<a href="2021_w30"><img src="2021_w30/tidytuesday_2021_w30.png"></a>
-___
-	
-### [2021 - Week 29](2021_w29) Scooby Doo by  [Kaggle](https://www.kaggle.com/williamschooleman/scoobydoo-complete)
-<a href="2021_w29"><img src="2021_w29/tidytuesday_2021_w29.png"></a>
-___
-	
-	
 ### [2021 - Week 28](2021_w28) International Independence Days by [Wikipedia](https://en.wikipedia.org/wiki/List_of_national_independence_days)
 <a href="2021_w28"><img src="2021_w28/tidytuesday_2021_w28.png"></a>
 ___
