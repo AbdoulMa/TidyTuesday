@@ -4,7 +4,6 @@ library(ggforce)
 library(ggtext)
 library(scales)
 
-# TODO Code commenting
 # Data Reading and Wrangling ----------------------------------------------
 captured_vs_farmed <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-10-12/capture-fisheries-vs-aquaculture.csv')
 
@@ -12,9 +11,11 @@ captured_vs_farmed <- captured_vs_farmed %>%
   rename(aquaculture = `Aquaculture production (metric tons)`, 
          capture = `Capture fisheries production (metric tons)`)
 
+
 main_entities <- c("China", "Japan", "European Union", "Peru", "Indonesia", "United States", "India", "Chile", "Norway", "Philippines", "Russia", "South Korea", 
                    "Thailand", "Africa Western and Central", "Middle East & North Africa")
 
+# Only keeps main_entities, and years between 2003 and 2018 
 culture_evolutions <- captured_vs_farmed %>% 
   filter(Entity %in% main_entities, between(Year, 2003,2018)) %>%  
   arrange(Entity, Year) %>% 
@@ -26,6 +27,8 @@ culture_evolutions <- captured_vs_farmed %>%
   filter(!is.na(evolution)) %>% 
   ungroup()
 
+# Compute proportions  of aquaculture
+# in each entity total production
 (culture_proportions <- culture_evolutions %>% 
     group_by(Entity) %>% 
     summarise(
@@ -43,12 +46,14 @@ culture_evolutions <- captured_vs_farmed %>%
     relocate(index) 
 )
 
+# Distribute annual changes
 culture_evolutions <- culture_evolutions %>% 
   mutate(
     Entity = factor(Entity, levels = levels(culture_proportions$Entity)),
     evolution_progress = cut_number(evolution, 6)%>% 
-      factor(labels = c("Strongly\nDecrease", "Decrease", "Slightly\nDecrease", 
-                        "Slightly\nIncrease", "Increase", "Strongly\nIncrease"))
+        # Important to keep spaces of differents width
+      factor(labels = c("Strongly\nDecrease", "", " ", 
+                        "  ", "   ", "Strongly\nIncrease"))
   ) %>% 
   arrange(Entity) %>% 
 group_by(Entity) %>% 
@@ -113,8 +118,9 @@ group_by(Entity) %>%
     axis.title = element_blank(), 
     axis.text = element_blank(),
     panel.grid  = element_blank(),
+    plot.margin = margin(r = -3.5, unit = "cm"),
     plot.title = element_text(size = 20, margin = margin(t= 25,b = 15), hjust = .5, family = "Gotham Black"),
-    plot.subtitle = element_text(size = 15, color = "grey15", margin = margin(b = 15), hjust = .5, family = "Mercury Display", face = "bold"),
+    plot.subtitle = element_text(size = 15, color = "grey5", margin = margin(b = 15), hjust = .5, family = "Mercury Display", face = "bold"),
     plot.caption = element_text(color = "black", size = rel(.95), family = "Gotham Medium", margin = margin(t = -15, b = 10, r = 10), hjust = 1),
     legend.position = "top", legend.box.spacing = unit(0.5, "mm"),
     legend.text = element_text(color = "white", 
@@ -128,7 +134,7 @@ group_by(Entity) %>%
 
 # Saving ------------------------------------------------------------------
 path <-  here::here("2021_w42/tidytuesday_2021_w42")
-ggsave(glue::glue("{path}.pdf"), width = 12, height = 15.5, device = cairo_pdf)
+ggsave(glue::glue("{path}.pdf"), width = 12.5, height = 15.5, device = cairo_pdf)
 
 pdftools::pdf_convert(pdf = glue::glue("{path}.pdf"), 
                       filenames = glue::glue("{path}.png"),

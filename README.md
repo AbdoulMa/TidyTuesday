@@ -7,6 +7,14 @@ Code and plots of the submissions to the [#tidytuesday](https://github.com/rford
 
 ## Highlights (click on image to go to code): <br>
 
+### [2021 - Week 42](2021_w42) Global Seafood by [OurWorldinData.org](https://ourworldindata.org/seafood-production)
+<a href="2021_w42"><img src="2021_w42/tidytuesday_2021_w42.png"></a>
+___
+
+### [2021 - Week 41](2021_w41) Registered Nurses by [Data.World](https://data.world/zendoll27/registered-nursing-labor-stats-1998-2020)
+<a href="2021_w41"><img src="2021_w41/tidytuesday_2021_w41.png"></a>
+___
+
 ### [2021 - Week 40](2021_w40) NBER Papers by [NBER](https://www.nber.org/)
 <a href="2021_w40"><img src="2021_w40/tidytuesday_2021_w40.png"></a>
 ___
