@@ -3,6 +3,8 @@ library(tidyverse)
 library(packcircles)
 library(ggtext)
 library(patchwork)
+
+# TODO Code Commenting : I am tired ! 
 # Data Reading and Wrangling ----------------------------------------------
 pumpkins <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-10-19/pumpkins.csv')
 pumpkins <- pumpkins %>% 
@@ -64,13 +66,14 @@ packing <- circleProgressiveLayout(pumpkins_2021$weight_lbs)
      aes(fill = type), 
      xmin = -1, ymin = -1, xmax = 1, ymax = 1, color = "white"
    ) + 
-   geom_richtext(aes(label = glue::glue("<span style='font-size: 15px;font-family: \"Gotham Black\";'>{str_wrap(name,10) %>% str_replace_all('\n', '<br>')}</span><br>
-                                        <span style='font-size: 12px; font-family:\"Mercury Display\";'> **{n}** specimens<br> from **{nb_c}** countries<br> Best :<b>{round(max,2)}</b> lbs <br> Avg : **{round(mean,2)}** lbs</span>")),
+   geom_richtext(aes(label = glue::glue("<span style='font-size: 17.5px;font-family: \"Gotham Black\";'>{str_wrap(name,10) %>% str_replace_all('\n', '<br>')}</span><br>
+                                        <span style='font-size: 15px; font-family:\"Mercury Display\";'> **{n}** specimens<br> from {nb_c} countries<br> Best :<b>{round(max,2)}</b> lbs <br> Avg : {round(mean,2)} lbs</span>")),
                  hjust = 0.5,
                  size = 3,
                  color = "white",
                  x = 0, y = 0.05,
                  lineheight = 1.5,
+                 fontface = "bold",
                  fill = NA, label.colour = NA, show.legend = F) + 
    coord_fixed(xlim =c(-1,1), ylim = c(-1,1)) + 
    scale_fill_manual(values = type_fillings, 
@@ -103,14 +106,18 @@ packing <- circleProgressiveLayout(pumpkins_2021$weight_lbs)
 )
 
 summary_plot / circles_plot + 
-  plot_annotation(title = "Great Pumpkin Commonwealth's \n Weigh-off Results 2021", 
+  plot_annotation(title = "Great Pumpkin Commonwealth's \n Weigh-off Results · 2021", 
                   caption = "Data from BigPumpkins.com.\n Tidytuesday Week-43 2021 · Abdoul ISSA BIDA.") + 
   plot_layout(nrow = 2, heights   = c(1,5)) & 
-  theme( plot.background = element_rect(fill = "#41414f", color = NA), 
+  theme(plot.background = element_rect(fill = "#41414f", color = NA), 
     plot.title = element_text(size = rel(2.5),hjust = .5, margin = margin(t = 10, b = 15), family = "Gotham Black", color = "white",  face = "bold"),
     plot.subtitle = element_text(size = rel(1.45),hjust = .5, margin = margin(b = 25), family = "Mercury Display"),
     plot.caption = element_text(color = "white", size = rel(.95), family = "Gotham Medium", margin = margin(t = 15, b = 10, r = 25))
   )
 
 # Saving ------------------------------------------------------------------
+path <- here::here("2021_w43", "tidytuesday_2021_w43")
+ggsave(filename = glue::glue("{path}.pdf"), width = 10.5, height = 12, device = cairo_pdf)
 
+pdftools::pdf_convert(pdf = glue::glue("{path}.pdf"), 
+                      filenames = glue::glue("{path}_twitter.png"), format = "png", dpi = 320) 
