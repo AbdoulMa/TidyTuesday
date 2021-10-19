@@ -86,8 +86,8 @@ packing <- circleProgressiveLayout(pumpkins_2021$weight_lbs)
     left_join(pumpkins_2021) %>% 
     ggplot() + 
     ggforce::geom_circle(aes(x0= x, y0=y, r = radius, fill = type)) + 
-    annotate(geom = "text", x = -550, y = 475, label = "The lightest are in the center \nand the heaviest at the edges.",
-             family = "Mercury Display", fontface = "bold.italic", size = 5.5, hjust = 0) + 
+    annotate(geom = "text", x = -555, y = 475, label = "The lightest are in the center \nand the heaviest at the edges.",
+             family = "Mercury Display", color = "white", fontface = "bold.italic", size = 4.5, hjust = 0) + 
     scale_fill_manual(
       values = type_fillings,
       guide = "none"
@@ -95,7 +95,9 @@ packing <- circleProgressiveLayout(pumpkins_2021$weight_lbs)
     theme_minimal() + 
     theme(
       panel.grid = element_blank(), 
-      axis.title = element_blank()
+      axis.title = element_blank(),
+      axis.text = element_blank(),
+      plot.margin = margin(t = 20)
     ) + 
     coord_fixed(expand = F, clip = "off") 
 )
@@ -107,7 +109,7 @@ summary_plot / circles_plot +
   theme( plot.background = element_rect(fill = "#41414f", color = NA), 
     plot.title = element_text(size = rel(2.5),hjust = .5, margin = margin(t = 10, b = 15), family = "Gotham Black", color = "white",  face = "bold"),
     plot.subtitle = element_text(size = rel(1.45),hjust = .5, margin = margin(b = 25), family = "Mercury Display"),
-    plot.caption = element_text(color = "white", size = rel(.95), family = "Gotham Medium", margin = margin(t = 15, b = 10, r = 10))
+    plot.caption = element_text(color = "white", size = rel(.95), family = "Gotham Medium", margin = margin(t = 15, b = 10, r = 25))
   )
 
 # Saving ------------------------------------------------------------------
