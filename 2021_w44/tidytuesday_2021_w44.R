@@ -3,6 +3,8 @@ library(tidyverse)
 library(countrycode)
 library(ggtext)
 library(patchwork)
+
+# TODO I will comment the code on 10/27/2021 
 # Data Reading and Wrangling ----------------------------------------------
 ultra_rankings <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-10-26/ultra_rankings.csv')
 race <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-10-26/race.csv')
@@ -139,16 +141,20 @@ women_summary  <- "<span>WOMEN</span><br> 16,993 finishers<br> 12,16mins/Km on a
              fontface = "bold",
              fill = bg_color, label.color = NA, label = women_summary) + 
     labs(
-      y = "Nb of finishers",
-      subtitle = "Distribution of kilometer pace by gender", 
-      caption = 
+      y = NULL,
+      subtitle = "Distribution of kilometer pace by gender"
     ) + 
     coord_cartesian(expand = F) + 
     scale_fill_manual(
       values =c(M = "#52006A", W = "#CD113B")
     ) + 
     scale_y_continuous(
-      labels = scales::comma_format(decimal.mark = ".",big.mark = ",")
+      # labels = scales::comma_format(decimal.mark = ".",big.mark = ","),
+      breaks = seq(2.5, 12.5, 2.5)*1000,
+      labels = function(x) {
+        format_x <- scales::comma(x, decimal.mark = ".",big.mark = ",")
+        ifelse(x == 12500, paste0(format_x,"\n finishers"), format_x)
+        }
     ) + 
     theme_minimal() + 
     theme(
@@ -179,7 +185,7 @@ path <- here::here("2021_w44", "tidytuesday_2021_w44")
 ggsave(filename = glue::glue("{path}.pdf"), width = 15, height = 16, device = cairo_pdf)
 
 pdftools::pdf_convert(
-  pdf = glue::glue(pdf = "{path}.pdf"),
-  filenames = glue::glue(pdf = "{path}_twitter.png"),
-  dpi = 320
+  pdf = glue::glue("{path}.pdf"),
+  filenames = glue::glue("{path}.png"),
+  dpi = 640
 )
