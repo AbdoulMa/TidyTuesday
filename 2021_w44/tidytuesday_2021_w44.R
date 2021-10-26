@@ -178,3 +178,8 @@ women_summary  <- "<span>WOMEN</span><br> 16,993 finishers<br> 12,16mins/Km on a
 path <- here::here("2021_w44", "tidytuesday_2021_w44")
 ggsave(filename = glue::glue("{path}.pdf"), width = 15, height = 16, device = cairo_pdf)
 
+pdftools::pdf_convert(
+  pdf = glue::glue(pdf = "{path}.pdf"),
+  filenames = glue::glue(pdf = "{path}_twitter.png"),
+  dpi = 320
+)
