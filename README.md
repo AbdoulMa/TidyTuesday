@@ -7,6 +7,14 @@ Code and plots of the submissions to the [#tidytuesday](https://github.com/rford
 
 ## Highlights (click on image to go to code): <br>
 
+### [2021 - Week 44](2021_w44) Ultra Trail Running by [Benjamin Nowak](https://github.com/BjnNowak/UltraTrailRunning)
+<a href="2021_w44"><img src="2021_w44/tidytuesday_2021_w44.png"></a>
+___
+
+### [2021 - Week 43](2021_w43) Big Pumpkins by [BigPumpkins.com](http://www.bigpumpkins.com/ViewArticle.asp?id=132)
+<a href="2021_w43"><img src="2021_w43/tidytuesday_2021_w43.png"></a>
+___
+
 ### [2021 - Week 42](2021_w42) Global Seafood by [OurWorldinData.org](https://ourworldindata.org/seafood-production)
 <a href="2021_w42"><img src="2021_w42/tidytuesday_2021_w42.png"></a>
 ___

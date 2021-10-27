@@ -9,9 +9,8 @@ library(patchwork)
 ultra_rankings <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-10-26/ultra_rankings.csv')
 race <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-10-26/race.csv')
 
-ultra_rankings %>% 
-  count(nationality, sort = T)
 
+# Compute count ries nb of ultra runners by gender 
 ultra_representations <- ultra_rankings %>% 
   distinct(runner,.keep_all = T) %>% 
   filter(!is.na(gender)) %>% 
@@ -24,6 +23,7 @@ ultra_representations <- ultra_rankings %>%
   mutate(across(c(M, W), .fns = list(prop = ~ .x /sum), .names = "{.fn}_{.col}"))
 
 
+#  Retrieve country full name from  countrycode library 
 ultra_representations <- ultra_representations %>% 
   mutate(country_name = countrycode(nationality, origin = 'iso3c', destination = 'country.name'), 
          country_name = case_when(nationality == "GER" ~ "Germany", 
@@ -31,6 +31,8 @@ ultra_representations <- ultra_representations %>%
                                   TRUE ~ country_name)
   )
 
+
+# Compute Km running time for finishers by gender 
 ultra_rankings_speed <- ultra_rankings %>% 
   left_join(race) %>% 
   filter(!is.na(gender),!is.na(time_in_seconds), !is.na(distance), distance != 0) %>% 
@@ -38,11 +40,15 @@ ultra_rankings_speed <- ultra_rankings %>%
 
 # Graphic -----------------------------------------------------------------
 
+# Define background color
+bg_color <- "#F7F7F7"
+
 summary <- "USA, France and United Kingdom have the highest proportions of world's ultra runners. But, when we take the number of runners from the country compared to its population France is largely at top.
 For parity between women and men, serious progress must be made for accessibility for women."
+# Wrap the summary
 summary <- str_wrap(summary, 50) %>% str_replace_all("\n","<br>")
 
-bg_color <- "#F7F7F7"
+# Representations Plot
 (countries_rep_plot  <- ultra_representations %>% 
     ggplot() + 
     geom_col(aes(x = sum, y = fct_reorder(nationality, sum)), fill = alpha("#FFA900", .55)) + 
@@ -78,6 +84,7 @@ bg_color <- "#F7F7F7"
     )
 )
 
+# Gender Distribution Plot
 (countries_gender_plot <- ultra_representations %>% 
     mutate(nationality = fct_reorder(nationality, prop_W)) %>% 
     pivot_longer(cols = c(prop_M, prop_W), names_to = "prop", values_to = "gender_proportion") %>% 
@@ -107,19 +114,10 @@ bg_color <- "#F7F7F7"
     )
 ) 
 
-
-
-
-ultra_rankings_speed %>% 
-  group_by(gender) %>% 
-  summarise(
-    n = n(),
-    mean = mean(mile_sp)
-  )
-
 men_summary  <- "<span>MEN</span><br> 96,502 finishers<br> 12,63mins/Km on average."
 women_summary  <- "<span>WOMEN</span><br> 16,993 finishers<br> 12,16mins/Km on average."
 
+# Finishers Km running time Distibution Plot 
 (finisher_plot <- ultra_rankings_speed %>% 
     ggplot() +
     geom_histogram(aes(x = mile_sp,fill = gender), binwidth = 60,color = "white", alpha = .85, show.legend = F) + 
