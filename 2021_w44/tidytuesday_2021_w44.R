@@ -151,7 +151,7 @@ women_summary  <- "<span>WOMEN</span><br> 16,993 finishers<br> 12,16mins/Km on a
       labels = function(x) {
         format_x <- scales::comma(x, decimal.mark = ".",big.mark = ",")
         ifelse(x == 12500, paste0(format_x,"\n finishers"), format_x)
-        }
+      }
     ) + 
     theme_minimal() + 
     theme(
