@@ -18,7 +18,6 @@ ultra_representations <- ultra_rankings %>%
   pivot_wider(names_from = gender, values_from = n ) %>% 
   drop_na() %>% 
   mutate(sum = M + W) %>% 
-  arrange(-sum) %>% 
   slice_max(order_by = sum, n= 15) %>% 
   mutate(across(c(M, W), .fns = list(prop = ~ .x /sum), .names = "{.fn}_{.col}"))
 
