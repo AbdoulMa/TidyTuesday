@@ -29,7 +29,7 @@ polio_coverage_cases <-  polio_vaccine_coverage %>%
   ungroup() 
 
   
-africa_polio_df <- sf_africa %>% 
+africa_polio_df <- sf_africa %>%  
   mutate(
     ISO_A3 = as.character(ISO_A3),    
     ISO_A3 = case_when(ISO_A3 == "ESH" ~ "MAR", # Western Sahara with Morocco
@@ -55,8 +55,7 @@ africa_polio_df <- sf_africa %>%
   ggplot() + 
   geom_sf(aes(geometry = geometry,fill = polio_cases),
           size = .125,
-          color = "grey15"
-  ) +
+          color = "grey15") +
   labs(
     title = "The vaccine against polio\n in Africa",
     subtitle = "In 1988, 
@@ -94,20 +93,21 @@ africa_polio_df <- sf_africa %>%
   )
 )
 
+# Annotate with Week informations
 ggdraw(africa_polio_plot) + 
   draw_label(x = 0.90, y = 0.1, label = "Data from ourworldindata.org\n Tidytuesday Week-46 2021 \n Abdoul ISSA BIDA.", hjust = 1,
              fontfamily = "Gotham Medium",
              color = "white", size = 15) + 
-  theme(
-    plot.background = element_rect(fill = "#111111", color = NA)
-  )
+  theme(plot.background = element_rect(fill = "#111111", color = NA))
 
 # Saving ------------------------------------------------------------------
 path <- here::here("2021_w46", "tidytuesday_2021_w46")
-ggsave(filename = glue::glue("{path}.pdf"), width = 12.5, height = 15, device = cairo_pdf)
+ggsave(filename = glue::glue("{path}.pdf"), width = 12, height = 15, device = cairo_pdf)
 
 pdftools::pdf_convert(
   pdf = glue::glue("{path}.pdf"),
-  filenames = glue::glue("{path}.png"),
+  filenames = glue::glue("{path}_twitter.png"),
   dpi = 320
 )
+
+
