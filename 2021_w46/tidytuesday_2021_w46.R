@@ -106,8 +106,8 @@ ggsave(filename = glue::glue("{path}.pdf"), width = 12, height = 15, device = ca
 
 pdftools::pdf_convert(
   pdf = glue::glue("{path}.pdf"),
-  filenames = glue::glue("{path}_twitter.png"),
-  dpi = 320
+  filenames = glue::glue("{path}.png"),
+  dpi = 640
 )
 
 
