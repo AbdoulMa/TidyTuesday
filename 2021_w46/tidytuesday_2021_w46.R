@@ -50,7 +50,7 @@ africa_polio_df <- sf_africa %>%
   drop_na(polio_cases) %>% 
   filter(Year %in% seq(1980, 2015, by = 5)) %>% 
   mutate(
-    fancy_strip_text = glue::glue("<span style='font-family:\"Gotham Black\";font-size:25px;'><b>{Year}</b></span><br><br><span style='font-family:\"Mercury\";font-size:20px;'><b>{round(pct_immunized,2)} % {ifelse(Year == 1980, 'of one-year olds <br>','')} immunized.</b></span>"),
+    fancy_strip_text = glue::glue("<span style='font-family:\"Gotham Black\";font-size:25px;'><b>{Year}</b></span><br><br><span style='font-family:\"Mercury\";font-size:20px;'><b>{round(pct_immunized,2)}% {ifelse(Year == 1980, 'of one-year olds <br>','')} immunized.</b></span>"),
     polio_cases = cut(polio_cases, breaks = c(-Inf,0:8,Inf))) %>%
   ggplot() + 
   geom_sf(aes(geometry = geometry,fill = polio_cases),
