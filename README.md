@@ -7,6 +7,10 @@ Code and plots of the submissions to the [#tidytuesday](https://github.com/rford
 
 ## Highlights (click on image to go to code): <br>
 
+### [2021 - Week 46](2021_w46) Ultra Trail Running by [OurWorldInData](https://ourworldindata.org/polio)
+<a href="2021_w46"><img src="2021_w46/tidytuesday_2021_w46.png"></a>
+___
+
 ### [2021 - Week 44](2021_w44) Ultra Trail Running by [Benjamin Nowak](https://github.com/BjnNowak/UltraTrailRunning)
 <a href="2021_w44"><img src="2021_w44/tidytuesday_2021_w44.png"></a>
 ___
