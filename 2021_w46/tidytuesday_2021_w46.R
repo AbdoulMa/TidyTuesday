@@ -42,9 +42,6 @@ africa_polio_df <- sf_africa %>%
   mutate(pct_immunized = mean(one_year_olds_immunized, na.rm = T)) %>% 
   ungroup()  
 
-
-
-
 # Graphic -----------------------------------------------------------------
 (africa_polio_plot <- africa_polio_df %>% 
   drop_na(polio_cases) %>% 
