@@ -10,7 +10,7 @@ df <- tibble(
 
 # Graphic -----------------------------------------------------------------
 
-caption <- "Reproduction W. E. B. Du Bois Data Portraits \n #BlkTIDES #BlkNData · Abdoul ISSA BIDA"
+caption <- "Replication W. E. B. Du Bois Data Portraits \n #BlkTIDES #BlkNData · Abdoul ISSA BIDA"
 (plot <- df %>% 
   ggplot(aes(x = year)) +
   geom_bar(aes( y = -number), stat = "identity", width = 0.5, fill = "#2B055A") + 
