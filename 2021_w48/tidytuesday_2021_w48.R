@@ -67,7 +67,7 @@ seasons <- imdb %>%
 )
 
 # Ratings Trends Plot 
-bad_episode_label <- 'The Episode "Orphan" directed by \n Lee Haven Jones and 
+bad_episode_label <- 'The episode "Orphan" directed by \n Lee Haven Jones and 
 written by Ed Hime\n was not good at all.'
 blink_episode_label <- 'The episode "Blink"\n  which aired on June 9,  2007\n is the highest rated with 
 an average 9.8  by 19,688 viewers.'
@@ -81,10 +81,10 @@ season_9_killer_label <- "Season 9 \nRating Killer"
     geom_smooth(method = lm,formula = y ~ splines::bs(x, 4), se = F, size = 6) + 
     annotate(geom = "segment", x = 140, xend = 150, y = 3.9, yend = 3.9, size = .75) +
     # TODO rich text 
-    annotate(geom = "text", x = 138,  y = 3.9,family = "Mercury", size = 7.5, fontface ="bold.italic",lineheight = .9, label = bad_episode_label, hjust = 1) +
+    annotate(geom = "text", x = 138,  y = 3.9,family = "Mercury", color = "#111111", size = 7.5, fontface ="bold.italic",lineheight = .9, label = bad_episode_label, hjust = 1) +
     annotate(geom = "segment", x = 34, xend = 37, y = 9.8, yend = 9.8, size = .75) +
-    annotate(geom = "text", x = 33,  y = 9.8, family = "Mercury",size = 7.5, fontface ="bold.italic",lineheight = .9,label = blink_episode_label, hjust = 1) +
-    annotate(geom = "text", x = 120,  y = 6.1, family = "Mercury",size = 7.5, fontface ="bold.italic",lineheight = .9, label = season_9_killer_label , hjust = .5) +
+    annotate(geom = "text", x = 33,  y = 9.8, family = "Mercury", color = "#111111", size = 7.5, fontface ="bold.italic",lineheight = .9,label = blink_episode_label, hjust = 1) +
+    annotate(geom = "text", x = 120,  y = 6.1, family = "Mercury",color = "#111111",size = 7.5, fontface ="bold.italic",lineheight = .9, label = season_9_killer_label , hjust = .5) +
     labs(
       subtitle = "Evolution of the ratings over time and season",
       x = str_to_upper("Episode Number"),
