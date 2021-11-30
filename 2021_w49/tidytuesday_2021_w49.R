@@ -101,6 +101,7 @@ top_12_confrontations <- matches %>%
    theme(
      panel.grid = element_blank(),
      panel.spacing.x = unit(0.5, "cm"),
+     panel.spacing.y = unit(1, "cm"),
      strip.text = element_markdown(size = rel(2), color = "white", family =  "Verlag", face = "bold"),
      strip.background = element_rect(fill = "#111111", color = NA),
      axis.text = element_text(size = rel(1.15),color = "#111111", family =  "Verlag")
@@ -122,7 +123,7 @@ top_12_confrontations <- matches %>%
       
       subtitle = "<b>Most common confrontations</b><br>
       <i>
-      <span>The India–Pakistan cricket rivalry took place 58 times over the period.</span><br>
+      <span>The India–Pakistan cricket rivalry took place **58** times over the period.</span><br>
       <span>**35** wins for Team **Pakistan**, **23** for Team **India**.</span>
       </i>"
     ) + 
@@ -157,7 +158,7 @@ top_12_confrontations <- matches %>%
 (combine_plot <- (scoring_rk_plot / confrontations_plot) +
     plot_layout(
       ncol = 1,
-      heights = c(.8,1)
+      heights = c(.9,1)
     ) + 
     plot_annotation(
       caption = "Data from  from ESPN Cricinfo by way of Hassanasir.\n Tidytuesday Week-49 2021 · Abdoul ISSA BIDA."
