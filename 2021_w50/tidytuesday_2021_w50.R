@@ -95,7 +95,7 @@ spiders_authors %>%
     plot.subtitle = element_text(size = rel(2.5), margin = margin(t = 5, b = 5)),
     plot.caption = element_text(hjust = .5, size = rel(1.5), margin = margin(t = 10, b =10)),
     plot.margin = margin(t =25, r=15,b=15, l=20),
-    plot.background = element_rect(fill = "white", color = NA)
+    plot.background = element_rect(fill = "#DDDDDD", color = NA)
   )
 
 # Saving ------------------------------------------------------------------
