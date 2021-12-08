@@ -74,7 +74,7 @@ spiders_authors %>%
       "Levi" =  "#F2CA19",
       "Huber" = "#FF00BD",
       "Thorell" = "#E11845",
-      "Other" = "#87E911"
+      "Other" = "#111111"
     ),
     na.value = "#FFFFFF"
   ) + 
@@ -94,10 +94,16 @@ spiders_authors %>%
     plot.title = element_markdown(size = rel(7.5), family = "Mercury", face ="bold"),
     plot.subtitle = element_text(size = rel(2.5), margin = margin(t = 5, b = 5)),
     plot.caption = element_text(hjust = .5, size = rel(1.5), margin = margin(t = 10, b =10)),
-    plot.margin = margin(t =25, r=15,b=15, l=20),
+    plot.margin = margin(t =50, r=15,b=15, l=20),
     plot.background = element_rect(fill = "#F3F6F7", color = NA)
   )
 
 # Saving ------------------------------------------------------------------
 path <- here::here("2021_w50", "tidytuesday_2021_w50")
-ggsave(glue::glue("{path}.png"), device = ragg::agg_png, width = 17.5, height = 12, dpi = 320)
+ggsave(glue::glue("{path}.pdf"), device = cairo_pdf, width = 17.5, height = 17.5)
+
+pdftools::pdf_convert(
+  pdf = glue::glue("{path}.pdf"),
+  filenames = glue::glue("{path}.png"),
+  dpi = 640
+)
