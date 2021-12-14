@@ -13,7 +13,7 @@ studio_album_tracks <- readr::read_csv('https://raw.githubusercontent.com/rforda
 milliseconds_to_min <- function(milliSec) {
   min <-   (milliSec %/% 60000)
   sec <-  round(((milliSec%%60000) /  1000))
-  glue::glue("{min}:{sec}{ifelse(sec<=9, '0','')}")
+  glue::glue("{min} : {sec}{ifelse(sec<=9, '0','')}")
 }
 
 ## Apply the function 
@@ -60,8 +60,8 @@ common_theme <- function() {
       axis.text = element_blank(), 
       axis.title = element_blank(),
       panel.grid = element_blank(),
-      plot.title = element_markdown(size = rel(7.5), face = "bold",  color = "#FF4136", hjust = .5, margin = margin(t = 1, unit = "cm")),
-      plot.subtitle = element_markdown(size = rel(2.5), hjust = .5, margin = margin(t = .25, b = .25, unit = "cm")), 
+      plot.title = element_markdown(family = "Lobster", size = rel(7.5), face = "bold",  color = "#EF476F", hjust = .5, margin = margin(t = 1,b = 1, unit = "cm")),
+      plot.subtitle = element_markdown(size = rel(3), face = "bold", family = "Verlag",  hjust = .5, margin = margin(t = .25, b = .25, unit = "cm")), 
       plot.background = element_rect(fill = "#111111", color = NA)
     )
 }
@@ -91,17 +91,18 @@ common_theme <- function() {
     ) + 
     ggtext::geom_richtext(
       aes(.2, 0, 
-          label = glue::glue("<span style ='font-size: 35px;'><b>{str_to_title(category)}</b></span><br>{round(category_mean*100,2)}%"),
+          label = glue::glue("<span style ='font-size: 35px;'>{str_to_title(category)}</span><br><span style='font-size:27.5px;'>{round(category_mean*100,2)}%</span>"),
           color = category
       ),
+      family = "Verlag Black",
       fill = NA,
       label.size = 0, 
       label.color = NA,
       lineheight = 1.5
     ) + 
     labs(
-      title = "Spice Girls",
-      subtitle = "Global Audio Features"
+      title = "-·- Spice Girls -·-",
+      subtitle = "Global audio features"
     ) +
     scale_x_continuous(
       limits = c(0.2, 3 + 0.5) # this 3 links to the 3 above. tweak 0.2 and 0.5 to see what it does to the shape
@@ -125,8 +126,8 @@ common_theme <- function() {
 (plot2 <- studio_album_tracks %>% 
     mutate(row_num = row_number()) %>% 
     ggplot() + 
-    geom_text(aes(x = -.35, y = row_num*2, label = str_to_upper(album_name)), color = "#FFFFFF", fontface = "bold", hjust = 0, size = 5.5) + 
-    geom_fit_text(aes(x = .85 , y = row_num*2, label = glue::glue("{track_name} · {duration_min}")), color = "#FFFFFF", place = "left", fontface = "bold.italic") + 
+    geom_text(aes(x = -.35, y = row_num*2, label = str_to_upper(album_name)), color = "#FFFFFF", family = "Verlag", fontface = "bold", hjust = 0, size = 5.5) + 
+    geom_fit_text(aes(x = .85 , y = row_num*2, label = glue::glue("{track_name} · {duration_min}")), color = "#FFFFFF", family = "MercuryDisplay-Semibold", place = "left", fontface = "bold.italic") + 
     geom_text(aes(x = 1.5 + danceability + .025, y = row_num*2),  label = "𝄞", size = 7.5, color = "#01FF70") + 
     geom_segment(aes(x = 1.5, xend = 1.5 + danceability, y = row_num*2, yend = row_num*2),color = "#01FF70", size = 3, lineend = "round") + 
     geom_text(aes(x = 2.75 + energy + 0.05, y = row_num*2),  label = "♬", size = 7.5, color = "#FFDC00") + 
@@ -138,16 +139,16 @@ common_theme <- function() {
     # Categories Breaks 
     geom_segment(data = categories_breaks, aes(x = cat_breaks, xend = cat_breaks, color = category), y = -.25, yend = .25, size = .25) + 
     geom_segment(data = categories_breaks, aes(x = cat_breaks, xend = cat_breaks, color = category), y = (n_songs+1)*2 - .25, yend = (n_songs+1)*2 + .25, size = .25) + 
-    geom_text(data = categories_breaks, aes(x = cat_breaks, label = glue::glue("{breaks*100}"), color = category), y = - 1.5 ) +
-    geom_text(data = categories_breaks, aes(x = cat_breaks, label = glue::glue("{breaks*100}"), color = category), y = (n_songs+1)*2  + 1.5 ) +
+    geom_text(data = categories_breaks, aes(x = cat_breaks, label = glue::glue("{breaks*100}"), color = category), family = "Verlag", y = - 1.5 ) +
+    geom_text(data = categories_breaks, aes(x = cat_breaks, label = glue::glue("{breaks*100}"), color = category), family = "Verlag", y = (n_songs+1)*2  + 1.5 ) +
     # Features Labels
-    geom_text(data = axis_labels, aes(x = x, label = category, color = category),y = -3,fontface = "bold") +
+    geom_text(data = axis_labels, aes(x = x, label = category, color = category),y = -3, family = "Verlag", size = 7.5) +
     # Other annotations
-    annotate(geom= "text", x = -.35, y = (n_songs+1)*2 + 1, label = "Album", fontface = "bold", hjust = 0, size = 7.5, color = "#FFFFFF") + 
-    annotate(geom= "text", x = 0.4, y = (n_songs+1)*2 + 1, label = "Track · Duration", fontface = "bold", hjust = 0, size = 5.5, color = "#FFFFFF") + 
-    annotate(geom ="text", x = 5.90, y = 53, label = top_liveness_label, size = 2.5, fontface = "bold.italic", color = "#FFFFFF") + 
+    annotate(geom= "text", x = -.35, y = (n_songs+1)*2 + 1, label = "Album", family = "Verlag", fontface = "bold", hjust = 0, size = 7.5, color = "#FFFFFF") + 
+    annotate(geom= "text", x = 0.4, y = (n_songs+1)*2 + 1, label = "Track · Duration", family = "Verlag", fontface = "bold", hjust = 0, size = 5.5, color = "#FFFFFF") + 
+    annotate(geom ="text", x = 6, y = 53, label = top_liveness_label, size = 3, family = "MercuryDisplay-Semibold" ,fontface = "italic", color = "#FFFFFF", lineheight = .95) + 
     labs(
-      subtitle = "Each song Audio features"
+      subtitle = "Audio features of each song"
     ) + 
     scale_x_continuous(limits = c(-0.5,6.5)) + 
     scale_color_manual(
@@ -161,16 +162,14 @@ common_theme <- function() {
     )
 )
 
-
+# Plots Combine
 plot1 / plot2 + 
   plot_annotation(
     caption = "*Durations in minute.\n Data comes from Spotify and Genius by way of Jacquie Tran. \n Tidytuesday Week-51 2021 · Abdoul ISSA BIDA."
   ) +
-  plot_layout(
-    heights = c(1, 3)
-  ) & 
+  plot_layout(heights = c(1, 3)) & 
   theme(
-    plot.caption = element_text(size = rel(1.5), hjust = .5, color = "#FFFFFF", margin = margin(b = .25, unit = "cm")),
+    plot.caption = element_text(size = rel(1.25), family = "Verlag", hjust = .5, color = "#FFFFFF", margin = margin(b = .25, unit = "cm")),
     plot.background = element_rect(fill = "#111111", color =NA)
   )
 
@@ -178,3 +177,8 @@ plot1 / plot2 +
 path <- here::here("2021_w51", "tidytuesday_2021_w51")
 ggsave(filename = glue::glue("{path}.pdf"), width = 18, height = 21, device = cairo_pdf)
 
+pdftools::pdf_convert(
+  pdf = glue::glue("{path}.pdf"),
+  filenames = glue::glue("{path}.png"),
+  dpi = 640
+)
