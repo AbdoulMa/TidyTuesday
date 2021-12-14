@@ -165,7 +165,7 @@ common_theme <- function() {
 # Plots Combine
 plot1 / plot2 + 
   plot_annotation(
-    caption = "*Durations in minute.\n Data comes from Spotify and Genius by way of Jacquie Tran. \n Tidytuesday Week-51 2021 · Abdoul ISSA BIDA."
+    caption = "*Durations in minute.\n Data comes from Spotify and Genius by way of Jacquie Tran. \n Tidytuesday Week-51 2021 · Abdoul ISSA BIDA inspired by Sean Miller."
   ) +
   plot_layout(heights = c(1, 3)) & 
   theme(
