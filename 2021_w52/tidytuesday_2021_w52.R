@@ -71,4 +71,4 @@ cowplot::ggdraw(plot) +
 
 # Saving ------------------------------------------------------------------
 path <- here::here("2021_w52", "tidytuesday_2021_w52")
-ggsave(filename = glue::glue("{path}.png"), width = 9, height = 12, device = ragg::agg_png, dpi = 640)
+ggsave(filename = glue::glue("{path}.png"), width = 9, height = 12, device = ragg::agg_png, dpi = 320)
