@@ -46,7 +46,7 @@ bg_color <- "#e5e4e2"
 font_family <- "MTGB1"
 caption <- "Incidence rates are calculated for 100,000 people in each state.
 Inspired from a graphic in the DIE ZEIT newspaper of November 18, 2021.
-Data from NY Times · Tidytuesday Week-52 2021 · Abdoul ISSA BIDA."
+Data from NY Times · Tidytuesday Week-1 2022 · Abdoul ISSA BIDA."
 
 # Plot 
 covid_evolution_plot <- usa_states_geom %>% 
