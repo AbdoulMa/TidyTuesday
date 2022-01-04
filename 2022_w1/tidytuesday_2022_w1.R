@@ -44,7 +44,7 @@ covid_cases_rm <- covid_cases %>%
 # Graphic -----------------------------------------------------------------
 bg_color <- "#e5e4e2"
 font_family <- "MTGB1"
-caption <- "Incidence rate are calculated for 100,000 people in each state.
+caption <- "Incidence rates are calculated for 100,000 people in each state.
 Inspired from a graphic in the DIE ZEIT newspaper of November 18, 2021.
 Data from NY Times · Tidytuesday Week-52 2021 · Abdoul ISSA BIDA."
 
