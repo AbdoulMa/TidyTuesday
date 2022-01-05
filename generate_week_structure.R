@@ -11,23 +11,16 @@ generate_tidytuesday_structure <- function(week, year) {
   if (!dir_exists(here(directory))) {
     dir_create(here(directory))
     
-    # Create Script file & write  skeleton 
+    # Create week script file  
     file_create(here(directory, script_file))
-    script_text <- paste0(
-      '# Load libraries ----------------------------------------------------------\n',
-      'library(tidyverse)',
-      '\n\n',
-      '# Data Reading and Wrangling ----------------------------------------------\n',
-      '\n\n',
-      '# Graphic -----------------------------------------------------------------\n',
-      '\n\n',
-      '# Saving ------------------------------------------------------------------'
-    )
-    write(as.character(script_text), file(here(directory, script_file)))
+  
+    # Generate Week script file from skeleton  
+    week_skeleton <- whisker::whisker.render(readr::read_lines("week_skeleton.R"))
+    readr::write_lines(week_skeleton, here(directory, script_file))
     
     # Create README file & write  skeleton 
     file_create(here(directory, "README.md"))
-    write(as.character(paste0("![](",image_file,")")), file(here(directory, "README.md")))
+    readr::write_lines(paste0("![](",image_file,")"), here(directory, "README.md"))
     
     # Open Script 
     file.edit(here(directory, script_file))
