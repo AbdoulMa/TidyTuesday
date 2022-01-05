@@ -6,8 +6,19 @@ Code and plots of the submissions to the [#tidytuesday](https://github.com/rford
 
 
 ## Highlights (click on image to go to code): <br>
+### [2022 - Week 1](2022_w1) Covid-19 in American States in 2021 by [NY Times](https://github.com/nytimes/covid-19-data)<a href="2022_w1"><img src="2022_w1/tidytuesday_2021_w1.png"></a>
+___
 
-### [2021 - Week 46](2021_w46) Ultra Trail Running by [OurWorldInData](https://ourworldindata.org/polio)
+### [2021 - Week 52](2021_w52) Starbucks drinks by [Starbucks](https://globalassets.starbucks.com/assets/94fbcc2ab1e24359850fa1870fc988bc.pdf)
+<a href="2021_w52"><img src="2021_w52/tidytuesday_2021_w52.png"></a>
+___
+
+
+### [2021 - Week 51](2021_w51) Spice Girls by [Jacquie Tran](https://github.com/jacquietran/spice_girls_data)
+<a href="2021_w51"><img src="2021_w51/tidytuesday_2021_w51.png"></a>
+___
+
+### [2021 - Week 46](2021_w46) Polio in Africa by [OurWorldInData](https://ourworldindata.org/polio)
 <a href="2021_w46"><img src="2021_w46/tidytuesday_2021_w46.png"></a>
 ___
 

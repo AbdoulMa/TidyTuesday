@@ -93,4 +93,4 @@ covid_evolution_plot <- usa_states_geom %>%
 
 # Saving ------------------------------------------------------------------
 path <- here::here("2022_w1", "tidytuesday_2022_w1")
-ggsave(filename = glue::glue("{path}.png"), width = 25, height = 25, device = ragg::agg_png, dpi = 320)
+ggsave(filename = glue::glue("{path}.png"), width = 25, height = 25, device = ragg::agg_png, dpi = 640)
