@@ -4,11 +4,6 @@ library(tidyverse)
 library(ggtext)
 library(sf)
 
-systemfonts::register_font(
-  name = "GNB",
-  plain = "/home/abdoul-ma/Téléchargements/Fonts/Gotham Narrow/GothamNarrow-Bold.otf"
-)
-
 # Data Wrangling ----------------------------------------------------------
 colony <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-11/colony.csv')
 stressor <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-11/stressor.csv')
@@ -88,8 +83,8 @@ monthly_data <- us_states %>%
   left_join(colony_with_stressor, by = c("NAME" = "state")) 
 
 
-# Graphic -----------------------------------------------------------------
-years <- 2015:2016
+# Graphic & Saving ----
+years <- 2015:2020
 periods <- c("January-March","April-June","July-September","October-December")
 seasons <- c("Winter", "Spring", "Summer", "Autumn")
 
@@ -97,18 +92,18 @@ animation::saveGIF(
   {  
     for (y in years) { # years loop
       for (period in periods) { # period/ season loop 
-        if (y != 2019 & period != "April-June") {
-          season <-  seasons[which(periods == period)]
-          period_data <- monthly_data %>% 
-            filter(year == y & months == period) %>% 
-            mutate(
-              fancy_evolution = case_when(
-                colony_evolution_pct > 0 ~ glue::glue("<span>+{round(colony_evolution_pct, 1)}%</span>"),
-                TRUE ~ glue::glue("<span>{round(colony_evolution_pct, 1)}%</span>")
-              ),
-              fancy_label = glue::glue("{STUSPS}<br>{fancy_evolution}")
-            )
-          
+        season <-  seasons[which(periods == period)]
+        period_data <- monthly_data %>% 
+          filter(year == y & months == period) %>% 
+          mutate(
+            fancy_evolution = case_when(
+              colony_evolution_pct > 0 ~ glue::glue("<span>+{round(colony_evolution_pct, 1)}%</span>"),
+              TRUE ~ glue::glue("<span>{round(colony_evolution_pct, 1)}%</span>")
+            ),
+            fancy_label = glue::glue("{STUSPS}<br>{fancy_evolution}")
+          )
+        
+        if (nrow(period_data) != 0) {
           plot <- period_data %>%
             ggplot() + 
             geom_sf(data = us_states, fill = "grey65",size = 0.25) + 
@@ -141,7 +136,7 @@ animation::saveGIF(
               title = "Bee colonies",
               subtitle = glue::glue("{season} {y}"), 
               caption = 
-                "*Varroa mites which is the principal stressor has been omited.
+                "*Varroa mites which are the principal stressors have been omited.
       Data from USDA with Georgios Karamanis contribution.
      Tidytuesday Week-2 2022 · Abdoul ISSA BIDA."
             ) + 
@@ -170,7 +165,7 @@ animation::saveGIF(
               legend.title = element_text( size = rel(2), face = "bold"),
               plot.title = element_text(size = rel(3.5),  family = "Mercury", face = "bold", hjust = .5),
               plot.subtitle = element_text(size = rel(2), face = "bold", hjust = .5),
-              plot.caption = element_text(size = rel(1.05)),
+              plot.caption = element_text(size = rel(.85)),
               plot.margin = margin(t = .5, b = .5, r = .5, unit = "cm")
             )
           

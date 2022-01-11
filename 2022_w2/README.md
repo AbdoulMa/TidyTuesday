@@ -1,1 +1,1 @@
-![](tidytuesday_2022_w2.png)
+![](tidytuesday_2022_w2.gif)
