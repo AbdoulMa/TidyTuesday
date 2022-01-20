@@ -65,6 +65,7 @@ switzerland_label <- "Switzerland is certainly not in the lead, but it is the ho
                           breaks = seq(-.4,.2, by = .2),
                           labels = c(-.4,-.2,"AVERAGE\n RATING",.2)
       ),
+      breaks = seq(-.4,.2, by = .2),
       labels = ~ifelse(.x == 0, "AVERAGE\n RATING", .x)
     ) + 
     scale_y_discrete(expand = c(.025, .025)) + 
