@@ -49,8 +49,8 @@ switzerland_label <- "Switzerland is certainly not in the lead, but it is the ho
     geom_text(aes(x = ifelse(rating_diff > 0, -.005, .005), y = company_location, label = company_location, 
                   hjust = ifelse(rating_diff > 0, 1, 0)), 
               family = "Go Condensed Bold", size = 5) + 
-    annotate(geom = "text", x = -.25, y = 15, label = "Less than\n average", family = "G Bold", lineheight= .9, size = 10, hjust = 1) + 
-    annotate(geom = "text", x = .15, y = 35, label = "More than\n average", family = "G Bold", lineheight= .9, size = 10, hjust = 0) + 
+    annotate(geom = "text", x = -.25, y = 15, label = "Less than\n average", family = "Go Bold", lineheight= .9, size = 10, hjust = 1) + 
+    annotate(geom = "text", x = .15, y = 35, label = "More than\n average", family = "Go Bold", lineheight= .9, size = 10, hjust = 0) + 
     annotate(geom = "segment", x = .2125, xend = .25, y = 50, yend = 50, linetype = "dotted") +
     annotate(geom = "text", x = .255, y = 50, hjust = 0, label = uae_label, family = "M G1 Bold Italic", size = 4, lineheight = .95) + 
     annotate(geom = "segment", x = .15, xend = .25, y = 44, yend = 44, linetype = "dotted") +
@@ -120,5 +120,5 @@ switzerland_label <- "Switzerland is certainly not in the lead, but it is the ho
 
 # Saving ------------------------------------------------------------------
 path <- here::here("2022_w3", "tidytuesday_2022_w3")
-ggsave(filename = glue::glue("{path}.png"), width = 24, height = 15, device = ragg::agg_png, dpi = 640)
+ggsave(filename = glue::glue("{path}.png"), width = 24, height = 15, device = ragg::agg_png, dpi = 320)
 
