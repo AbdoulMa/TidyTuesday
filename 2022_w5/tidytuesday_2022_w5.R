@@ -78,7 +78,7 @@ coats_labels <- "<span>Coats</span><br>
 
 data_score_labels <- "Data score combines dog intelligence, adaptability, Openness, Playfulness, Trainability, Energy and others." %>% str_wrap(width = 30)
 caption <- "Data from American Kennel Club courtesy of Kristen Akey.<br>
-Inspired from a graphic in **Information is Beautiful** by **David McCandless**.<br>
+Inspired by a graphic in **Information is Beautiful** by **David McCandless**.<br>
 Tidytuesday Week-5 2022 · Abdoul ISSA BIDA."
 (plot <- breed_overall_popularity  %>% 
    ggplot(aes(trait_normalized, popularity_normalized)) + 
