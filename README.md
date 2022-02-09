@@ -12,6 +12,9 @@ ___
 
 ### [2022 - Week 5](2022_w5) Dog breeds by [American Kennel Club](https://github.com/kkakey/dog_traits_AKC)<a href="2022_w5"><img src="2022_w5/tidytuesday_2022_w5.png"></a>
 ___
+ 
+### [2022 - Week 1](2022_w1) Covid-19 in American States in 2021 by [NY Times](https://github.com/nytimes/covid-19-data)<a href="2022_w1"><img src="2022_w1/tidytuesday_2022_w1.png"></a>
+___
 
 ### [2021 - Week 52](2021_w52) Starbucks drinks by [Starbucks](https://globalassets.starbucks.com/assets/94fbcc2ab1e24359850fa1870fc988bc.pdf)
 <a href="2021_w52"><img src="2021_w52/tidytuesday_2021_w52.png"></a>
