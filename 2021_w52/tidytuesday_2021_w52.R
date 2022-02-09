@@ -2,6 +2,11 @@
 library(tidyverse)
 library(ggtext)
 
+cowplot::set_null_device("pdf")
+cowplot::set_null_device("png")
+cowplot::set_null_device("cairo")
+cowplot::set_null_device("agg")
+
 # Data Reading and Wrangling ----------------------------------------------
 starbucks <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-12-21/starbucks.csv')
 
@@ -51,7 +56,7 @@ plot <- nutritions_summary %>%
       panel.grid = element_blank(),
       panel.spacing.x = unit(.25, "cm"),
       panel.spacing.y = unit(.05, "cm"),
-      strip.text = element_markdown(family = "Verlag", face = "bold", size = 3.15, color = "white")
+      strip.text = element_markdown(family = "Verlag", face = "bold", size = 4.05, color = "white")
    )
 
 # Extra Informations Plotting
@@ -68,6 +73,7 @@ cowplot::ggdraw(plot) +
       plot.background = element_rect(fill = "#00704A", color = NA),
       plot.margin = margin(t = .25,r=0, b = .25, l=0, unit = "cm")
    )
+
 
 # Saving ------------------------------------------------------------------
 path <- here::here("2021_w52", "tidytuesday_2021_w52")
