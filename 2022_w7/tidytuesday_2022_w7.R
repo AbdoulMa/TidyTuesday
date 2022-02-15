@@ -41,13 +41,13 @@ final_plot <- p +
   coord_polar() +
   geom_text(data = . %>% filter(rang==1),
             aes(label = paste(label,"   ",sep="")),
-            adj=1, nudge_y=.5, nudge_x = -0000, color="black",size=4,family="DecimaMonoPro") +
+            adj=1, nudge_y=.5, nudge_x = -0000, color="black",size=3,family="DecimaMonoPro") +
   theme_void() +
   labs(title = "ASSESSED VALUE OF HOUSEHOLD AND KITCHEN FURNITURE\nOWNED BY GEORGIA NEGROES.") + 
   theme(legend.position="none",
         text = element_text(family="I Sans Semibold"),
         plot.title = element_text(face = "bold", size = rel(1.75), hjust = .5),
-        plot.margin = margin(c(.5,0,.5,0), unit = "cm"))
+        plot.margin = margin(c(.25,0,0,0), unit = "cm"))
 
 cowplot::ggdraw(final_plot) + 
   theme(
