@@ -7,6 +7,9 @@ Code and plots of the submissions to the [#tidytuesday](https://github.com/rford
 
 ## Highlights (click on image to go to code): <br>
 
+### [2022 - Week 9](2022_w9) Alternative Fuel Stations by [US DOT](https://data-usdot.opendata.arcgis.com/datasets/usdot::alternative-fueling-stations/about)<a href="2022_w9"><img src="2022_w9/tidytuesday_2022_w9.png"></a>
+___ 
+
 ### [2022 - Week 6](2022_w6) Tuskegee Airmen by [Commemorative Airforce (CAF) by way of the VA-TUG](https://github.com/lang1023/Tuskegee-Airman-Challenge)<a href="2022_w6"><img src="2022_w6/tidytuesday_2022_w6.png"></a>
 ___
 
