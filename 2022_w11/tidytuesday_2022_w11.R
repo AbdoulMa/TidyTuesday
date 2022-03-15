@@ -108,7 +108,7 @@ y_limits <- c(head(cran_steps$n,1),tail(cran_steps$n,1))
     annotate(geom = "segment", x = lubridate::yday("2018-01-18"), xend = lubridate::yday("2018-01-18"), y = 2018 + .4, yend =  2018 + .2) +
     labs(
       subtitle = "Daily Releases",
-      caption = "Higher square means more releases<br>
+      caption = "Larger square means more releases<br>
       Data from **Robert Flight**<br>
       Tidytuesday Week-10 2022 &bull;Abdoul ISSA BIDA"
     ) + 
@@ -146,4 +146,4 @@ monthly_plot / daily_plot +
 
 # Saving ------------------------------------------------------------------
 path <- here::here("2022_w11", "tidytuesday_2022_w11")
-ggsave(filename = glue::glue("{path}.png"), width = 12, height = 15, device = ragg::agg_png, dpi = 300)
+ggsave(filename = glue::glue("{path}.png"), width = 12, height = 15, device = ragg::agg_png, dpi = 320)
