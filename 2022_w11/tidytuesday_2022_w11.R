@@ -19,6 +19,9 @@ cran <- cran %>%
     year_month = zoo::as.yearmon(date)) %>% 
   filter(year_month >= zoo::as.yearmon(as.Date("2010-01-01")), year_month < zoo::as.yearmon(as.Date("2021-01-01"))) 
 
+# Nb packages released
+nb_pkgs <- nrow(cran)
+
 # Count Each month, nb of releases
 cran_steps <- cran %>% 
   count(year_month, year)
@@ -54,7 +57,7 @@ y_limits <- c(head(cran_steps$n,1),tail(cran_steps$n,1))
             hjust = 0) +
    annotate(geom = "segment", x = x_limits, xend = x_limits, y = 0, yend = y_limits, color = "#278000") + 
    annotate(geom = "richtext", x = 2017, y = 240, hjust= 0, 
-            label = "Between 2010 and 2020,<br> <span style='color:#fbba58'>14,514</span> new packages<br> were released on CRAN.",
+            label = glue::glue("Between 2010 and 2020,<br> <span style='color:#fbba58'>{scales::comma(nb_pkgs, big.mark = "," )}</span> new packages<br> were released on CRAN."),
             family = "M G1 Bold Italic",
             label.r = unit(0,'cm'),
             label.size = unit(0,'cm'),
@@ -140,10 +143,10 @@ monthly_plot / daily_plot +
     text = element_text(color = "#111111", family = "Inconsolata Semibold"),
     plot.title = element_text(size = rel(3), family = "Go Black"),
     plot.subtitle = element_text(hjust = 0, size = rel(2.15), family = "NY Bold", margin = margin(t = .5, b = .5, unit = "cm")),
-    plot.caption = ggtext::element_markdown(size = rel(1.5), family = "Go Medium"), 
+    plot.caption = ggtext::element_markdown(size = rel(1.5), family = "Go Bold"), 
     plot.margin = margin(c(.5,.5,.5,.5), unit = "cm")
   )
 
 # Saving ------------------------------------------------------------------
 path <- here::here("2022_w11", "tidytuesday_2022_w11")
-ggsave(filename = glue::glue("{path}.png"), width = 12, height = 15, device = ragg::agg_png, dpi = 320)
+ggsave(filename = glue::glue("{path}.png"), width = 12, height = 15, device = ragg::agg_png, dpi = 300)
