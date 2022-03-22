@@ -7,6 +7,12 @@ Code and plots of the submissions to the [#tidytuesday](https://github.com/rford
 
 ## Highlights (click on image to go to code): <br>
 
+### [2022 - Week 12](2022_w12) Baby names by [Hadley Wickham](http://hadley.github.io/babynames/)<a href="2022_w12"><img src="2022_w12/tidytuesday_2022_w12.png"></a>
+___ 
+
+### [2022 - Week 10](2022_w10) Erasmus student mobility by [Data.Europa.eu](https://data.europa.eu/data/datasets/erasmus-mobility-statistics-2014-2019-v2?locale=en)<a href="2022_w10"><img src="2022_w10/tidytuesday_2022_w10.png"></a>
+___ 
+
 ### [2022 - Week 9](2022_w9) Alternative Fuel Stations by [US DOT](https://data-usdot.opendata.arcgis.com/datasets/usdot::alternative-fueling-stations/about)<a href="2022_w9"><img src="2022_w9/tidytuesday_2022_w9.png"></a>
 ___ 
 
