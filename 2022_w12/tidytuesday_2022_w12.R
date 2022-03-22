@@ -255,7 +255,7 @@ j_rob_in_mlb <- unisex_babynames %>%
    geom_point(data = most_unisex_year, aes(year, prop_f), pch = 21, fill = "white", size = 2.5)+
    labs(
      title = "The Most Unisex Names in US History",
-     caption = "Data:**{babynames}** R Packages<br> Tidytuesday Week-10 2022 &bull; **Abdoul ISSA BIDA** inspired by **Nathan YAU**"
+     caption = "Data:**{babynames}** R Packages<br> **Tidytuesday** Week-10 2022<br>**Abdoul ISSA BIDA** inspired by **Nathan YAU**."
    ) +   
    coord_cartesian(expand = F) +
    theme_minimal(base_family = "Lato") + 
@@ -270,6 +270,7 @@ j_rob_in_mlb <- unisex_babynames %>%
      strip.text = element_text(family = "I Sans Bold Pro", size = rel(1.5))
    )
 )
+
 
 cowplot::ggdraw(plot) + 
   theme(plot.background = element_rect(fill="white", color = NA),
