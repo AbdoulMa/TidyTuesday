@@ -7,6 +7,9 @@ Code and plots of the submissions to the [#tidytuesday](https://github.com/rford
 
 ## Highlights (click on image to go to code): <br>
 
+### [2022 - Week 21](2022_w21) Women's Rugby by [ScrumQueens](https://www.scrumqueens.com/blogs/jbirch/story-behind-our-data-hub)<a href="2022_w21"><img src="2022_w21/tidytuesday_2022_w12_polished.png"></a>
+___ 
+
 ### [2022 - Week 12](2022_w12) Baby names by [Hadley Wickham](http://hadley.github.io/babynames/)<a href="2022_w12"><img src="2022_w12/tidytuesday_2022_w12.png"></a>
 ___ 
 
