@@ -26,6 +26,7 @@ fifteens %>%
 caption <- "Data from ScrumQueens by way of Jacquie Tran.<br>
 Tidytuesday Week-21 2022<br>
 Abdoul ISSA BIDA &bull; <span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**."
+
 fifteens %>% 
   filter(year > 1992) %>% 
   ggplot(aes(score_1, score_2)) + 
