@@ -3,8 +3,6 @@
 library(tidyverse)
 library(treemapify)
 
-
-
 # Data Wrangling ----------------------------------------------------------
 # Read data
 pride_aggregates <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-06-07/pride_aggregates.csv")
@@ -52,7 +50,7 @@ title <- 'Contributions from companies to anti-<span style="color:#e40303;">L</s
 subtitle <- "Data for Progress revelates how corporations presenting themselves as LGBTQ+ allies, are giving
 to state politicians behind some of the most bigoted and harmful policies in over a decade.
 The companies that support these politicians must be held accountable."
-caption <- "&#42;value indicates the total contributed to anti-LGBTQ politicians.<br> Data from Data For Progress &bull; Tidytuesday Week-23 2022 &bull;  Abdoul ISSA BIDA  <span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**."
+caption <- "&#42;value indicates the total contributed to anti-LGBTQ politicians.<br> Data from **Data For Progress** &bull; Tidytuesday Week-23 2022 &bull;  Abdoul ISSA BIDA  <span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**."
 
 pride_aggregates %>%
   left_join(company_colors) %>%
@@ -74,9 +72,9 @@ pride_aggregates %>%
   theme(
     plot.background = element_rect(fill = "white", color = NA),
     plot.margin = margin(c(1, 1, 1, 1), unit = "cm"),
-    plot.title = ggtext::element_markdown(hjust = .5, family = "Gotham Black", size = rel(2.75), margin = margin(b = .5, unit = "cm")),
+    plot.title = ggtext::element_markdown(hjust = .5, family = "Lato Black", size = rel(2.75), margin = margin(b = .5, unit = "cm")),
     plot.subtitle = element_text(hjust = .5, family = "NY Bold Italic", size = rel(1.75), margin = margin(b = .5, unit = "cm")),
-    plot.caption = ggtext::element_markdown(hjust = .5, family = "Gotham Medium", size = rel(1.5), margin = margin(t = .5, unit = "cm"))
+    plot.caption = ggtext::element_markdown(hjust = .5, family = "Lato", size = rel(1.5), margin = margin(t = .5, unit = "cm"))
   )
 
 # Saving ------------------------------------------------------------------
