@@ -114,7 +114,7 @@ ggsave(filename = glue::glue("{path}.pdf"), plot = final_plot, width = 12.5, hei
 pdftools::pdf_convert(
   pdf = glue::glue("{path}_polished.pdf"),
   filenames = glue::glue("{path}.png"),
-  dpi = 720
+  dpi = 320
 )
 
 # Addtitional annotations with Illustrator
