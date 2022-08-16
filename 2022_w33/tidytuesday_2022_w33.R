@@ -112,11 +112,10 @@ path <- here::here("2022_w33", "tidytuesday_2022_w33")
 ggsave(filename = glue::glue("{path}.pdf"), plot = final_plot, width = 12.5, height = 12.5, device = cairo_pdf)
 
 pdftools::pdf_convert(
-  pdf = glue::glue("{path}.pdf"),
+  pdf = glue::glue("{path}_polished.pdf"),
   filenames = glue::glue("{path}.png"),
-  dpi = 320
+  dpi = 720
 )
 
-# Each colored square represents 1% of the personality score of a character 
-# No rating for this personality trait
+# Addtitional annotations with Illustrator
 
