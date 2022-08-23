@@ -3,7 +3,7 @@ library(tidyverse)
 library(patchwork)
 
 # Data Wrangling ----------------------------------------------------------
-chips <- readr::read_csv("/home/abdoul-ma/Téléchargements/chip_dataset.csv")
+chips <- readr::read_csv(here::here("2022_w34/chip_dataset.csv"))
 
 daily_releases <- chips |> 
   mutate(
@@ -15,7 +15,11 @@ daily_releases <- chips |>
   mutate(Vendor = fct_reorder(Vendor, Total, .fun = sum, .desc = T)) |>
   filter(Total > 0)
 
-daily_releases_summary <-  daily_releases |> 
+# Stylize text for fancy summary
+stylize_vendor_text <- \(Vendor) {glue::glue("<span style='font-family: \"UEFA Supercup\"; font-weight:bold; font-size: 45px;'>{Vendor}</span>")}
+stylize_summary_text <- \(transistors_total, Category_prop_GPU, Category_prop_CPU) {glue::glue("<span style='font-family: \"UEFA Supercup\";'><span style='font-weight:bold;font-size: 35px;'>{scales::label_comma(suffix = 'M')(transistors_total)}</span> <br> {Category_prop_GPU} {Category_prop_CPU}</span>")}
+
+releases_summary <-  daily_releases |> 
   count(Vendor, Type, wt = Total, name = "Category_total") |> 
   group_by(Vendor) |> 
   mutate(
@@ -96,11 +100,10 @@ subtitle <- "The number of transitions in a dense integrated circuit (IC)\n doub
 )
 
 # Second plot: Releases Summary
-stylize_vendor_text <- \(Vendor) {glue::glue("<span style='font-family: \"UEFA Supercup\"; font-weight:bold; font-size: 45px;'>{Vendor}</span>")}
-stylize_summary_text <- \(transistors_total, Category_prop_GPU, Category_prop_CPU) {glue::glue("<span style='font-family: \"UEFA Supercup\";'><span style='font-weight:bold;font-size: 35px;'>{scales::label_comma(suffix = 'M')(transistors_total)}</span> <br> {Category_prop_GPU} {Category_prop_CPU}</span>")}
 
-overall_realeases <- scales::label_comma(suffix = " Millions")(sum(daily_releases_summary$transistors_total))
-(summary_plot <- daily_releases_summary |> 
+
+overall_realeases <- scales::label_comma(suffix = " Millions")(sum(releases_summary$transistors_total))
+(summary_plot <- releases_summary |> 
     ggplot() + 
     geom_rect(
       aes(fill = Vendor), 

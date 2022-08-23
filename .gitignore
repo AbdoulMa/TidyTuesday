@@ -6,6 +6,7 @@ README.html
 *.pdf
 *.jpg
 *.ai
+*.csv
 */IBRA/
 fonts_register.R
 2022_w5/Dogs/*
