@@ -146,6 +146,7 @@ daily_releases_plot / summary_plot +
     plot.margin = margin(t = .5, r = .5, b = .5, l = .5, unit = "cm")
   )
 
+# Additional annotations with Illustrator
 # Saving ------------------------------------------------------------------
 path <- here::here("2022_w34", "tidytuesday_2022_w34")
 height <- 12
