@@ -32,7 +32,7 @@ releases_summary <-  daily_releases |>
   ) |> 
   rowwise() |> 
   mutate(
-    transistors_total = sum(Category_total_GPU,Category_total_GPU, na.rm = T), 
+    transistors_total = sum(Category_total_GPU,Category_total_CPU, na.rm = T), 
     Category_prop_GPU = ifelse(!is.na(Category_total_GPU), paste0(scales::percent(Category_prop_GPU),' of **GPU** <br>'), ''),
     Category_prop_CPU = ifelse(!is.na(Category_total_CPU), paste0(scales::percent(Category_prop_CPU),' of **CPU**'), ''),
     fancy_summary = glue::glue("{stylize_vendor_text(Vendor)}<br><br>{stylize_summary_text(transistors_total, Category_prop_GPU, Category_prop_CPU)}")
@@ -150,5 +150,5 @@ daily_releases_plot / summary_plot +
 # Saving ------------------------------------------------------------------
 path <- here::here("2022_w34", "tidytuesday_2022_w34")
 height <- 12
-ggsave(filename = glue::glue("{path}.png"), width = height*4/3, height = 12, device = ragg::agg_png, dpi = 300)
+ggsave(filename = glue::glue("{path}.png"), width = height*4/3, height = 12, device = ragg::agg_png, dpi = 640)
 
