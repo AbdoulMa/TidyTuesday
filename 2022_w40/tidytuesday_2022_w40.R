@@ -83,8 +83,8 @@ path <- here::here("2022_w40", "tidytuesday_2022_w40")
 ggsave(filename = glue::glue("{path}.pdf"), width = 15, height = 7.5, device = cairo_pdf)
 
 pdftools::pdf_convert(
-  pdf = glue::glue("{path}.pdf"),
-  filenames = glue::glue("{path}.png"),
-  dpi = 320
+  pdf = glue::glue("{path}_polished.pdf"),
+  filenames = glue::glue("{path}_polished.png"),
+  dpi = 300
 )
 
