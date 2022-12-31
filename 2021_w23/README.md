@@ -1,1 +1,0 @@
-![Survivor Goats Table](tidytuesday_2021_w23.png)
