@@ -7,7 +7,7 @@ Code and plots of the submissions to the [#tidytuesday](https://github.com/rford
 
 ## Highlights (click on image to go to code): <br>
 
-### [2022 - Week 34](2022/2022_w34) CHIP dataset by [The CHIP dataset](https://chip-dataset.vercel.app/)<a href="2022/2022/2022_w34"><img src="2022/2022_w34/tidytuesday_2022_w34_polished.png"></a>
+### [2022 - Week 34](2022/2022_w34) CHIP dataset by [The CHIP dataset](https://chip-dataset.vercel.app/)<a href="2022/2022_w34"><img src="2022/2022_w34/tidytuesday_2022_w34_polished.png"></a>
 ___ 
 
 ### [2022 - Week 21](2022/2022_w21) Women's Rugby by [ScrumQueens](https://www.scrumqueens.com/blogs/jbirch/story-behind-our-data-hub)<a href="2022/2022_w21"><img src="2022/2022_w21/tidytuesday_2022_w21_polished.png"></a>
