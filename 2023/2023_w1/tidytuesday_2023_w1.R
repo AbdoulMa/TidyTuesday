@@ -85,7 +85,7 @@ df |>
     plot.title = element_text(color = "#000000", family = "Mabry Pro", face = "bold", size = rel(2.5), margin = margin(t = .5, b = .5, unit = "cm")),
     plot.caption = element_markdown(color = "#000000"),
     plot.background = element_rect(fill = "#E4E4E4", color = NA),
-    plot.margin = margin(c(.5, 0.25, .5, 0), unit = "cm")
+    plot.margin = margin(c(.35, 0.25, .35, 0), unit = "cm")
   )
 
 # Saving ------------------------------------------------------------------
