@@ -10,7 +10,7 @@ df <- read_csv("")
 
 
 # Saving ------------------------------------------------------------------
-path <- here::here("{{year}}_w{{week}}", "tidytuesday_{{year}}_w{{week}}")
+path <- here::here("{{year}}", "{{year}}_w{{week}}", "tidytuesday_{{year}}_w{{week}}")
 ggsave(filename = glue::glue("{path}.pdf"), width = 9, height = 9, device = cairo_pdf)
 
 pdftools::pdf_convert(
