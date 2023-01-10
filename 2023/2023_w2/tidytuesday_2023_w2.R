@@ -135,6 +135,6 @@ final_df |>
 
 # Saving ------------------------------------------------------------------
 path <- here::here("2023", "2023_w2", "tidytuesday_2023_w2")
-ggsave(filename = glue::glue("{path}_twitter.png"), width = 9, height = 8.5, device = ragg::agg_png, dpi = 180)
+ggsave(filename = glue::glue("{path}.png"), width = 9, height = 8.5, device = ragg::agg_png, dpi = 300)
 
 
