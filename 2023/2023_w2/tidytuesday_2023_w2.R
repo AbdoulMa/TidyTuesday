@@ -4,21 +4,16 @@ library(tidyverse)
 library(ggtext)
 library(sf)
 library(sp)
+
 # Data Wrangling ----------------------------------------------------------
 feederwatch <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-01-10/PFW_2021_public.csv')
 
-# feederwatch <- feederwatch |> 
-#   # keep only some states
-#   count(species_code, sort = T)
+# Only keep metropolitan states
 feederwatch_df <- feederwatch |> 
   filter(startsWith(subnational1_code, "US"),  str_detect(subnational1_code, pattern = "(AK)|(HI)", negate = T)) |> 
   count(longitude, latitude, sort = T, name = "z") 
 
-# feederwatch_df |> 
-#   ggplot() + 
-#   geom_point(aes(longitude, latitude))
-
-# USA States 
+# USA States sf
 states_to_remove <-  c("AK", "HI", "VI", "GU", "AS", "MP", "PR")
 us_states <- albersusa::usa_sf() |> 
   st_transform(crs = st_crs("ESRI:102003"))
@@ -26,6 +21,7 @@ us_states <- albersusa::usa_sf() |>
 us_states <- us_states |> 
   filter(!iso_3166_2 %in% states_to_remove)
 
+# Coords transformation to a better projection
 feederwatch_df <- feederwatch_df |> 
   st_as_sf(
     coords = c("longitude", "latitude"),
@@ -38,6 +34,7 @@ feederwatch_df <- feederwatch_df |>
     .before = 1L
   )
 
+# Remove geometry
 feederwatch_df <- feederwatch_df |> 
   st_set_geometry(NULL) |> 
   mutate(
@@ -80,23 +77,64 @@ colnames(df) <- c("lon", "lat", "z") # set column names to new df
 
 final_df <- df |> 
   mutate(
-    z = cut_number(z, 5)    
+    # Cut birds appareances 
+    z = cut_number(z, 6)    
   )
 
+# Graphic -----------------------------------------------------------------
+bg <- "#19222B"
+fc <- "#FFFFFF"
+caption <- "Tidytuesday Week-02 2023<br/> Data from  **Project FeederWatch**<br/> Abdoul ISSA BIDA  <span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**."
 final_df |> 
   ggplot() + 
-  geom_tile(aes(lon, lat, fill = z))
-
-# Graphic -----------------------------------------------------------------
-
+  geom_tile(aes(lon, lat, fill = z)) + 
+  annotate(geom = "richtext", x = -2354705 + 1500000, y = -1333641 + 120000, 
+           label = caption,
+           family = "Mabry Pro",
+           fill = NA,
+           size = 3.5,
+           label.color = fc,
+           color = fc,
+           label.r = unit(0, "pt"),
+           label.padding = unit(rep(8,4), "pt"),
+           hjust = 1, 
+           vjust = 0) + 
+  labs( 
+    title = "BIRDS",
+    subtitle = "Presence across the United States"
+    ) + 
+  scale_fill_manual(
+    values = scales::gradient_n_pal(c("#338000","#FEB926", "#D00000"))(seq(0, 1, length.out = 6)), 
+    labels = c("← Less", rep("", 4), "More →"), 
+    guide = guide_legend(
+      title = NULL, 
+      nrow = 1,
+      title.hjust = .5,
+      title.position = "top",
+      label.position = "top", 
+      label.hjust = .5, 
+      label.theme = element_text(color = fc, family = "Mabry Pro", size = rel(15)),
+      keywidth = unit(1.5, "cm"),
+      keyheight  = unit(.75, "cm"),
+      direction = "horizontal"
+    )    
+  ) + 
+  theme_minimal() + 
+  theme(
+    text = element_text(color = fc, family = "Mabry Pro"),
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    plot.title = element_text(family = "Mabry Pro Black", size = rel(3.25), hjust = .5, margin = margin(b = .5, unit = "cm")),
+    plot.subtitle = element_text(face = "bold", size = rel(2.25), hjust = .5),
+    panel.grid = element_blank(), 
+    legend.position = "top",
+    legend.spacing.x = unit(0,"cm"), 
+    plot.margin = margin(c(.5, .25, .5, .25), unit = "cm"),
+    plot.background = element_rect(fill = bg, color = NA)
+  )
 
 # Saving ------------------------------------------------------------------
 path <- here::here("2023", "2023_w2", "tidytuesday_2023_w2")
-ggsave(filename = glue::glue("{path}.pdf"), width = 9, height = 9, device = cairo_pdf)
+ggsave(filename = glue::glue("{path}_twitter.png"), width = 9, height = 8.5, device = ragg::agg_png, dpi = 180)
 
-pdftools::pdf_convert(
-  pdf = glue::glue("{path}.pdf"),
-  filenames = glue::glue("{path}.png"),
-  dpi = 320
-)
 
