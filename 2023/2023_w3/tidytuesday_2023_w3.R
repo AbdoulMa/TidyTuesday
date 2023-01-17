@@ -98,7 +98,7 @@ font <- "TT Norms"
     ) + 
     coord_equal() + 
     plot_theme(
-      strip.text = element_text(family = font, size = rel(1.25)),
+      strip.text = element_text(family = font, face = "bold", size = rel(1.5)),
       plot.margin = margin(c(0,0,0,0), unit = "cm")
     )
 )
