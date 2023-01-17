@@ -67,7 +67,7 @@ font <- "TT Norms"
     annotate(geom = "segment", x = 0, y = 1.2, xend = 0, yend = 1.05, arrow = arrow(length = unit(5,'pt') ))  + 
     annotate(geom = "segment", x = -1.2, y = -1.65, xend = -1.2, yend = 1.65, size = 2) + 
     annotate(geom = "richtext", x = -1, y = - 1.30, label = "ARTISTS <br> NATIONALITIES", 
-             size = 12.5,
+             size = 15.5,
              family = font,
              fontface = "bold",
              hjust = 0,
