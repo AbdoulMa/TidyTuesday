@@ -7,12 +7,6 @@ library(waffle)
 # Data Wrangling ----------------------------------------------------------
 df <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-01-31/cats_uk.csv")
 
-# Graphic -----------------------------------------------------------------
-
-df |>
-  ggplot() +
-  geom_point(aes(location_long, location_lat))
-
 bi_weeks_df <- df |>
   mutate(
     yearw = as.integer(format(timestamp, "%U")),
@@ -38,11 +32,13 @@ bi_weeks_df <- bi_weeks_df |>
 
 bi_weeks_df$cat_letters <- sample(letters, size = nrow(bi_weeks_df), replace = T)
 bi_weeks_df$values <- rep(1, nrow(bi_weeks_df))
+
+# Graphic -----------------------------------------------------------------
+fill_clr <- "#121212"
 (plot <- bi_weeks_df |>
-  # select(-n) |>
   mutate(
     biweek_label = format(biweek, "%m/%d"),
-    biweek_label = glue::glue("<span style='font-size: 25pt;'>**{biweek_label}**</span><br><span style='font-size: 12.5pt;font-color: grey;'>{scales::comma(n)}</span>"),
+    biweek_label = glue::glue("<span style='color: white;font-size: 25pt;'>**{biweek_label}**</span><br><span style='font-size: 13.5pt;color: #D04F5A;'>**{scales::comma(n)}**</span>"),
     biweek_label = as.factor(biweek_label)
   ) |>
   ggplot() +
@@ -54,13 +50,10 @@ bi_weeks_df$values <- rep(1, nrow(bi_weeks_df))
     ),
     n_rows = 2,
     size = 10.5,
-    color = "black",
     geom = "text",
-    family = "kitty cats tfb"
+    family = "Cat font",
+    
   ) +
-  labs(
-      # caption = "Each <span style=\"font-family:;\">b</span> represents approximatively 100 cats observed."
-  ) + 
   facet_wrap(vars(biweek_label), ncol = 1, strip.position = "left") +
     scale_x_continuous(
       expand = expansion(mult = c(.05, .35))
@@ -72,24 +65,26 @@ bi_weeks_df$values <- rep(1, nrow(bi_weeks_df))
   coord_equal(clip = "off") +
   theme_minimal() +
   theme(
-    strip.text.y.left = element_markdown(angle = 0), 
-    plot.caption = element_markdown(size = rel(1)),
-    
     axis.text = element_blank(),
     panel.grid = element_blank(),
+    strip.text.y.left = element_markdown(angle = 0, family = "Mabry Pro"), 
     panel.spacing.y = unit(.5, "cm"),
-    plot.margin = margin(l = 0, unit = "cm")
+    plot.background = element_rect(fill = fill_clr, color = NA)
   )
 )
 
 (title_plot <- ggplot() + 
   annotate(
     geom = "richtext", x= 0, y = 0, 
-    label = "<span style='font-size: 40pt;'>**UK Cats**</span><br>
-    <span style='font-size: 15pt;'>***Bi weekly-Observations***</span><br><br>
-    Each <span style='font-family:kitty cats tfb;'>b</span> represents approximatively 100 cats observed. <br>
-    Tidytuesday Week-05 2023\n Data from  Movebank for Animal Tracking Data<br> Abdoul ISSA BIDA", 
+    label = "<span style='font-size: 55pt;'>**UK C<span style='font-family: \"Cat font\"'>b</span>ts**</span><br>
+    <span style='font-size: 25pt; color: #D04F5A;'>***Bi-weekly Tracking***</span><br><br>
+    Each <span style='font-family: \"Cat font\"'>d</span> represents approximatively 100 cats observed. <br>
+    Tidytuesday Week-05 2023\n Data from  Movebank for Animal Tracking Data<br> 
+    Abdoul ISSA BIDA <span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**", 
     angle = 90,
+    color = "white",
+    family = "Mabry Pro",
+    size = 6.5,
     fill = NA, 
     label.size = unit(0, 'pt'),
     label.r = unit(0,'pt')
@@ -97,15 +92,17 @@ bi_weeks_df$values <- rep(1, nrow(bi_weeks_df))
     theme_minimal() + 
     theme(
       panel.grid = element_blank(),
+      plot.background = element_rect(fill = fill_clr, color = NA),
       axis.text =  element_blank(),
       axis.title =  element_blank()
     )
 )  
 
 plot + 
-  patchwork::inset_element(title_plot,  left = 0.75, bottom = 0.05, right = 0.975, top = 0.9) + 
+  patchwork::inset_element(title_plot,  left = 0.725, bottom = 0.05, right = 0.975, top = 0.9) &
   theme(
-    plot.margin = margin(l = 0, unit = "cm")
+    plot.margin = margin(c(.25, 0, .25, 0), unit = "cm"),
+      plot.background = element_rect(fill = fill_clr, color = NA)
   )
 
 # Saving ------------------------------------------------------------------
