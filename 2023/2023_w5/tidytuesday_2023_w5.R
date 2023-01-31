@@ -49,7 +49,7 @@ fill_clr <- "#121212"
       values = values,
     ),
     n_rows = 2,
-    size = 10.5,
+    size = 11,
     geom = "text",
     family = "Cat font",
     
@@ -77,8 +77,8 @@ fill_clr <- "#121212"
   annotate(
     geom = "richtext", x= 0, y = 0, 
     label = "<span style='font-size: 55pt;'>**UK C<span style='font-family: \"Cat font\"'>b</span>ts**</span><br>
-    <span style='font-size: 25pt; color: #D04F5A;'>***Bi-weekly Tracking***</span><br><br>
-    Each <span style='font-family: \"Cat font\"'>d</span> represents approximatively 100 cats observed. <br>
+    <span style='font-size: 25pt; color: #D04F5A;'>**Bi-weekly Tracking**</span><br><br>
+    Each <span style='font-family: \"Cat font\"'>d</span> represents approximatively 100 tracked cats.<br>
     Tidytuesday Week-05 2023\n Data from  Movebank for Animal Tracking Data<br> 
     Abdoul ISSA BIDA <span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**", 
     angle = 90,
