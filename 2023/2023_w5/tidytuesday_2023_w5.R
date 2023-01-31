@@ -7,18 +7,18 @@ library(waffle)
 # Data Wrangling ----------------------------------------------------------
 df <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-01-31/cats_uk.csv")
 
-bi_weeks_df <- df |>
+bi_monthly_df <- df |>
   mutate(
     yearw = as.integer(format(timestamp, "%U")),
-    biweek = (yearw %/% 2) * 2,
+    bimonthly = (yearw %/% 2) * 2,
     # %u :  week day
     # %U : year week
-    biweek = as.Date(paste(2017, biweek, 1, sep = "-"), format = "%Y-%U-%u"),
+    bimonthly = as.Date(paste(2017, bimonthly, 1, sep = "-"), format = "%Y-%U-%u"),
     .after = "timestamp"
   ) |>
-  count(biweek)
+  count(bimonthly)
 
-bi_weeks_df <- bi_weeks_df |>
+bi_monthly_df <- bi_monthly_df |>
   mutate(
     n_rounded = ceiling(n / 100)
   ) |>
@@ -30,16 +30,16 @@ bi_weeks_df <- bi_weeks_df |>
     col = cat_index
   )
 
-bi_weeks_df$cat_letters <- sample(letters, size = nrow(bi_weeks_df), replace = T)
-bi_weeks_df$values <- rep(1, nrow(bi_weeks_df))
+bi_monthly_df$cat_letters <- sample(letters, size = nrow(bi_monthly_df), replace = T)
+bi_monthly_df$values <- rep(1, nrow(bi_monthly_df))
 
 # Graphic -----------------------------------------------------------------
 fill_clr <- "#121212"
-(plot <- bi_weeks_df |>
+(plot <- bi_monthly_df |>
   mutate(
-    biweek_label = format(biweek, "%m/%d"),
-    biweek_label = glue::glue("<span style='color: white;font-size: 25pt;'>**{biweek_label}**</span><br><span style='font-size: 13.5pt;color: #D04F5A;'>**{scales::comma(n)}**</span>"),
-    biweek_label = as.factor(biweek_label)
+    bimonthly_label = format(bimonthly, "%m/%d"),
+    bimonthly_label = glue::glue("<span style='color: white;font-size: 25pt;'>**{bimonthly_label}**</span><br><span style='font-size: 13.5pt;color: #D04F5A;'>**{scales::comma(n)}**</span>"),
+    bimonthly_label = as.factor(bimonthly_label)
   ) |>
   ggplot() +
   stat_waffle(
@@ -54,7 +54,7 @@ fill_clr <- "#121212"
     family = "Cat font",
     
   ) +
-  facet_wrap(vars(biweek_label), ncol = 1, strip.position = "left") +
+  facet_wrap(vars(bimonthly_label), ncol = 1, strip.position = "left") +
     scale_x_continuous(
       expand = expansion(mult = c(.05, .35))
     ) + 
@@ -77,7 +77,7 @@ fill_clr <- "#121212"
   annotate(
     geom = "richtext", x= 0, y = 0, 
     label = "<span style='font-size: 55pt;'>**UK C<span style='font-family: \"Cat font\"'>b</span>ts**</span><br>
-    <span style='font-size: 25pt; color: #D04F5A;'>**Bi-weekly Tracking**</span><br><br>
+    <span style='font-size: 25pt; color: #D04F5A;'>**Bi-monthly Tracking**</span><br><br>
     Each <span style='font-family: \"Cat font\"'>d</span> represents approximatively 100 tracked cats.<br>
     Tidytuesday Week-05 2023\n Data from  Movebank for Animal Tracking Data<br> 
     Abdoul ISSA BIDA <span style='font-family: \"Font Awesome 5 Brands\"'>&#xf099;</span>**@issa_madjid**", 
