@@ -7,14 +7,20 @@ library(ggforce)
 # Data Wrangling ----------------------------------------------------------
 df <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-03-07/numbats.csv")
 
-## Important: I will carefully comment the code on March 08th 
+# Categorize resources names  to keep the 9 most present
 df <- df |> 
   mutate(
     dataResourceName = str_trunc(dataResourceName, 25, side = "right"),
     dataResourceName = fct_lump(dataResourceName, 9),
+    dataResourceName = fct_infreq(dataResourceName)
   )
+
+# Count by data resource
 resources_df <- df |> 
-  count(dataResourceName) |> 
+  count(dataResourceName)
+
+# Rescale nb sighting by data resource to better fit the coords window
+resources_df  <- resources_df |> 
   mutate(
     index = row_number(),
     .before =  1L
@@ -23,6 +29,7 @@ resources_df <- df |>
   n_rescaled = scales::rescale(n, to = c(2.5,10), from = range(resources_df$n))
   )
 
+# Species observed by data resources 
 species_df <- df |> 
   distinct(dataResourceName,scientificName) |> 
   arrange(dataResourceName, scientificName)  |> 
@@ -34,9 +41,10 @@ species_df <- df |>
   left_join(resources_df) 
 
 
+# Frequencies bars polygon coords computing
 nb_resources <- nrow(resources_df)
-margin <- 1 / 10 
-inc1 <-  pi/8
+margin <- 1 / 10 # bars margin
+inc1 <-  pi/8 # frequencies bars inclination angle
 part1_df <- resources_df |> 
   rowwise() |> 
   mutate(
@@ -45,8 +53,9 @@ part1_df <- resources_df |>
   )  |> 
   unnest_longer(c(x, y)) 
 
-h2 <- 5
-inc2 <- pi / 4
+# Frequencies bars polygon coords computing
+h2 <- 5 # labels bars length
+inc2 <- pi/4 # labels bars inclination angle
 part2_df <- resources_df |> 
   mutate(
     x = map(index, \(index) {c(index-1 + margin, index - margin, index - margin + h2 * sin(inc2), index-1 + margin + h2*sin(inc2))}),
@@ -54,6 +63,7 @@ part2_df <- resources_df |>
   ) |> 
   unnest_longer(c(x,y))
 
+# Count, labels, arrows positions computing
 part3_df <- resources_df |> 
   mutate(
     x = index - 1 + 1/2, 
@@ -72,21 +82,22 @@ caption <-  "Tidytuesday Week-10 2023<br> Abdoul ISSA BIDA <span style='font-fam
   geom_text(data = part3_df, aes(x +  (h2+1.25)*cos(inc2),y +  (h2+1.25)*sin(inc2), label = n),  angle = 45, size = 5, family = "Iosevka Semibold") +
   ggforce::geom_circle(data = part3_df, aes(x0 = index -1/2, y0 = -n_rescaled, r = (1 -2*margin)/2), size = 0, fill = "black") + 
   ggforce::geom_circle(data = species_df, aes(x0 = index - 1/2, y0 = -n_rescaled + num -1, r = 0.35, fill = scientificName)) + 
-  annotate( geom ="label", x = 0, y = -3.25, label = str_wrap("Myrmecobius fasciatus", 15), fill = "#EA4C50",
+  annotate(geom = "text", x = 5.5, y = -5.25, label = "Observed Species", family = "UEFA Supercup", fontface = "bold", hjust = 0) + 
+  annotate( geom ="label", x = 5.5, y = -7.25, label = str_wrap("Myrmecobius fasciatus", 15), fill = "#EA4C50",
             family = "UEFA Supercup",
             fontface = "bold",
             label.r = unit(0,'pt'),
             label.padding = unit(5,'pt'),
             label.size = unit(0,'pt'),
-            hjust = 1) + 
-  annotate( geom ="label", x = 0, y = -2.15, label = str_wrap("Myrmecobius fasciatus rufus", 15), fill = "#FEDC2D", 
+            hjust = 0) + 
+  annotate( geom ="label", x = 5.5, y = -6.15, label = str_wrap("Myrmecobius fasciatus rufus", 15), fill = "#FEDC2D", 
             family = "UEFA Supercup",
             fontface = "bold",
             label.r = unit(0,'pt'),
             label.padding = unit(5,'pt'),
             label.size = unit(0,'pt'),
-            hjust = 1) + 
-  annotate(geom = "richtext", x = -1.5, y = -10, label = caption, 
+            hjust = 0) + 
+  annotate(geom = "richtext", x = 5.5, y = -10, label = caption, 
            family = "UEFA Supercup",
            hjust = 0,
            fill = NA,
@@ -96,8 +107,7 @@ caption <-  "Tidytuesday Week-10 2023<br> Abdoul ISSA BIDA <span style='font-fam
            label.size = unit(0,'pt')
            ) + 
     labs(
-      title = "Numbats sightings in Australia",
-      
+      title = "Numbats sightings in Australia"
     ) + 
     scale_fill_manual(
       values = c(
@@ -115,10 +125,10 @@ caption <-  "Tidytuesday Week-10 2023<br> Abdoul ISSA BIDA <span style='font-fam
       plot.title  = element_text(family = "UEFA Supercup", face = "bold", hjust = 0, size = rel(3.5), margin = margin(t = .25, b = .25, unit = "cm")),
       plot.caption = ggtext::element_markdown(hjust = 0, size = rel(1.25)),
       plot.background = element_rect(fill = "grey90", color = NA),
-      plot.margin = margin(c(.25, -.125, .25, -.125), unit = "cm")
+      plot.margin = margin(c(.75, -.125, .25, -.125), unit = "cm")
     )
 
 # Saving ------------------------------------------------------------------
 path <- here::here("2023", "2023_w10", "tidytuesday_2023_w10")
-ggsave(filename = glue::glue("{path}.png"), width = 10.5, height = 10.5, device = ragg::agg_png, dpi = 300)
+ggsave(filename = glue::glue("{path}.png"), width = 9.75, height = 10.5, device = ragg::agg_png, dpi = 300)
 
