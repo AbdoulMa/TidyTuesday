@@ -60,12 +60,10 @@ font <- "TT Norms"
              spotlight_position = "top"
     ) +
     annotate(geom = "text",family = font, x = 0, y = 1.45, label = "OVERALL", fontface = "bold", size = 10) + 
-    # annotate(geom = "text",family = font, x = 0, y = 1.25, label = "The most represented is at top", size = 5.5) + 
     annotate(geom = "text",family = font, fontface = "bold", x = 0, y = .5, label = toupper("Others"), color = "white", size = 5.5) + 
     annotate(geom = "text",family = font, fontface = "bold", x = .025, y = -.65, label = toupper("British"),  size = 5.5) + 
     annotate(geom = "text",family = font, fontface = "bold", x = -.5, y = 0, label = toupper("American"), size = 5.5) + 
     annotate(geom = "text",family = font, fontface = "bold", x = .5, y = 0, label = toupper("French"),  color = "white", size = 5.5) + 
-    # annotate(geom = "segment", x = 0, y = 1.2, xend = 0, yend = 1.05, arrow = arrow(length = unit(5,'pt') ))  + 
     annotate(geom = "segment", x = -1.2, y = -1.65, xend = -1.2, yend = 1.65, size = 2) + 
     annotate(geom = "richtext", x = -1, y = - 1.30, label = "NATIONALITIES<br>OF  ARTISTS", 
              size = 15.5,
@@ -107,7 +105,6 @@ font <- "TT Norms"
 (final_plot <- overall_plot + edition_plot +
     plot_layout(widths = c(4/9, 5/9))
 )
-
 
 caption <- caption <- "Tidytuesday Week-03 2023\n Data from {arthistory} package\n Abdoul ISSA BIDA @issa_madjid."
 cowplot::ggdraw(final_plot) + 
