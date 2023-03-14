@@ -37,4 +37,4 @@ generate_tidytuesday_structure <- function(week, year) {
   }
 }
 
-generate_tidytuesday_structure(10, 2023)
+generate_tidytuesday_structure(11, 2023)
