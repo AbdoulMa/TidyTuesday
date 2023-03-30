@@ -114,11 +114,13 @@ city_plot <- function(city, country, population, zone, tz_offset) {
     annotate(geom = "text", x = 0, y = 1.35, label = paste0(rep("0", 2 - nchar(hour)), hour, ":", rep("0", 2 - nchar(min)), min), family = font, size = 8.5) +
     annotate(geom = "text", x = 0, y = -1.4, label = paste0(city, ",", country), family = font_black, size = 5.25) +
     annotate(geom = "text", x = 0, y = -1.85, label = fancy_population, family = font, size = 4.5) +
-    annotate(geom = "segment", x = 0, y = 0, xend = cos(sec_angle) * 0.8, yend = sin(sec_angle) * .8, color = "#B3807D", linewidth = .5) +
-    annotate(geom = "segment", x = 0, y = 0, xend = cos(sec_angle + pi) * 0.05, yend = sin(sec_angle + pi) * .05, color = "#B3807D", linewidth = .5) +
-    annotate(geom = "segment", x = cos(sec_angle + pi) * 0.05, y = sin(sec_angle + pi) * .05, xend = cos(sec_angle + pi) * 0.1, yend = sin(sec_angle + pi) * .1, color = "#B3807D", linewidth = .75) +
-    annotate(geom = "segment", x = 0, y = 0, xend = cos(hour_angle) * 0.5, yend = sin(hour_angle) * .5, linewidth = 1.25) +
-    annotate(geom = "segment", x = 0, y = 0, xend = cos(min_angle) * 0.8, yend = sin(min_angle) * .8, linewidth = 1.25) +
+    annotate(geom = "segment", x = 0, y = 0, xend = cos(sec_angle) * 0.8, yend = sin(sec_angle) * .8, color = "#B3807D", linewidth = .45, linejoin = "round", lineend = "round") +
+    annotate(geom = "segment", x = 0, y = 0, xend = cos(sec_angle + pi) * 0.05, yend = sin(sec_angle + pi) * .05, color = "#B3807D", linewidth = .45, linejoin = "round", lineend = "round") +
+    annotate(geom = "segment", x = cos(sec_angle + pi) * 0.05, y = sin(sec_angle + pi) * .05, xend = cos(sec_angle + pi) * 0.075, yend = sin(sec_angle + pi) * .075, color = "#B3807D", linewidth = .55, linejoin = "round", lineend = "round") +
+    annotate(geom = "segment", x = 0, y = 0, xend = cos(hour_angle) * 0.5, yend = sin(hour_angle) * .5, linewidth = 1.25, linejoin = "round", lineend = "round") +
+    annotate(geom = "segment", x = 0, y = 0, xend = cos(min_angle) * 0.8, yend = sin(min_angle) * .8, linewidth = 1.25, linejoin = "round", lineend = "round") +
+    annotate(geom = "point", x = 0, y = 0,  size = 1.35, color = "#B3807D") + 
+    annotate(geom = "point", x = 0, y = 0,  size = .25, color = "white") + 
     coord_equal(clip = "off") +
     scale_size_identity() +
     theme_minimal() +
