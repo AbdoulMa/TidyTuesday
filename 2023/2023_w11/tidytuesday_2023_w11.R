@@ -57,7 +57,7 @@ drip_df <- tibble(
 holders_df |>
   ggplot() +
   geom_rect(aes(xmin = 0, xmax = n / 10, ymin = -.125, ymax = 1.125), fill = "#add8e6", alpha = .65) +
-  geom_text(aes(x = 95 / 10, y = .5, label = holder_company_name), color = "white", family = "Go Condensed Medium", fontface = "bold", size = 8.5, hjust = 1) +
+  geom_text(aes(x = 95 / 10, y = .5, label = holder_company_name), color = "white", family = "Go Condensed Medium", fontface = "bold", size = 10, hjust = 1) +
   annotate(geom = "rect", xmin = 0, xmax = 100 / 10, ymin = -.125, ymax = 1.125, color = "white", fill = NA) +
   annotate(geom = "rect", xmin = -5 / 10, xmax = 0, ymin = .35, ymax = .65, color = "white", fill = "white") +
   annotate(geom = "rect", xmin = -7 / 10, xmax = -5 / 10, ymin = .15, ymax = .85, color = "white", fill = "white") +
@@ -84,7 +84,7 @@ holders_df |>
     axis.title = element_blank(),
     axis.text = element_blank(),
     strip.text = element_blank(),
-    panel.spacing.y = unit(.025, "cm"),
+    panel.spacing.y = unit(.125, "cm"),
     panel.grid = element_blank(),
     plot.background = element_rect(fill = "#1B2129", color = NA),
     plot.margin = margin(t = .5, r = 1.5, b = .5, l = 1.5, unit = "cm")
