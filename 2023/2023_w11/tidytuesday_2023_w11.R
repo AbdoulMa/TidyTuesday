@@ -45,7 +45,7 @@ holders_df <- drugs |>
 r <- .25
 m <- (pi * 60.5) / 180 # tangent lines
 xo <- 115 / 10
-yo <- -0.3
+yo <- -0.15
 
 angles <- seq(m, (pi - m), length.out = 100)
 drip_df <- tibble(
