@@ -30,10 +30,10 @@ teams_off <- teams_off |>
 teams_off
 teams_off <- teams_off |> 
   mutate(
-    row_num = row_number(),
-    fancy_title = glue::glue("{team}")
+    row_num = row_number()
   )
 
+# TODO I will carefully comment on April, 05th 2023 😂
 # Compute polygons coords
 rect_mid <- function(width, x, xend, n ) {
   seq(x + (width/2), xend - (width/2), length.out = n)
@@ -113,7 +113,7 @@ coords_df |>
                 fill = NA,
                 label.color = NA,
                 vjust = 0) + 
-  geom_text(aes(x = pt2_x  , y = y2 + 1, label = fancy_title, 
+  geom_text(aes(x = pt2_x  , y = y2 + 1, label = team, 
                 color = after_scale(prismatic::best_contrast(fill))), 
             angle = 90, family = "Ve Black", 
             size = 6,
@@ -150,4 +150,4 @@ coords_df |>
 
 # Saving ------------------------------------------------------------------
 path <- here::here("2023", "2023_w14", "tidytuesday_2023_w14")
-ggsave(filename = glue::glue("{path}.png"), width = 12, height = 9, device = ragg::agg_png, dpi = 144)
+ggsave(filename = glue::glue("{path}.png"), width = 12, height = 9, device = ragg::agg_png, dpi = 300)
