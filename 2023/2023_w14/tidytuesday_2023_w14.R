@@ -33,7 +33,8 @@ teams_off <- teams_off |>
     row_num = row_number()
   )
 
-# TODO I will carefully comment on April, 05th 2023 😂
+# TODO I will carefully comment on April, 06th 2023 😂, I am fasting and tired 
+
 # Compute polygons coords
 rect_mid <- function(width, x, xend, n) {
   seq(x + (width / 2), xend - (width / 2), length.out = n)
