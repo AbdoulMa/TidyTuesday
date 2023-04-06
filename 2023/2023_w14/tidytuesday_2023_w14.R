@@ -1,3 +1,5 @@
+# Feel free to reach me if you want me to explain in details 
+# parts of the code
 
 # Load Libraries ----------------------------------------------------------
 library(tidyverse)
@@ -7,6 +9,7 @@ library(ggtext)
 df <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-04-04/soccer21-22.csv")
 clubs <- read_csv(here::here("2023/2023_w14/clubs.csv")) # Dataset with club main color
 
+# Teams goals scored count 
 teams_off <- df |>
   select(matches("Team"), FTHG, FTAG) |>
   pivot_longer(
@@ -21,36 +24,35 @@ teams_off <- df |>
   select(-starts_with("FT")) |>
   count(team, wt = team_goal, sort = T, name = "gs")
 
+# Order clubs by nb goals scored
 teams_off <- teams_off |>
   mutate(
     team = fct_reorder(team, desc(gs))
   ) |>
-  left_join(clubs, by = c("team" = "club_name"))
-
-teams_off
-teams_off <- teams_off |>
+  left_join(clubs, by = c("team" = "club_name")) |> 
   mutate(
     row_num = row_number()
   )
 
-# TODO I will carefully comment on April, 06th 2023 😂, I am fasting and tired 
 
 # Compute polygons coords
 rect_mid <- function(width, x, xend, n) {
   seq(x + (width / 2), xend - (width / 2), length.out = n)
 }
 
-n <- nrow(teams_off)
-l1 <- n
-rw1 <- l1 / n
-l2 <- l1 - 1
-rw2 <- l2 / n
+n <- nrow(teams_off) # Number of teams
+l1 <- n # Total width of base 
+rw1 <- l1 / n # Base column width (margin will be applied  below to sparate them)
+l2 <- l1 - 1 
+rw2 <- l2 / n # Column width after inclination 
 x1 <- 0
-x2 <- x1 + 1 / 2
+x2 <- x1 + 1 / 2 # First inclined column x start 
 y1 <- 0
-y2 <- y1 + (1 / (2 * tan(pi / 3)))
+y2 <- y1 + (1 / (2 * tan(pi / 3))) # Firt inclinated column y (same for all )
 
-(coords_df <- tibble(
+
+# Compute each column rectangle coords (x,y)
+coords_df <- tibble(
   rw1,
   x1 = x1,
   x1_end = x1 + l1,
@@ -70,12 +72,14 @@ y2 <- y1 + (1 / (2 * tan(pi / 3)))
   ) |>
   mutate(
     group = as.factor(row_number()),
+    # Here I arbitrarily reduce the nb goals 
+    # to have a good proportion when combined with 
+    # coord_equal()
     height = teams_off$gs / 8.5
   )
-)
 
-margin <- 20
 
+margin <- 20 # Inverse porportion of column margin
 coords_df <- coords_df |>
   mutate(
     row_num = row_number()
@@ -85,8 +89,10 @@ coords_df <- coords_df |>
     logo = glue::glue("<img src='{logo_link}' width='35'/>")
   )
 
-final_coords_df <- coords_df |>
+# Compute coords for inclined polygons (those with ribbon effects)
+inclined_ribbon_df <- coords_df |>
   mutate(
+    # 
     ptx_1_borders = map2(pt1_x, rw1, \(x, y) {
       c(x - y / 2 + y / margin, x + y / 2 - y / margin)
     }),
@@ -106,14 +112,12 @@ final_coords_df <- coords_df |>
   arrange(group, pt_name)
 
 # Graphic -----------------------------------------------------------------
-gs_note_y <- coords_df$y2[1] + coords_df$height[1] + .125
+gs_note_y <- coords_df$y2[1] + coords_df$height[1] + .125 # Title position coord y 
 coords_df |>
   ggplot(aes(fill = hex_code)) +
-  # geom_point(aes(pt1_x, y1)) +
-  # geom_point(aes(pt2_x, y2)) +
   geom_rect(aes(xmin = pt1_x - rw1 / 2 + rw1 / margin, ymin = y1 - 1, xmax = pt1_x + rw1 / 2 - rw1 / margin, ymax = y1)) +
   geom_rect(aes(xmin = pt2_x - rw2 / 2 + rw2 / margin, ymin = y2, xmax = pt2_x + rw2 / 2 - rw2 / margin, ymax = y2 + height)) +
-  geom_polygon(data = final_coords_df, aes(x = ptx, y = pty, group = group), alpha = .45) +
+  geom_polygon(data = inclined_ribbon_df, aes(x = ptx, y = pty, group = group), alpha = .45) +
   geom_richtext(aes(x = pt1_x, y = 0, label = logo),
     fill = NA,
     label.color = NA,
