@@ -67,6 +67,6 @@ ggsave(filename = glue::glue("{path}.pdf"), width = 14.5, height = 10, device = 
 pdftools::pdf_convert(
   pdf = glue::glue("{path}_polished.pdf"),
   filenames = glue::glue("{path}_polished.png"),
-  dpi = 300
+  dpi = 240
 )
 
