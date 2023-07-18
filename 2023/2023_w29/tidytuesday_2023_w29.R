@@ -38,7 +38,7 @@ best_no_native_detecors <- detectors_acc_df |>
 title <- "**Me**: Hey TidyTuesdayGPT, can you visualize me the accuracies of the detectors<br/>
 whether the essays are written by a native English writer or not?"
 
-subtitle <- "**TIdytuesdayGPT**: Of course, here is a fairly quick visualization of the accuracy bias of  detectors depending <br/>
+subtitle <- "**TidytuesdayGPT**: Of course, here is a fairly quick visualization of the accuracy bias of  detectors depending <br/>
 writers proficiency in  English, <span style='color:#FFC44E; '>**Native**</span> or <span style='color: #EA0054; '>**Not native**</span>."
 
 
