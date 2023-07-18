@@ -70,7 +70,7 @@ base_radar_df <- tibble(
     plot.subtitle = element_text(margin = margin(b = 0.75, unit = "cm")),
     plot.caption = ggtext::element_markdown(hjust = 0.5, size = rel(0.875), margin = margin(t = 0.5, unit = "cm")),
     plot.margin = margin(c(0.5, 0.125, 0.125, 0), unit = "cm"),
-    plot.background = element_rect(fill = "white", color = NA),
+    plot.background = element_rect(fill = "#F7F8F9", color = NA),
   )
 )
 
