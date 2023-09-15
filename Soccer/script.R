@@ -260,7 +260,7 @@ subtitle <- glue::glue("{match_league}/W{match_week} <br/>{match_date} - {match_
       plot.title = ggtext::element_markdown(family = "UEFA Supercup", size = rel(1.25), lineheight = 0.75, hjust = 0.5, margin = margin(b = -0.5, unit = "cm")),
       plot.caption = ggtext::element_markdown(family = "UEFA Supercup", hjust = 0.5, size = rel(0.75), margin = margin(t = 0, b = 0.25, unit = "cm")),
       panel.grid = element_blank(),
-      plot.background = element_rect(fill = "#FFFFFF", color = NA),
+      plot.background = element_rect(fill = "#F5F7F9", color = NA),
       plot.margin = margin(c(0.5, 0.5, 0.25, 0.5), unit = "cm"),
       axis.text = element_blank(),
       axis.title = element_blank()
@@ -270,3 +270,4 @@ subtitle <- glue::glue("{match_league}/W{match_week} <br/>{match_date} - {match_
 cowplot::ggdraw(final_plot) +
   cowplot::draw_label(x = 0.5, y = 0.44, label = "HT", size = 20, fontfamily = "Decima Mono", fontface = "bold")
 ggsave(here::here("Soccer/momentum.png"), width = 9.0, height = 6.75, dpi = 300, device = ragg::agg_png)
+
