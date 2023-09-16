@@ -25,7 +25,7 @@ ball_svg <- '
 
 # Match scraping ----------------------------------------------------------
 match_page <-
-  "https://fbref.com/en/matchs/b10c7abc" |> # Villareal - Barcelone
+  "https://fbref.com/en/matchs/d6d922d0" |> # Bayern - Leverkusen
   read_html()
 
 teams_shots <- match_page |>
@@ -88,9 +88,9 @@ home_team_alt_color <- teams_infos$alternate_color[teams_infos$fbref_short_name 
 away_team_alt_color <- teams_infos$alternate_color[teams_infos$fbref_short_name == away_team]
 
 # Manual or automation colors selection
-home_color <- "#F9E56D"
+home_color <- NULL
 away_color <- NULL
-home_team_color <- home_color %||% best_contrast("#FFFFFF", paste0("#", c(home_team_color, home_team_alt_color))) # "#E41E26"
+home_team_color <- home_color %||% best_contrast("#FFFFFF", paste0("#", c(home_team_color, home_team_alt_color))) 
 away_team_color <- away_color %||% best_contrast("#FFFFFF", paste0("#", c(away_team_color, away_team_alt_color)))
 
 team_scores <- match_page |>
