@@ -6,11 +6,6 @@ library(rvest)
 library(ggsvg)
 library(prismatic)
 
-cowplot::set_null_device("pdf")
-cowplot::set_null_device("png")
-cowplot::set_null_device("cairo")
-cowplot::set_null_device("agg")
-
 # Data scraped from ESPN & FBREF
 names_matching_df <- read_csv("Soccer/names_matching.csv")
 leagues_teams <- read_csv("Soccer/leagues_teams.csv")
@@ -25,7 +20,9 @@ ball_svg <- '
 
 # Match scraping ----------------------------------------------------------
 match_page <-
-  "https://fbref.com/en/matchs/d6d922d0" |> # Bayern - Leverkusen
+  # "https://fbref.com/en/matchs/d6d922d0" |> # Bayern - Leverkusen
+  # "https://fbref.com/en/matchs/ddcf2857" |> # Man Utd - Brighton
+  "https://fbref.com/en/matchs/10a39d69" |> # Inter Milan
   read_html()
 
 teams_shots <- match_page |>
@@ -58,7 +55,7 @@ match_league <- str_extract(match_day_info, "(.*)\\s\\(.*\\)", 1)
 match_week <- str_extract(match_day_info, "(?:.*)\\s\\(Matchweek (\\d+)\\)", 1)
 
 match_stadium <- match_extra_meta |>
-  pluck(6) |>
+  pluck(6) |> # 5 or 6 according to page
   html_elements("small") |>
   pluck(2) |>
   html_text2()
@@ -90,7 +87,7 @@ away_team_alt_color <- teams_infos$alternate_color[teams_infos$fbref_short_name 
 # Manual or automation colors selection
 home_color <- NULL
 away_color <- NULL
-home_team_color <- home_color %||% best_contrast("#FFFFFF", paste0("#", c(home_team_color, home_team_alt_color))) 
+home_team_color <- home_color %||% best_contrast("#FFFFFF", paste0("#", c(home_team_color, home_team_alt_color)))
 away_team_color <- away_color %||% best_contrast("#FFFFFF", paste0("#", c(away_team_color, away_team_alt_color)))
 
 team_scores <- match_page |>
@@ -205,6 +202,7 @@ half_time_plot <- function(is_fh) {
 
   minutes_range <- range(first_half$minute) + 1
 
+  max_x_g <- max(match_data$x_g)
 
   # Plot --------------------------------------------------------------------
   ggplot() +
@@ -212,6 +210,11 @@ half_time_plot <- function(is_fh) {
     geom_rect(data = filter(first_half, home_away == "a"), aes(xmin = minute, xmax = minute + 0.95, ymin = -0.065, ymax = -0.065 - x_g, fill = home_away)) +
     geom_text(data = tibble(x = starting_minute + seq(0, 45, by = 15)), aes(x = x + 1.5, y = -0.065 / 2, label = paste0(x, ifelse(x - starting_minute == 45, "+", ""))), family = "Decima Mono", size = 2.5) +
     geom_segment(data = goal_lines_df, aes(x = minute + 0.5, xend = minute + 0.5, y = goal_line_st, yend = goal_line_end)) +
+    geom_point_svg(
+      data = goal_lines_df, aes(x = minute + 0.5, y = goal_line_end),
+      svg = ball_svg,
+      size = 3.5
+    ) +
     ggrepel::geom_text_repel(
       data = goal_lines_df, aes(
         x = minute + 0.5,
@@ -223,11 +226,6 @@ half_time_plot <- function(is_fh) {
       ), bg.color = "#FFFFFF",
       color = "#111111",
       bg.r = 0.15, size = 2.5, hjust = 0.5, family = "UEFA Supercup", fontface = "bold", min.segment.length = Inf
-    ) +
-    geom_point_svg(
-      data = goal_lines_df, aes(x = minute + 0.5, y = goal_line_end),
-      svg = ball_svg,
-      size = 3.5
     ) +
     annotate(geom = "segment", x = minutes_range[1], xend = minutes_range[2], y = 0, yend = 0, linewidth = 0.5) +
     annotate(geom = "segment", x = minutes_range[1], xend = minutes_range[2], y = -0.065, yend = -0.065, linewidth = 0.5) +
@@ -258,7 +256,7 @@ subtitle <- glue::glue("{match_league}/W{match_week} <br/>{match_date} - {match_
   theme_minimal() +
     theme(
       plot.title = ggtext::element_markdown(family = "UEFA Supercup", size = rel(1.25), lineheight = 0.75, hjust = 0.5, margin = margin(b = -0.5, unit = "cm")),
-      plot.caption = ggtext::element_markdown(family = "UEFA Supercup", hjust = 0.5, size = rel(0.75), margin = margin(t = 0, b = 0.25, unit = "cm")),
+      plot.caption = ggtext::element_markdown(family = "UEFA Supercup", hjust = 0.35, size = rel(0.75), margin = margin(t = 0, b = 0.25, unit = "cm")),
       panel.grid = element_blank(),
       plot.background = element_rect(fill = "#F5F7F9", color = NA),
       plot.margin = margin(c(0.5, 0.5, 0.25, 0.5), unit = "cm"),
@@ -269,5 +267,4 @@ subtitle <- glue::glue("{match_league}/W{match_week} <br/>{match_date} - {match_
 
 cowplot::ggdraw(final_plot) +
   cowplot::draw_label(x = 0.5, y = 0.44, label = "HT", size = 20, fontfamily = "Decima Mono", fontface = "bold")
-ggsave(here::here("Soccer/momentum.png"), width = 9.0, height = 6.75, dpi = 300, device = ragg::agg_png)
-
+ggsave(here::here("Soccer/inter_milan.png"), width = 9.0, height = 6.75, dpi = 300, device = ragg::agg_png)

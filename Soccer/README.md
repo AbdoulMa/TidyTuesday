@@ -1,1 +1,8 @@
-![Example Villareal vs Barcelona - W3 2023/24 ](momentum.png)
+## Examples
+_______________
+
+![Baryern Munich vs Bayer Leverkusen - Bundesliga W4 2023/24 ](bayern_bayer.png)
+
+![Internazionale vs Milan - Serie A W4 2023/24 ](inter_milan.png)
+ 
+![Barcelona vs Real Betis - Liga W5 2023/24](barca_betis.png)
