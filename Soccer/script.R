@@ -22,7 +22,9 @@ ball_svg <- '
 match_page <-
   # "https://fbref.com/en/matchs/d6d922d0" |> # Bayern - Leverkusen
   # "https://fbref.com/en/matchs/ddcf2857" |> # Man Utd - Brighton
-  "https://fbref.com/en/matchs/10a39d69" |> # Inter Milan
+  # "https://fbref.com/en/matchs/10a39d69" |> # Inter Milan
+  "https://fbref.com/en/matchs/91deddae" |> # Barca - Betis
+  
   read_html()
 
 teams_shots <- match_page |>
@@ -244,8 +246,10 @@ half_time_plot <- function(is_fh) {
 }
 
 max_chars <- max(nchar(home_team), nchar(away_team))
-home_spaces <- paste0(rep(" ", max_chars - nchar(home_team)), collapse = "")
-away_spaces <- paste0(rep(" ", max_chars - nchar(away_team)), collapse = "")
+home_spaces <- paste0(rep("<span> </span>", max_chars - nchar(home_team)), collapse = "")
+away_spaces <- paste0(rep("<span> </span>", max_chars - nchar(away_team)), collapse = "")
+home_team <-paste0(home_spaces, home_team)
+away_team <-paste0(away_team, away_spaces)
 subtitle <- glue::glue("{match_league}/W{match_week} <br/>{match_date} - {match_time}<br/>{match_stadium}")
 (final_plot <- half_time_plot(TRUE) +
   half_time_plot(FALSE) +
@@ -256,7 +260,7 @@ subtitle <- glue::glue("{match_league}/W{match_week} <br/>{match_date} - {match_
   theme_minimal() +
     theme(
       plot.title = ggtext::element_markdown(family = "UEFA Supercup", size = rel(1.25), lineheight = 0.75, hjust = 0.5, margin = margin(b = -0.5, unit = "cm")),
-      plot.caption = ggtext::element_markdown(family = "UEFA Supercup", hjust = 0.35, size = rel(0.75), margin = margin(t = 0, b = 0.25, unit = "cm")),
+      plot.caption = ggtext::element_markdown(family = "UEFA Supercup", hjust = 0.5, size = rel(0.75), margin = margin(t = 0, b = 0.25, unit = "cm")),
       panel.grid = element_blank(),
       plot.background = element_rect(fill = "#F5F7F9", color = NA),
       plot.margin = margin(c(0.5, 0.5, 0.25, 0.5), unit = "cm"),
@@ -267,4 +271,6 @@ subtitle <- glue::glue("{match_league}/W{match_week} <br/>{match_date} - {match_
 
 cowplot::ggdraw(final_plot) +
   cowplot::draw_label(x = 0.5, y = 0.44, label = "HT", size = 20, fontfamily = "Decima Mono", fontface = "bold")
-ggsave(here::here("Soccer/inter_milan.png"), width = 9.0, height = 6.75, dpi = 300, device = ragg::agg_png)
+# TODO:  Centrer caption ici ? 
+
+ggsave(here::here("Soccer/barca_betis.png"), width = 9.0, height = 6.75, dpi = 300, device = ragg::agg_png)
