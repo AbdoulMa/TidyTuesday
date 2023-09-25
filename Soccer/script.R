@@ -20,11 +20,7 @@ ball_svg <- '
 
 # Match scraping ----------------------------------------------------------
 match_page <-
-  # "https://fbref.com/en/matchs/d6d922d0" |> # Bayern - Leverkusen
-  # "https://fbref.com/en/matchs/ddcf2857" |> # Man Utd - Brighton
-  # "https://fbref.com/en/matchs/10a39d69" |> # Inter Milan
-  "https://fbref.com/en/matchs/91deddae" |> # Barca - Betis
-  
+  "https://fbref.com/en/matchs/405fa974" |> # psg - mar
   read_html()
 
 teams_shots <- match_page |>
@@ -54,10 +50,11 @@ match_day_info <- match_extra_meta |>
   html_text2()
 
 match_league <- str_extract(match_day_info, "(.*)\\s\\(.*\\)", 1)
-match_week <- str_extract(match_day_info, "(?:.*)\\s\\(Matchweek (\\d+)\\)", 1)
+match_week <-  str_extract(match_day_info, "(?:.*)\\s\\(Matchweek (\\d+)\\)", 1)
 
 match_stadium <- match_extra_meta |>
-  pluck(6) |> # 5 or 6 according to page
+  # TODO: Fix 
+  pluck(5) |> # 5 or 6 according to page
   html_elements("small") |>
   pluck(2) |>
   html_text2()
@@ -69,7 +66,7 @@ teams_infos <- teams_scoreboxes |>
   html_elements("div > div > strong")
 
 home_team <- teams_infos[1] |> html_text2()
-away_team <- teams_infos[4] |> html_text2()
+away_team <- teams_infos[4] |> html_text2()  # TODO: 3 /4 
 
 # teams_logos
 teams_infos <- names_matching_df |>
@@ -87,7 +84,7 @@ home_team_alt_color <- teams_infos$alternate_color[teams_infos$fbref_short_name 
 away_team_alt_color <- teams_infos$alternate_color[teams_infos$fbref_short_name == away_team]
 
 # Manual or automation colors selection
-home_color <- NULL
+home_color <- "#E3626A"
 away_color <- NULL
 home_team_color <- home_color %||% best_contrast("#FFFFFF", paste0("#", c(home_team_color, home_team_alt_color)))
 away_team_color <- away_color %||% best_contrast("#FFFFFF", paste0("#", c(away_team_color, away_team_alt_color)))
@@ -227,7 +224,7 @@ half_time_plot <- function(is_fh) {
         vjust = ifelse(home_away == "h", -0.5, 0),
       ), bg.color = "#FFFFFF",
       color = "#111111",
-      bg.r = 0.15, size = 2.5, hjust = 0.5, family = "UEFA Supercup", fontface = "bold", min.segment.length = Inf
+      bg.r = 0.15, size = 3, hjust = 0.5, family = "UEFA Supercup", fontface = "bold", min.segment.length = Inf
     ) +
     annotate(geom = "segment", x = minutes_range[1], xend = minutes_range[2], y = 0, yend = 0, linewidth = 0.5) +
     annotate(geom = "segment", x = minutes_range[1], xend = minutes_range[2], y = -0.065, yend = -0.065, linewidth = 0.5) +
@@ -241,7 +238,7 @@ half_time_plot <- function(is_fh) {
         "a" = away_team_color
       )
     ) +
-    scale_x_continuous(limits = c(starting_minute, max(first_half$minute) + 2), expand = expansion(mult = 0.0005)) +
+    scale_x_continuous(limits = c(starting_minute, max(first_half$minute) + 2), expand = expansion(mult = 0.01)) +
     scale_y_continuous(limits = c(-0.25 - 0.025 - max_x_g, 0.25 + max_x_g), expand = expansion(add = 0))
 }
 
@@ -259,7 +256,7 @@ subtitle <- glue::glue("{match_league}/W{match_week} <br/>{match_date} - {match_
   ) &
   theme_minimal() +
     theme(
-      plot.title = ggtext::element_markdown(family = "UEFA Supercup", size = rel(1.25), lineheight = 0.75, hjust = 0.5, margin = margin(b = -0.5, unit = "cm")),
+      plot.title = ggtext::element_markdown(family = "UEFA Supercup", size = rel(1.85), lineheight = 0.75, hjust = 0.5, margin = margin(b = -0.5, unit = "cm")),
       plot.caption = ggtext::element_markdown(family = "UEFA Supercup", hjust = 0.5, size = rel(0.75), margin = margin(t = 0, b = 0.25, unit = "cm")),
       panel.grid = element_blank(),
       plot.background = element_rect(fill = "#F5F7F9", color = NA),
@@ -273,4 +270,4 @@ cowplot::ggdraw(final_plot) +
   cowplot::draw_label(x = 0.5, y = 0.44, label = "HT", size = 20, fontfamily = "Decima Mono", fontface = "bold")
 # TODO:  Centrer caption ici ? 
 
-ggsave(here::here("Soccer/barca_betis.png"), width = 9.0, height = 6.75, dpi = 300, device = ragg::agg_png)
+ggsave(here::here("Soccer/psg_marseille.png"), width = 9.0, height = 6.75, dpi = 300, device = ragg::agg_png)
