@@ -23,7 +23,7 @@ game_plot <- function(game_id, home_color = NULL,
                       away_color = NULL, match_week = NULL) {
   match_page <- glue::glue(
     "https://fbref.com/en/matchs/{game_id}"
-  )
+  ) |> 
   read_html()
 
   teams_shots <- match_page |>
@@ -282,4 +282,6 @@ game_plot <- function(game_id, home_color = NULL,
 }
 
 # Example Bayern - Man Utd · UCL W 1
-game_plot("8c29e4f7", home_color = "#DC072E", away_color = "#282023", match_week = 1)
+game_plot(game_id = "10a39d69", home_color =NULL, away_color = NULL)
+
+ggsave("Soccer/inter_milan.png", width = 9.5, height  = 6.75, device = ragg::agg_png, dpi =  240)
