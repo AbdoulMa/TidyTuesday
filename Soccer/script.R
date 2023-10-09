@@ -282,7 +282,7 @@ game_plot <- function(game_id, home_color = NULL,
 }
 
 # Example AS Monaco - OM
-game_plot(game_id = "4d5a6bf1", home_color =NULL, away_color = NULL)
+game_plot(game_id =  "4d5a6bf1", home_color =NULL, away_color = NULL)
 
 # ggsave("Soccer/monaco_marseille.png", width = 9.5, height  = 6.75, device = ragg::agg_png, dpi =  240)
 
