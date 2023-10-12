@@ -281,8 +281,8 @@ game_plot <- function(game_id, home_color = NULL,
     cowplot::draw_label(x = 0.5, y = 0.4125, label = "HT", size = 20, fontfamily = "Decima Mono", fontface = "bold")
 }
 
-# Example AS Monaco - OM
-game_plot(game_id =  "4d5a6bf1", home_color =NULL, away_color = NULL)
+# Example Granada - Barca
+game_plot(game_id =  "e2ce9278", home_color =NULL, away_color = "#ECBC0B")
 
-# ggsave("Soccer/monaco_marseille.png", width = 9.5, height  = 6.75, device = ragg::agg_png, dpi =  240)
+ggsave("Soccer/granada_barca.png", width = 9.5, height  = 6.75, device = ragg::agg_png, dpi =  240)
 
